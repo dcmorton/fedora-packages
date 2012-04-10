@@ -15,15 +15,8 @@ BuildArch: noarch
 
 ### Patches ###
 
-# Fedora-specific script for packaging:
-#Source1000: mate-doc-utils-get-snapshot.sh
-# To generate tarball for Source0:
-#   sh mate-doc-utils-get-snapshot.sh %{githash}
-
 # RH bug #438638 / GNOME bug #524207
 Patch1: mate-doc-utils-0.14.0-package.patch
-
-Patch2: mate-doc-utils_rename.patch
 
 ### Dependencies ###
 
@@ -47,8 +40,6 @@ BuildRequires: gettext
 BuildRequires: scrollkeeper
 BuildRequires: rarian-devel
 BuildRequires: mate-common
-#BuildRequires: mate-doc-utils
-
 
 %description
 mate-doc-utils is a collection of documentation utilities for the MATE
@@ -73,15 +64,6 @@ are used by the tools in mate-doc-utils.
 %prep
 %setup -q -n %{name}-%{version}
 %patch1 -p1 -b .package
-#%patch2 -p1 -b .mate-doc-utils_rename
-
-# need for complete mate-doc-utils_rename.patch
-#mv -f $RPM_BUILD_DIR/%{name}-%{version}/xml2po/xml2po.pc.in $RPM_BUILD_DIR/%{name}-%{version}/xml2po/matexml2po.pc.in
-#mv -f $RPM_BUILD_DIR/%{name}-%{version}/xml2po/xml2po.1 $RPM_BUILD_DIR/%{name}-%{version}/xml2po/matexml2po.1
-#mv -f $RPM_BUILD_DIR/%{name}-%{version}/xml2po/xml2po.1.xml $RPM_BUILD_DIR/%{name}-%{version}/xml2po/matexml2po.1.xml
-#mv -f $RPM_BUILD_DIR/%{name}-%{version}/xml2po/xml2po/xml2po.py.in $RPM_BUILD_DIR/%{name}-%{version}/xml2po/xml2po/#matexml2po.py.in
-#mv -f $RPM_BUILD_DIR/%{name}-%{version}/rng/mallard/mallard.rnc $RPM_BUILD_DIR/%{name}-%{version}/rng/mallard/matemallard.rnc
-#mv -f $RPM_BUILD_DIR/%{name}-%{version}/rng/mallard/mallard.rng $RPM_BUILD_DIR/%{name}-%{version}/rng/mallard/matemallard.rng
 
 NOCONFIGURE=1 ./autogen.sh
 
@@ -138,14 +120,10 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/xml2po
 %{_datadir}/omf/mate-doc-make
 %{_datadir}/omf/mate-doc-xslt
 %{_datadir}/mate-doc-utils
-#%doc %{_mandir}/man1/xml2po.1.gz
-#%{python_sitelib}/xml2po/
 
 %files stylesheets
 %defattr(-,root,root,-)
-#%{_datadir}/pkgconfig/xml2po.pc
 %{_datadir}/xml/mate
-#%{_datadir}/xml/mallard
 
 %changelog
 * Sat Mar 17 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-2
