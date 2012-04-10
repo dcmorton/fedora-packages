@@ -2,7 +2,7 @@ Summary: 	Themes for MATE
 Name: 		mate-themes
 Version: 	1.2.0
 Release: 	3%{?dist}
-URL: 		https://github.com/mate-desktop/mate-themes
+URL: 		http://mate-desktop.org
 Source: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 License: 	LGPLv2 and GPLv2
 Group: 		User Interface/Desktops
