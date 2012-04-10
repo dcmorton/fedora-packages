@@ -2,7 +2,7 @@ Summary: 		MIME type data files for MATE desktop
 Name: 			mate-mime-data
 Version: 		1.2.1
 Release: 		1%{?dist}
-URL: 			http://mate-desktop.org
+URL: 			http://pub.mate-desktop.org
 Source0: 		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 				# No license attribution, just COPYING.
 License: 		GPL+
