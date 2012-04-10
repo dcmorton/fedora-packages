@@ -39,7 +39,7 @@ Tk canvas widget but has evolved quite a bit over time.
 NOCONFIGURE=1 ./autogen.sh
 
 %build
-# runs on make anyway, let's use the ./autogen.sh hammer for now.
+
 %configure \
 	--enable-glade \
 	--disable-static
