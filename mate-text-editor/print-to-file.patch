@@ -1,0 +1,39 @@
+diff -up pluma-2.29.7/pluma/pluma-tab.c.print-to-file pluma-2.29.7/pluma/pluma-tab.c
+--- pluma-2.29.7/pluma/pluma-tab.c.print-to-file	2010-02-21 06:23:12.000000000 -0500
++++ pluma-2.29.7/pluma/pluma-tab.c	2010-02-23 08:41:06.803882795 -0500
+@@ -2276,6 +2276,8 @@ get_print_settings (PlumaTab *tab)
+ {
+ 	gpointer data;
+ 	PlumaDocument *doc;
++	GtkPrintSettings *settings;
++	gchar *uri, *name;
+ 
+ 	doc = pluma_tab_get_document (tab);
+ 
+@@ -2284,12 +2286,24 @@ get_print_settings (PlumaTab *tab)
+ 
+ 	if (data == NULL)
+ 	{
+-		return _pluma_app_get_default_print_settings (pluma_app_get_default());
++		settings = _pluma_app_get_default_print_settings (pluma_app_get_default());
+ 	}
+ 	else
+ 	{
+-		return gtk_print_settings_copy (GTK_PRINT_SETTINGS (data));
++		settings = gtk_print_settings_copy (GTK_PRINT_SETTINGS (data));
+ 	}
++
++	name = pluma_document_get_short_name_for_display (doc);
++	uri = g_strconcat ("file://",
++			   g_get_user_special_dir (G_USER_DIRECTORY_DOCUMENTS),
++			   "/", name, ".pdf", NULL);
++
++	gtk_print_settings_set (settings, GTK_PRINT_SETTINGS_OUTPUT_URI, uri);
++
++	g_free (uri);
++	g_free (name);
++
++	return settings;
+ }
+ 
+ /* FIXME: show the message area only if the operation will be "long" */
