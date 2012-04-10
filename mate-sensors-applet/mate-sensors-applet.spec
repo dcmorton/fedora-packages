@@ -7,7 +7,6 @@ License:        GPLv2+ and CC-BY-SA
 URL:            http://pub.mate-desktop.org
 Source0:        http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 Patch0:			sensors-applet-fixDSO.patch
-Patch1:         sensors-applet-2.2.7-libnotify07.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  mate-panel-devel >= 1.1.0
 BuildRequires:  libmatenotify-devel >= 1.1.0
@@ -61,9 +60,6 @@ developing applications that use %{name}.
 %setup -q -n mate-sensors-applet-%{version}
 NOCONFIGURE=1 ./autogen.sh
 %patch0 -p1 -b .fixdso 
-#%if 0%{?fedora} > 14
-#%patch1 -p1 -b .libnotify07
-#%endif
 
 %build
 
