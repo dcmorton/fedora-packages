@@ -71,12 +71,6 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 # stuff we don't want
 rm -rf $RPM_BUILD_ROOT/var/scrollkeeper
 
-
-
-# already shipped in gnome-desktop3
-#rm -rf $RPM_BUILD_ROOT/usr/share/omf/*/*.omf
-#rm -rf $RPM_BUILD_ROOT/usr/share/gnome/help
-
 mkdir $RPM_BUILD_ROOT%{_datadir}/omf/mate
 mv -f $RPM_BUILD_ROOT%{_datadir}/omf/fdl $RPM_BUILD_ROOT%{_datadir}/omf/mate
 mv -f $RPM_BUILD_ROOT%{_datadir}/omf/gpl $RPM_BUILD_ROOT%{_datadir}/omf/mate
