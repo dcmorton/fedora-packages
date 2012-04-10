@@ -1,0 +1,9 @@
+[global]
+workgroup =  #YOUR WORKGROUP HERE
+security = share
+
+usershare path = /var/lib/samba/usershare
+usershare max shares = 100
+usershare allow guests = yes
+usershare owner only = yes
+guest account = #YOUR GUEST ACCOUNT

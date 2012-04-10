@@ -1,0 +1,39 @@
+== ENGLISH ==
+
+First, edit you /etc/samba/smb.conf, ie. by replacing all content by /etc/samba/nautilus-share-smb.conf.example. Remember to change "#YOUR WORKGROUP" to your real workgroup and "#YOUR GUEST ACCOUNT" to selected guest account (you can also disable it).
+
+Then use few commands to make samba ready to support usershares (create directory, create special group, set owner(s) and permissions, add user(s) to the group).
+
+Ensure Samba services (smb, nmb, winbind) are disabled.
+
+$ export USERSHARES_DIR="/var/lib/samba/usershare"
+$ export USERSHARES_GROUP="samba"
+
+$ mkdir -p ${USERSHARES_DIR}
+$ groupadd ${USERSHARES_GROUP}
+$ chown root:${USERSHARES_GROUP} ${USERSHARES_DIR}
+$ chmod 01770 ${USERSHARES_DIR}
+
+$ usermod -a -G ${USERSHARES_GROUP} CHOOSED_USERNAME
+
+Do not forget to reboot system (safest method to make Samba work, if runned at startup). Sometimes "/sbin/service NAME restart" for Samba services doesn't work well (wanted effect is not given).
+
+== POLISH ==
+
+Po pierwsze, edytuj /etc/samba/smb.conf, np. zastępując całą zawartość plikiem /etc/samba/nautilus-share-smb.conf.example. Pamiętaj, by zmienić "#YOUR WORKGROUP" na własną grupę roboczą i "#YOUR GUEST ACCOUNT" na wybrane konto gościa (możesz je również wyłączyć).
+
+Następnie wykonaj kilka komend, by włączyć obsługę mechanizmu udostępniania przez użytkowników. (utwórz katalog, utwórz specjalną grupę, ustaw właściciela(ów) i uprawnienia, dodaj użytkownika(ów) do grupy).
+
+Upewnij się, że usługi Samby (smb, nmb, winbind) są wyłączone.
+
+$ export USERSHARES_DIR="/var/lib/samba/usershare"
+$ export USERSHARES_GROUP="samba"
+
+$ mkdir -p ${USERSHARES_DIR}
+$ groupadd ${USERSHARES_GROUP}
+$ chown root:${USERSHARES_GROUP} ${USERSHARES_DIR}
+$ chmod 01770 ${USERSHARES_DIR}
+
+$ usermod -a -G ${USERSHARES_GROUP} WYBRANA_NAZWA_UŻYTKOWNIKA
+
+Nie zapomnij ponownie uruchomić systemu (najbezpieczniejsza metoda do uruchomienia Samby, jeśli uruchamiana na starcie). Czasami zdarza się, że "/sbin/service NAZWA restart" dla usług Samby nie daje efektu.
