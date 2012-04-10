@@ -13,8 +13,8 @@ Version:        1.2.0
 Release:        1%{?dist}
 License:        GPLv2+
 Group:          Applications/Archiving
-URL:            https://github.com/mate-desktop/mate-file-archiver
-Source:         %{name}-%{version}.tar.gz
+URL:            http://pub.mate-desktop.org
+Source:         http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.gz
 
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: pango-devel >= %{pango_version}
