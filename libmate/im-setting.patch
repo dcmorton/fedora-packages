@@ -1,0 +1,21 @@
+diff -pruN libmate-2.20.1.orig/schemas/desktop_mate_interface.schemas.in.in libmate-2.20.1/schemas/desktop_mate_interface.schemas.in.in
+--- libmate-2.20.1.orig/schemas/desktop_mate_interface.schemas.in.in	2007-12-07 22:37:02.000000000 +0900
++++ libmate-2.20.1/schemas/desktop_mate_interface.schemas.in.in	2007-12-07 22:39:53.000000000 +0900
+@@ -192,6 +192,17 @@
+       </locale>
+     </schema>
+     <schema>
++      <key>/schemas/desktop/mate/interface/gtk-im-module</key>
++      <applyto>/desktop/mate/interface/gtk-im-module</applyto>
++      <owner>mate</owner>
++      <type>string</type>
++      <default></default>
++      <locale name="C">
++        <short>GTK IM Module</short>
++        <long>Name of the input method module used by GTK+.</long>
++      </locale>
++    </schema>
++    <schema>
+       <applyto>/desktop/mate/interface/document_font_name</applyto>
+       <key>/schemas/desktop/mate/interface/document_font_name</key>
+       <owner>mate</owner>
