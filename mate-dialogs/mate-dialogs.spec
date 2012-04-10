@@ -4,7 +4,7 @@ Release:	1%{?dist}
 Summary:	Display dialog boxes from shell scripts
 Group:		Applications/System
 License:	LGPLv2+
-URL:		http://mate-desktop.or
+URL:		http://mate-desktop.org
 Source:		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 
 BuildRequires: mate-doc-utils >= 1.0.0
