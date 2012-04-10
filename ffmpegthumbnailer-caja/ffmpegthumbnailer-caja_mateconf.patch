@@ -1,0 +1,11 @@
+diff -upr ffmpegthumbnailer-caja-1.2.0-orig/Makefile ffmpegthumbnailer-caja-1.2.0/Makefile
+--- ffmpegthumbnailer-caja-1.2.0-orig/Makefile	2012-03-12 11:51:34.000000000 +0100
++++ ffmpegthumbnailer-caja-1.2.0/Makefile	2012-03-13 19:34:03.000000000 +0100
+@@ -3,5 +3,5 @@ clean:
+ 	echo "nothing to clean"
+ 
+ install:
+-	mkdir -p ${DESTDIR}/usr/share/mateconf/schemas/
+-	cp ffmpegthumbnailer-caja.schemas ${DESTDIR}/usr/share/mateconf/schemas/
++	mkdir -p ${DESTDIR}/etc/mateconf/schemas/
++	cp ffmpegthumbnailer-caja.schemas ${DESTDIR}/etc/mateconf/schemas/
