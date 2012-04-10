@@ -1,0 +1,28 @@
+commit e43fa8ff82c6aedd8f6373a0a5a1a5677f32cd83
+Author: Felix Riemann <friemann@gnome.org>
+Date:   Sat Nov 13 14:08:44 2010 +0100
+
+    Workaround concurrency issue with statusbar-date plugin
+    
+    Make sure that only an image loading job does autorotation. A metadata
+    loading job has no use for this. Works around lost signals when the
+    statusbar-date plugin is activated. Works around bug 622161.
+
+diff --git a/src/eom-image.c b/src/eom-image.c
+index 6d72b5a..22cda68 100644
+--- a/src/eom-image.c
++++ b/src/eom-image.c
+@@ -1253,9 +1253,11 @@ eom_image_load (EomImage *img, EomImageData data2read, EomJob *job, GError **err
+ 
+ #ifdef HAVE_EXIF
+ 	/* Check that the metadata was loaded at least once before
+-	 * trying to autorotate. */
++	 * trying to autorotate. Also only an image load job should try to
++	 * autorotate an image. */
+ 	if (priv->autorotate && 
+-	    priv->metadata_status == EOM_IMAGE_METADATA_READY) {
++	    priv->metadata_status == EOM_IMAGE_METADATA_READY &&
++	    data2read & EOM_IMAGE_DATA_IMAGE) {
+ 		eom_image_real_autorotate (img);
+ 	}
+ #endif
