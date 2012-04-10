@@ -12,7 +12,7 @@ License:	LGPLv2+
 Group: 		System Environment/Base
 Source0:	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 Source1: 	macros.mateconf
-URL: 		https://github.com/mate-desktop/mate-conf
+URL: 		http://pub.mate-desktop.org
 
 BuildRequires: libxml2-devel >= %{libxml2_version}
 BuildRequires: libxslt-devel
