@@ -18,11 +18,6 @@ BuildRequires: 	automake
 BuildRequires: 	gtk-doc
 BuildRequires: 	mate-common
 
-# Fedora-specific script for packaging:
-Source1000: mate-corba-get-snapshot.sh
-# To generate tarball for Source0:
-#   sh mate-corba-snapshot.sh %{githash}
-
 # handle ref leaks in the a11y stack more gracefully
 Patch0: mate-corba-2.14.3-ref-leaks.patch
 
