@@ -63,15 +63,6 @@ Provides:	mate-bluetooth-devel = %{version}
 This package contains the libraries and header files that are needed
 for writing applications that require a Bluetooth device selection widget.
 
-#%package moblin
-#Summary:	Moblin Bluetooth management utility
-#Group:		Development/Libraries
-#License:	LGPLv2+
-#Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
-
-#%description moblin
-#This package contains the Moblin user interface for gnome-bluetooth.
-
 %prep
 %setup -q
 
@@ -234,12 +225,6 @@ fi
 %{_datadir}/gir-1.0/MateBluetooth-1.0.gir
 %{_datadir}/gtk-doc/html/mate-bluetooth/
 
-#%files moblin
-#%defattr(-,root,root,-)
-#%{_sysconfdir}/xdg/autostart/bluetooth-panel.desktop
-#%{_datadir}/dbus-1/services/org.moblin.UX.Shell.Panels.bluetooth.service
-#%{_bindir}/bluetooth-panel
-#%{_datadir}/mutter-moblin/panels/bluetooth-panel.desktop
 
 %changelog
 * Tue Mar 27 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
