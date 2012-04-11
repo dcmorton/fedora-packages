@@ -1,11 +1,11 @@
-Name:           caja-python
+Name:           python-caja
 Version:        1.2.0
 Release:        1%{?dist}
 Summary:        Python bindings for Caja
 
 Group:          Development/Libraries
 License:        GPLv2+
-URL:            http://pub.mate-desktop.org
+URL:            http://mate-desktop.org
 Source0:        http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 
 BuildRequires:  python-devel
@@ -19,6 +19,9 @@ BuildRequires: 	mate-python2-devel
 
 Requires:       caja >= 1.1.0
 
+Obsoletes: 		caja-python
+Provides:  		python-caja
+
 %description
 Python bindings for Caja
 
@@ -28,9 +31,12 @@ Summary:        Python bindings for Caja
 Group:          Development/Libraries
 Requires:       %{name} = %{version}-%{release}
 Requires:       pkgconfig
+Obsoletes: 		caja-python-devel
+Provides:  		python-caja-devel
 
 %description devel
 Python bindings for Caja
+
 
 %prep
 %setup -q
@@ -64,10 +70,13 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 %files devel
 %defattr(-,root,root,-)
 %doc README AUTHORS COPYING NEWS
-%{_libdir}/pkgconfig/%{name}.pc
+%{_libdir}/pkgconfig/caja-python.pc
 %{_datadir}/doc/*
 
 %changelog
+* Tue Apr 10 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+- rename package to python-caja
+
 * Wed Mar 14 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - update to 1.2.0 version
 
@@ -85,3 +94,4 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 - Remove BuildRoot tag and %%clean section
 - Own /usr/share/nautilus-python/extensions instead of the old arch
   dependent locations
+
