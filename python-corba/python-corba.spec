@@ -2,15 +2,15 @@
 
 ### Abstract ###
 
-Name: 		pymatecorba
+Name: 		python-corba
 Version: 	1.2.0
 Release: 	1%{?dist}
 License: 	LGPLv2+
 Group: 		Development/Languages
 Summary: 	Python bindings for Corba.
 BuildRoot: 	%{_tmppath}/%{name}-root
-URL: 		https://github.com/Perberos/Mate-Desktop-Environment
-Source0: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.gz
+URL: 		http://mate-desktop.org
+Source0: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 
 ### Dependencies ###
 
@@ -31,6 +31,9 @@ BuildRequires: pygtk2 >= 2.4.0
 BuildRequires: python2-devel >= 2.3
 BuildRequires: mate-common
 
+Obsoletes: 		pymatecorba
+Provides:  		python-corba
+
 %description
 pymatecorba is an extension module for python that gives you access
 to the ORBit2 CORBA ORB.
@@ -39,6 +42,8 @@ to the ORBit2 CORBA ORB.
 Summary: Files needed to build wrappers for mate-corba addon libraries.
 Group: Development/Languages
 Requires: %{name} = %{version}
+Obsoletes: 		pymatecorba-devel
+Provides:  		python-corba-devel
 
 %description devel
 This package contains files required to build wrappers for mate-corba addon
@@ -80,6 +85,9 @@ rm -fr $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Tue Apr 10 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+- rename package to python-corba
+
 * Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - removed upstreamed pymatecorba_rename.patch
 - update to version 1.2
