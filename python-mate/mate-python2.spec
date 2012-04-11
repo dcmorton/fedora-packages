@@ -2,7 +2,7 @@
 # The order here corresponds to that in configure.ac,
 # for easier comparison.  Please do not alphabetize.
 %define pygtk_version                   2.10.3
-%define pymatecorba_version             1.1.0
+%define python_corba_version             1.1.0
 %define glib_version                    2.6.0
 %define gtk_version                     2.6.0
 %define libmate_version                 1.1.2
@@ -20,12 +20,12 @@
 
 Name:		mate-python2
 Version:	1.2.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	LGPLv2+
 Group:		Development/Languages
 Summary:	The sources for the PyMATE Python extension module.
-URL:		https://github.com/mate-desktop/python-mate
-Source:		%{name}-%{version}.tar.gz
+URL:		http://mate-desktop.org
+Source:		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 
 ### Dependencies ###
 
@@ -35,7 +35,7 @@ Requires: pygtk2 >= %{pygtk_version}
 
 BuildRequires: pygtk2-devel >= %{pygtk_version}
 BuildRequires: python2-devel >= %{python_version}
-BuildRequires: pymatecorba-devel >= %{pymatecorba_version}
+BuildRequires: python-corba-devel >= %{python_corba_version}
 BuildRequires: libmate-devel >= %{libmate_version}
 BuildRequires: libmateui-devel >= %{libmateui_version}
 BuildRequires: libmatecomponent-devel >= %{libmatecomponent_version}
@@ -98,7 +98,7 @@ Requires: %{name} = %{version}-%{release}
 Requires: libmatecomponent-activation >= %{libmatecomponent_activation_version}
 Requires: libmatecomponent >= %{libmatecomponent_version}
 Requires: libmatecomponentui >= %{libmatecomponentui_version}
-Requires: pymatecorba >= %{pymatecorba_version}
+Requires: python-corba >= %{python_corba_version}
 
 %description matecomponent
 This module contains a wrapper that allows the creation of matecomponent
@@ -225,6 +225,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/mate-python-2.0.pc
 
 %changelog
+* Tue Apr 10 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-2
+- switch to python-corba instead of pymatecorba
+
 * Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - removed upstreamed mate-python_change-directories.patch
 - update to version 1.2
