@@ -18,9 +18,9 @@
 
 ### Abstract ###
 
-Name:		mate-python2
+Name:		python-mate
 Version:	1.2.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	LGPLv2+
 Group:		Development/Languages
 Summary:	The sources for the PyMATE Python extension module.
@@ -48,6 +48,8 @@ BuildRequires: openssl-devel
 BuildRequires: libgcrypt-devel
 BuildRequires: libselinux-devel
 
+Obsoletes: 		mate-python2
+Provides:  		python-mate
 
 %description
 The mate-python package contains the source packages for the Python
@@ -65,6 +67,9 @@ Requires: %{name}-matevfs = %{version}-%{release}
 Requires: libmate >= %{libmate_version}
 Requires: libmateui >= %{libmateui_version}
 
+Obsoletes: 		mate-python2-mate
+Provides:  		python-mate-mate
+
 %description mate
 This module contains a wrapper that makes libmate functionality available
 from Python.
@@ -73,6 +78,9 @@ from Python.
 Summary: Python bindings for MATE Panel applets.
 Group: Development/Languages
 Requires: %{name} = %{version}-%{release}
+
+Obsoletes: 		mate-python2-capplet
+Provides:  		python-mate-capplet
 
 %description capplet
 This module contains a wrapper that allows MATE Control Center
@@ -85,6 +93,9 @@ Requires: %{name} = %{version}-%{release}
 Requires: gtk2 >= %{gtk_version}
 Requires: libmatecanvas >= %{libmatecanvas_version}
 Requires: pygtk2 >= %{pygtk_version}
+
+Obsoletes: 		mate-python2-canvas
+Provides:  		python-mate-canvas
 
 %description canvas
 This module contains a wrapper that allows use of the MATE Canvas
@@ -100,6 +111,9 @@ Requires: libmatecomponent >= %{libmatecomponent_version}
 Requires: libmatecomponentui >= %{libmatecomponentui_version}
 Requires: python-corba >= %{python_corba_version}
 
+Obsoletes: 		mate-python2-matecomponent
+Provides:  		python-mate-matecomponent
+
 %description matecomponent
 This module contains a wrapper that allows the creation of matecomponent
 components and the embedding of matecomponent components in Python.
@@ -110,6 +124,9 @@ Group: Development/Languages
 Requires: %{name} = %{version}-%{release}
 Requires: mate-conf >= %{mate_conf_version}
 
+Obsoletes: 		mate-python2-mateconf
+Provides:  		python-mate-mateconf
+
 %description mateconf
 This module contains a wrapper that allows the use of MateConf via Python.
 
@@ -119,6 +136,9 @@ Group: Development/Languages
 Requires: %{name} = %{version}-%{release}
 Requires: mate-vfs >= %{mate_vfs_version}
 Requires: libmatecomponent >= %{libmatecomponent_version}
+
+Obsoletes: 		mate-python2-matevfs
+Provides:  		python-mate-matevfs
 
 %description matevfs
 This module contains a wrapper that allows the use of gnome-vfs via python.
@@ -131,12 +151,15 @@ Requires: mate-vfs-devel >= %{mate_vfs_version}
 Requires: pkgconfig
 Requires: python-devel >= %{python_version}
 
+Obsoletes: 		mate-python2-devel
+Provides:  		python-mate-devel
+
 %description devel
 This package contains files required to build wrappers for MATE add-on
 libraries so that they interoperate with mate-python2.
 
 %prep
-%setup -q -n mate-python2-%{version}
+%setup -q -n %{name}-%{version}
 
 NOCONFIGURE=1 ./autogen.sh
 
@@ -225,6 +248,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/mate-python-2.0.pc
 
 %changelog
+* Tue Apr 12 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-3
+- rename mate-python2 to python-mate
+
 * Tue Apr 10 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-2
 - switch to python-corba instead of pymatecorba
 
