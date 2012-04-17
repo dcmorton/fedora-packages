@@ -13,8 +13,8 @@ Summary: 	Eye of MATE image viewer
 Name:    	eom
 Version: 	1.2.0
 Release: 	1%{?dist}
-URL: 		https://github.com/mate-desktop/mate-image-viewer
-Source: 	%{name}-%{version}.tar.gz
+URL: 		http://pub.mate-desktop.org
+Source: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.gz
 		# The GFDL has an "or later version" clause embedded inside the license.
 		# There is no need to add the + here.
 License: 	GPLv2+ and GFDL
@@ -33,8 +33,8 @@ BuildRequires: scrollkeeper
 BuildRequires: gettext
 BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
 BuildRequires: mate-doc-utils
-BuildRequires: mate-desktop-devel >= %{gnome_desktop_version}
-BuildRequires: mate-icon-theme >= %{gnome_icon_theme_version}
+BuildRequires: mate-desktop-devel >= %{mate_desktop_version}
+BuildRequires: mate-icon-theme >= %{mate_icon_theme_version}
 BuildRequires: libXt-devel
 BuildRequires: libxml2-devel
 BuildRequires: librsvg2-devel
