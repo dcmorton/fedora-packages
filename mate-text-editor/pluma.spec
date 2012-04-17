@@ -4,7 +4,7 @@
 %define pygtk_version 2.12.0
 %define pygobject_version 2.15.4
 %define pygtksourceview_version 2.9.2
-%define mate_python_desktop_version 1.1.0
+%define python_mate_desktop_version 1.1.0
 %define mate_doc_utils_version 1.1.0
 %define mateconf_version 1.1.0
 %define enchant_version 1.2.0
@@ -53,7 +53,7 @@ BuildRequires: gtk-doc
 Requires: pygtk2 >= %{pygtk_version}
 Requires: pygobject2 >= %{pygtk_version}
 Requires: pygtksourceview >= %{pygtksourceview_version}
-#Requires: mate-python2-desktop >= %{mate_python_desktop_version}
+#Requires: python-mate-desktop >= %{python_mate_desktop_version}
 # the run-command plugin uses  mate-dialogs
 Requires: mate-dialogs
 
