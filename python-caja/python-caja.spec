@@ -15,7 +15,7 @@ BuildRequires:  gtk-doc
 BuildRequires:  autoconf automake libtool
 BuildRequires: 	mate-common
 BuildRequires: 	pygtk2-devel
-BuildRequires: 	mate-python2-devel
+BuildRequires: 	python-mate-devel
 
 Requires:       caja >= 1.1.0
 
