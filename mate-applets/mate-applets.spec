@@ -20,7 +20,7 @@
 %define libmatenotify_version 1.1.0
 %define pygobject_version 2.6
 %define pygtk_version 2.6
-%define mate_python2_version 1.1.0
+%define python_mate_version 1.1.0
 %define mate_conf_version 1.1.0
 %define libmatekbd_version 1.1.0
 %define mate_polkit_version 1.1.0
@@ -61,7 +61,7 @@ BuildRequires:  mate-utils >= %{mate_utils_version}
 BuildRequires:  libmatenotify-devel >= %{libmatenotify_version}
 BuildRequires:  pygobject2-devel >= %{pygobject_version}
 BuildRequires:  pygtk2-devel >= %{pygtk_version}
-BuildRequires:  mate-python2-devel >= %{mate_python2_version}
+BuildRequires:  python-mate-devel >= %{python_mate_version}
 BuildRequires:  mate-charmap-devel
 BuildRequires:  dbus-devel >= %{dbus_version}
 BuildRequires:  dbus-glib-devel >= %{dbus_glib_version}

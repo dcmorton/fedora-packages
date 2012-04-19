@@ -20,7 +20,7 @@ BuildRequires:  pkgconfig
 BuildRequires:  mate-menus-devel >= 1.1.1
 BuildRequires:  intltool
 BuildRequires:  mate-common
-Requires:       pygtk2, mate-python2-mateconf
+Requires:       pygtk2, python-mate-mateconf
 Requires:       mate-menus >= 1.1.1
 
 Obsoletes:		mate-menu-editor
