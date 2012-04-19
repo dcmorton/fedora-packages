@@ -20,7 +20,7 @@
 Summary: 	The MATE Display Manager
 Name: 		mdm
 Version: 	1.1.1
-Release: 	6%{?dist}
+Release: 	7%{?dist}
 License: 	GPLv2+
 Group: 		User Interface/X
 URL: 		https://github.com/mate-desktop/mate-display-manager
@@ -79,7 +79,12 @@ BuildRequires: mate-doc-utils
 BuildRequires: pkgconfig(libcanberra-gtk)
 BuildRequires: libattr-devel
 BuildRequires: mate-common
-BuildRequires: nss-devel
+BuildRequires: nss-devel >= %{nss_version}
+BuildRequires: libglade2-devel >= %{libglade2_version}
+BuildRequires: gail-devel >= %{gail_version}
+BuildRequires: libtool automake autoconf
+BuildRequires: libdmx-devel
+BuildRequires: audit-libs-devel >= %{libauditver}
 
 %ifnarch s390 s390x ppc64
 BuildRequires: xorg-x11-server-Xorg
@@ -91,8 +96,8 @@ BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
 Provides: service(graphical-login) = %{name}
 Requires: audit-libs >= %{libauditver}
 Requires: mate-accountsservice
-Patch2: plymouth.patch
 
+Patch2: plymouth.patch
 Patch96: gdm-multistack.patch
 # Fedora-specific
 Patch97: gdm-bubble-location.patch
@@ -105,8 +110,10 @@ Patch102: mate-accountsservice-enable_2.patch
 
 Patch103: mdm_first_background_patch.patch
 
-#numlock
-Patch104: mdm_numlock_on.patch
+Patch105: mdm_remove_at-spi-registryd-wrapper.patch
+Patch106: mdm_remove_gok_desktopfile.patch
+Patch107: mdm_remove_orca-screen-reader_desktopfile.patch
+Patch108: mdm_remove_mate-mag_desktopfile.patch
 
 %package user-switch-applet
 Summary:   MDM User Switcher Panel Applet
@@ -151,9 +158,11 @@ The MDM fingerprint plugin provides functionality necessary to use a fingerprint
 %patch101 -p1 -b .mate-accountsservice-enable_1
 %patch102 -p1 -b .mate-accountsservice-enable_2
 %patch103 -p1 -b .mdm_first_background_patch
-%patch104 -p1 -b .mdm_numlock_on
+%patch105 -p1 -b .mdm_remove_at-spi-registryd-wrapper
+%patch106 -p1 -b .mdm_remove_gok_desktopfile
+%patch107 -p1 -b .mdm_remove_orca-screen-reader_desktopfile
+%patch108 -p1 -b .mdm_remove_mate-mag_desktopfile.patch
 NOCONFIGURE=1 ./autogen.sh
-
 
 %build
 cp -f %{SOURCE1} data/mdm
@@ -167,14 +176,16 @@ cp -f %{SOURCE8} gui/simple-greeter/plugins/fingerprint/icons/16x16/mdm-fingerpr
 cp -f %{SOURCE9} gui/simple-greeter/plugins/fingerprint/icons/48x48/mdm-fingerprint.png
 
 %configure \
-	--disable-static \
 	--enable-console-helper \
 	--with-selinux \
 	--with-pam-prefix=%{_sysconfdir} \
-	--with-dbus-sys=%{_sysconfdir}/dbus-1/system.d/ \
 	--disable-scrollkeeper  \
 	--with-console-kit      \
-	--enable-profiling
+	--enable-profiling \
+	--with-dbus-sys=%{_sysconfdir}/dbus-1/system.d/ \
+	--disable-static
+
+
 
 # drop unneeded direct library deps with --as-needed
 # libtool doesn't make this easy, so we do it the hard way
@@ -182,10 +193,24 @@ sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0 /g' -e 's/    if test "$export_dyn
 
 make %{?_smp_mflags}
 
+# strip unneeded translations from .mo files
+# ideally intltool (ha!) would do that for us
+# http://bugzilla.gnome.org/show_bug.cgi?id=474987
+cd po
+grep -v ".*[.]desktop[.]in.*\|.*[.]server[.]in[.]in$" POTFILES.in > POTFILES.keep
+mv POTFILES.keep POTFILES.in
+intltool-update --pot
+for p in *.po; do
+  msgmerge $p %{name}.pot > $p.out
+  msgfmt -o `basename $p .po`.gmo $p.out
+done
 
 %install
 
 rm -rf $RPM_BUILD_ROOT
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/mdm/Init
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/mdm/PreSession
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/mdm/PostSession
 make install DESTDIR=$RPM_BUILD_ROOT
 
 # docs go elsewhere
@@ -214,18 +239,13 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 rm -f $RPM_BUILD_ROOT%{_includedir}/mdm/simple-greeter/mdm-greeter-extension.h
 rm -f $RPM_BUILD_ROOT%{_libdir}/pkmateconfig/mdmsimplegreeter.pc
 
-mv -v $RPM_BUILD_ROOT%{_datadir}/pixmaps/nobody.png $RPM_BUILD_ROOT%{_datadir}/pixmaps/mate-nobody.png
-mv -v $RPM_BUILD_ROOT%{_datadir}/pixmaps/nohost.png $RPM_BUILD_ROOT%{_datadir}/pixmaps/mate-nohost.png
+#mv -v $RPM_BUILD_ROOT%{_datadir}/pixmaps/nobody.png $RPM_BUILD_ROOT%{_datadir}/pixmaps/mate-nobody.png
+#mv -v $RPM_BUILD_ROOT%{_datadir}/pixmaps/nohost.png $RPM_BUILD_ROOT%{_datadir}/pixmaps/mate-nohost.png
 
 %find_lang mdm --all-name
 
 %pre
-if [ "$1" -gt 1 ]; then
-  export MATECONF_CONFIG_SOURCE=`mateconftool-2 --get-default-source`
-  mateconftool-2 --makefile-uninstall-rule \
-	%{_sysconfdir}/mateconf/schemas/mdm-simple-greeter.schemas \
-	> /dev/null || :
-fi
+%mateconf_schema_prepare mdm-simple-greeter
 
 /usr/sbin/useradd -M -d /var/lib/mdm -s /sbin/nologin -r mdm > /dev/null 2>&1
 /usr/sbin/usermod -d /var/lib/gdm -s /sbin/nologin gdm >/dev/null 2>&1
@@ -235,10 +255,7 @@ exit 0
 
 %post
 /sbin/ldconfig
-export MATECONF_CONFIG_SOURCE=`mateconftool-2 --get-default-source`
-	mateconftool-2 --makefile-install-rule \
-	%{_sysconfdir}/mateconf/schemas/mdm-simple-greeter.schemas \
-	> /dev/null || :
+%mateconf_schema_upgrade mdm-simple-greeter
 touch --no-create /usr/share/icons/hicolor >&/dev/null || :
 
 # if the user already has a config file, then migrate it to the new
@@ -289,12 +306,7 @@ if [ $1 -ge 2 -a -f $custom ] && grep -q /etc/X11/mdm $custom ; then
 fi
 
 %preun
-if [ "$1" -eq 0 ]; then
-  export MATECONF_CONFIG_SOURCE=`mateconftool-2 --get-default-source`
-  mateconftool-2 --makefile-uninstall-rule \
-	%{_sysconfdir}/mateconf/schemas/mdm-simple-greeter.schemas \
-	> /dev/null || :
-fi
+%mateconf_schema_remove mdm-simple-greeter
 
 %postun
 /sbin/ldconfig
@@ -388,6 +400,13 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/ull || :
 
 
 %changelog
+* Wed Apr 18 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-7
+- remove mdm_numlock_on.patch, it's upstream to git
+- remove at-spi-registryd-wrapper- it slow down mdm start
+- remove gok.desktop file
+- remove orca-screen-reader.desktop file
+- remove mate-mag.desktop file
+
 * Fri Apr 06 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-6
 - add numlock patch
 
