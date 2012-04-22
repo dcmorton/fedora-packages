@@ -11,7 +11,7 @@ Source:         http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.
 Requires(pre): 	mate-conf >= 1.1.0
 Requires(preun): mate-conf >= 1.1.0
 Requires(post): mate-conf >= 1.1.0
-Requires: 		mate-control-center-filesystem
+#Requires: 		mate-control-center-filesystem
 
 BuildRequires:  dbus-glib-devel
 BuildRequires:  mate-conf-devel
