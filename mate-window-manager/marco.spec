@@ -65,7 +65,7 @@ BuildRequires:  mate-dialogs
 
 Requires: 		startup-notification 
 # for /usr/share/mate-control-center/keybindings, /usr/share/mate/wm-properties
-Requires: 		mate-control-center-filesystem
+#Requires: 		mate-control-center-filesystem
 # for /etc/mateconf/schemas
 Requires: 		mate-conf
 Requires: 		mate-dialogs
