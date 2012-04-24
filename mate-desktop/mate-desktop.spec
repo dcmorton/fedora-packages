@@ -3,9 +3,9 @@
 Summary: 	Shared code among gnome-panel, gnome-session, nautilus, etc
 Name: 		mate-desktop
 Version: 	1.2.0
-Release: 	1%{?dist}
-URL: 		http://pub.mate-desktop.org
-Source0: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Release: 	2%{?dist}
+URL: 		https://github.com/NiceandGently/mate-desktop
+Source0: 	https://github.com/downloads/NiceandGently/mate-desktop/%{name}-%{version}.tar.xz
 
 License: 	GPLv2+ and LGPLv2+
 Group: 		System Environment/Libraries
@@ -25,8 +25,7 @@ BuildRequires: mate-doc-utils
 BuildRequires: scrollkeeper
 BuildRequires: gettext
 BuildRequires: gtk-doc
-BuildRequires: automake autoconf libtool intltool
-BuildRequires: unique-devel
+BuildRequires: intltool
 
 # Upstream fixes
 Patch0: 0001-bgo-629168-Don-t-read-past-the-end-of-a-string-mate.patch
@@ -59,7 +58,7 @@ NOCONFIGURE=1 ./autogen.sh
 %configure \
 	--disable-scrollkeeper    \
 	--disable-static          \
-	--enable-unique
+	--with-pnp-ids-path="/usr/share/hwdata/pnp.ids"
 
 make %{?_smp_mflags}
 
@@ -70,6 +69,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 # stuff we don't want
 rm -rf $RPM_BUILD_ROOT/var/scrollkeeper
+
 
 mkdir $RPM_BUILD_ROOT%{_datadir}/omf/mate
 mv -f $RPM_BUILD_ROOT%{_datadir}/omf/fdl $RPM_BUILD_ROOT%{_datadir}/omf/mate
@@ -86,14 +86,14 @@ mv -f $RPM_BUILD_ROOT%{_datadir}/omf/lgpl $RPM_BUILD_ROOT%{_datadir}/omf/mate
 %defattr(-,root,root,-)
 %doc AUTHORS COPYING COPYING.LIB NEWS README
 %{_datadir}/applications/mate-about.desktop
-#%{_datadir}/mate-about
+%{_datadir}/mate-about
 %{_datadir}/pixmaps/*
 %doc %{_mandir}/man*/*
 # GPL
 %{_bindir}/mate-about
 # LGPL
 %{_libdir}/lib*.so.*
-%{_datadir}/libmate-desktop/pnp.ids
+#%{_datadir}/libmate-desktop/pnp.ids
 %{_datadir}/mate/help/*/*/*.xml
 %{_datadir}/omf/mate/*
 
@@ -106,6 +106,10 @@ mv -f $RPM_BUILD_ROOT%{_datadir}/omf/lgpl $RPM_BUILD_ROOT%{_datadir}/omf/mate
 
 
 %changelog
+* Thu Apr 24 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-2
+- fix black background in mdm
+- change source to https://github.com/NiceandGently/mate-desktop
+
 * Thu Mar 15 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - update to 1.2.0
 
