@@ -1,6 +1,0 @@
-In fedora mate-display-manager called mdm!
--- download source from https://github.com/mate-desktop/mate-display-manager
--- extract the source
--- rename the extract source to mdm-<version>
--- compress the new source to tar.gz
--- build the rpm with mdm.spec

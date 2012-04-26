@@ -33,7 +33,7 @@
 
 Summary:        Small applications for the MATE panel
 Name:			mate-applets
-Version:		1.2.0
+Version:		1.2.2
 Release:        1%{?dist}
 License:		GPLv2+ and GFDL
 Group:          User Interface/Desktops
@@ -115,6 +115,7 @@ xhost +
 	--enable-polkit \
 	--enable-ipv6 \
 	--disable-cpufreq
+
 
 # drop unneeded direct library deps with --as-needed
 # libtool doesn't make this easy, so we do it the hard way
@@ -238,9 +239,7 @@ fi
 %{_libexecdir}/charpick_applet2
 %{_libexecdir}/drivemount_applet2
 %{_libexecdir}/geyes_applet2
-#%{_libexecdir}/mate-applets/
 %{_libexecdir}/mateweather-applet-2
-#%{_libexecdir}/mini_commander_applet
 %{_libexecdir}/multiload-applet-2
 %{_libexecdir}/null_applet
 %{_libexecdir}/battstat-applet-2
@@ -259,6 +258,9 @@ fi
 
 
 %changelog
+* Tue Apr 25 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.2-1
+- test build
+
 * Sun Mar 11 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - update to 1.2.0
 
