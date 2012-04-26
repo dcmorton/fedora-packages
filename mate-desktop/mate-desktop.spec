@@ -3,9 +3,9 @@
 Summary: 	Shared code among gnome-panel, gnome-session, nautilus, etc
 Name: 		mate-desktop
 Version: 	1.2.0
-Release: 	2%{?dist}
-URL: 		https://github.com/NiceandGently/mate-desktop
-Source0: 	https://github.com/downloads/NiceandGently/mate-desktop/%{name}-%{version}.tar.xz
+Release: 	1%{?dist}
+URL: 		http://pub.mate-desktop.org
+Source0: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 
 License: 	GPLv2+ and LGPLv2+
 Group: 		System Environment/Libraries
@@ -106,10 +106,6 @@ mv -f $RPM_BUILD_ROOT%{_datadir}/omf/lgpl $RPM_BUILD_ROOT%{_datadir}/omf/mate
 
 
 %changelog
-* Thu Apr 24 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-2
-- fix black background in mdm
-- change source to https://github.com/NiceandGently/mate-desktop
-
 * Thu Mar 15 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - update to 1.2.0
 
