@@ -1,0 +1,155 @@
+diff -upr mate-themes-1.2.2-orig/configure.in mate-themes-1.2.2/configure.in
+--- mate-themes-1.2.2-orig/configure.in	2012-04-04 17:57:06.000000000 +0200
++++ mate-themes-1.2.2/configure.in	2012-04-28 12:27:42.000000000 +0200
+@@ -181,7 +181,7 @@ mate-themes.spec
+ common/Makefile
+ cursor-themes/Makefile
+ desktop-themes/Makefile
+-desktop-themes/Aldabra//Makefile
++desktop-themes/Aldabra/Makefile
+ desktop-themes/Aldabra/gtk-2.0/Makefile
+ desktop-themes/Aldabra/gtk-2.0/assets/Makefile
+ desktop-themes/Aldabra/gtk-3.0/Makefile
+diff -upr mate-themes-1.2.2-orig/desktop-themes/Aldabra/gtk-2.0/assets/Makefile.am mate-themes-1.2.2/desktop-themes/Aldabra/gtk-2.0/assets/Makefile.am
+--- mate-themes-1.2.2-orig/desktop-themes/Aldabra/gtk-2.0/assets/Makefile.am	2012-04-04 17:57:06.000000000 +0200
++++ mate-themes-1.2.2/desktop-themes/Aldabra/gtk-2.0/assets/Makefile.am	2012-04-28 12:13:08.000000000 +0200
+@@ -1,5 +1,5 @@
+ 
+-themedir = $(datadir)/themes/Aldabra/gtk-2.0/assets
++themedir = $(datadir)/themes/Aldabras/gtk-2.0/assets
+ 
+ theme_DATA = \
+ 	checkbox-checked-insensitive.svg  \
+diff -upr mate-themes-1.2.2-orig/desktop-themes/Aldabra/gtk-2.0/Makefile.am mate-themes-1.2.2/desktop-themes/Aldabra/gtk-2.0/Makefile.am
+--- mate-themes-1.2.2-orig/desktop-themes/Aldabra/gtk-2.0/Makefile.am	2012-04-04 17:57:06.000000000 +0200
++++ mate-themes-1.2.2/desktop-themes/Aldabra/gtk-2.0/Makefile.am	2012-04-28 12:08:48.000000000 +0200
+@@ -1,5 +1,5 @@
+ 
+-themedir = $(datadir)/themes/Aldabra/gtk-2.0
++themedir = $(datadir)/themes/Aldabras/gtk-2.0
+ 
+ theme_DATA = gtkrc
+ 
+diff -upr mate-themes-1.2.2-orig/desktop-themes/Aldabra/gtk-3.0/assets/Makefile.am mate-themes-1.2.2/desktop-themes/Aldabra/gtk-3.0/assets/Makefile.am
+--- mate-themes-1.2.2-orig/desktop-themes/Aldabra/gtk-3.0/assets/Makefile.am	2012-04-04 17:57:06.000000000 +0200
++++ mate-themes-1.2.2/desktop-themes/Aldabra/gtk-3.0/assets/Makefile.am	2012-04-28 12:13:26.000000000 +0200
+@@ -1,5 +1,5 @@
+ 
+-themedir = $(datadir)/themes/Aldabra/gtk-3.0/assets
++themedir = $(datadir)/themes/Aldabras/gtk-3.0/assets
+ 
+ theme_DATA = \
+ 	checkbox-checked-insensitive.svg \
+diff -upr mate-themes-1.2.2-orig/desktop-themes/Aldabra/gtk-3.0/Makefile.am mate-themes-1.2.2/desktop-themes/Aldabra/gtk-3.0/Makefile.am
+--- mate-themes-1.2.2-orig/desktop-themes/Aldabra/gtk-3.0/Makefile.am	2012-04-04 17:57:06.000000000 +0200
++++ mate-themes-1.2.2/desktop-themes/Aldabra/gtk-3.0/Makefile.am	2012-04-28 12:09:06.000000000 +0200
+@@ -1,5 +1,5 @@
+ 
+-themedir = $(datadir)/themes/Aldabra/gtk-3.0
++themedir = $(datadir)/themes/Aldabras/gtk-3.0
+ 
+ theme_DATA = \
+ 	settings.ini \
+diff -upr mate-themes-1.2.2-orig/desktop-themes/Aldabra/index.theme.in mate-themes-1.2.2/desktop-themes/Aldabra/index.theme.in
+--- mate-themes-1.2.2-orig/desktop-themes/Aldabra/index.theme.in	2012-04-04 17:57:06.000000000 +0200
++++ mate-themes-1.2.2/desktop-themes/Aldabra/index.theme.in	2012-04-28 11:49:19.000000000 +0200
+@@ -1,9 +1,9 @@
+ [X-GNOME-Metatheme]
+-Name=Aldabra
++Name=Aldabras
+ Type=X-GNOME-Metatheme
+ Encoding=UTF-8
+-GtkTheme=Aldabra
+-MetacityTheme=Aldabra
++GtkTheme=Aldabras
++MetacityTheme=Aldabras
+ CursorTheme=mate
+ CursorSize=24
+ NotificationTheme=slider
+@@ -14,14 +14,14 @@ WindowTitleFont=Cantarell Bold 11
+ FixedWidthFont=Monospace 9
+ 
+ [Desktop Entry]
+-Name=Aldabra
++Name=Aldabras
+ Type=X-MATE-Metatheme
+ Comment=
+ 
+ [X-MATE-Metatheme]
+-Name=Aldabra
+-GtkTheme=Aldabra
+-MarcoTheme=Aldabra
++Name=Aldabras
++GtkTheme=Aldabras
++MarcoTheme=Aldabras
+ IconTheme=mate
+ CursorTheme=mate
+ CursorSize=24
+@@ -31,4 +31,4 @@ DocumentFont=Sans 11
+ DesktopFont=Cantarell 11
+ WindowTitleFont=Cantarell Bold 11
+ FixedWidthFont=Monospace 9
+-BackgroundImage=@BACKGROUND_DIR@/stripes.jpg
++BackgroundImage=@BACKGROUND_DIR@/default.jpg
+diff -upr mate-themes-1.2.2-orig/desktop-themes/Aldabra/Makefile.am mate-themes-1.2.2/desktop-themes/Aldabra/Makefile.am
+--- mate-themes-1.2.2-orig/desktop-themes/Aldabra/Makefile.am	2012-04-04 17:57:06.000000000 +0200
++++ mate-themes-1.2.2/desktop-themes/Aldabra/Makefile.am	2012-04-28 12:08:08.000000000 +0200
+@@ -1,4 +1,4 @@
+-THEME_NAME=Aldabra
++THEME_NAME=Aldabras
+  
+ themedir = $(datadir)/themes/$(THEME_NAME)
+ 
+@@ -20,5 +20,5 @@ CLEANFILES = index.theme
+ 
+ index.theme: index.theme.in
+ 	$(AM_V_GEN)sed \
+-		-e s!\@BACKGROUND_DIR\@!$(datadir)/pixmaps/backgrounds/mate/abstract! \
++		-e s!\@BACKGROUND_DIR\@!$(datadir)/backgrounds/mate/abstract! \
+ 		< $< > $@
+diff -upr mate-themes-1.2.2-orig/desktop-themes/Aldabra/metacity-1/Makefile.am mate-themes-1.2.2/desktop-themes/Aldabra/metacity-1/Makefile.am
+--- mate-themes-1.2.2-orig/desktop-themes/Aldabra/metacity-1/Makefile.am	2012-04-04 17:57:06.000000000 +0200
++++ mate-themes-1.2.2/desktop-themes/Aldabra/metacity-1/Makefile.am	2012-04-28 12:10:00.000000000 +0200
+@@ -1,5 +1,5 @@
+ 
+-themedir = $(datadir)/themes/Aldabra/metacity-1
++themedir = $(datadir)/themes/Aldabras/metacity-1
+ 
+ theme_DATA = \
+ 	metacity-theme-1.xml \
+diff -upr mate-themes-1.2.2-orig/desktop-themes/Aldabra/metacity-1/metacity-theme-1.xml mate-themes-1.2.2/desktop-themes/Aldabra/metacity-1/metacity-theme-1.xml
+--- mate-themes-1.2.2-orig/desktop-themes/Aldabra/metacity-1/metacity-theme-1.xml	2012-04-04 17:57:06.000000000 +0200
++++ mate-themes-1.2.2/desktop-themes/Aldabra/metacity-1/metacity-theme-1.xml	2012-04-28 11:52:00.000000000 +0200
+@@ -1,7 +1,7 @@
+ <?xml version="1.0"?>
+ <metacity_theme>
+ 	<info>
+-		<name>Aldabra</name>
++		<name>Aldabras</name>
+ 		<author>Hylke Bons</author>
+ 		<copyright>Intel, 2010</copyright>
+ 		<date>April 23, 2010</date>
+diff -upr mate-themes-1.2.2-orig/desktop-themes/Aldabra/metacity-1/metacity-theme-2.xml mate-themes-1.2.2/desktop-themes/Aldabra/metacity-1/metacity-theme-2.xml
+--- mate-themes-1.2.2-orig/desktop-themes/Aldabra/metacity-1/metacity-theme-2.xml	2012-04-04 17:57:06.000000000 +0200
++++ mate-themes-1.2.2/desktop-themes/Aldabra/metacity-1/metacity-theme-2.xml	2012-04-28 11:51:58.000000000 +0200
+@@ -1,7 +1,7 @@
+ <?xml version="1.0"?>
+ <metacity_theme>
+ <info>
+-	<name>Aldabra</name>
++	<name>Aldabras</name>
+ 	<author>GNOME Art Team &lt;art.gnome.org&gt;</author>
+ 	<copyright>&#194; Intel, &#194; Red Hat, Lapo Calamandrei</copyright>
+ 	<date>2010</date>
+diff -upr mate-themes-1.2.2-orig/desktop-themes/Aldabra/metacity-1/metacity-theme-3.xml mate-themes-1.2.2/desktop-themes/Aldabra/metacity-1/metacity-theme-3.xml
+--- mate-themes-1.2.2-orig/desktop-themes/Aldabra/metacity-1/metacity-theme-3.xml	2012-04-04 17:57:06.000000000 +0200
++++ mate-themes-1.2.2/desktop-themes/Aldabra/metacity-1/metacity-theme-3.xml	2012-04-28 11:51:56.000000000 +0200
+@@ -1,7 +1,7 @@
+ <?xml version="1.0"?>
+ <metacity_theme>
+ <info>
+-	<name>Aldabra</name>
++	<name>Aldabras</name>
+ 	<author>GNOME Art Team &lt;art.gnome.org&gt;</author>
+ 	<copyright>&#194; Intel, &#194; Red Hat, Lapo Calamandrei</copyright>
+ 	<date>2010</date>

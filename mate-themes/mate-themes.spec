@@ -1,17 +1,16 @@
 Summary: 	Themes for MATE
 Name: 		mate-themes
-Version: 	1.2.0
-Release: 	3%{?dist}
-URL: 		http://mate-desktop.org
-Source: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Version: 	1.2.2
+Release: 	1%{?dist}
+URL: 		https://github.com/mate-desktop/mate-themes
+Source: 	%{name}-%{version}.tar.xz
 License: 	LGPLv2 and GPLv2
 Group: 		User Interface/Desktops
 BuildArch: 	noarch
-# we need Berlin (Atlanta) marco-theme
-Source1:	metacity-theme-1.xml
 
 Requires: 	gtk2-engines
 Requires: 	mate-icon-theme
+Requires: 	gtk-murrine-engine
 
 BuildRequires: 	autoconf
 BuildRequires: 	automake
@@ -24,8 +23,7 @@ BuildRequires: 	gtk2-engines-devel
 BuildRequires: 	icon-naming-utils
 BuildRequires: 	mate-common
 
-Patch0: 		mate-themes_rename_glider_to_sailplane.patch
-Patch1:			mate-themes_change_atlanta_to_berlin.patch
+Patch0: 		mate-themes_rename_Aldabra_to_Aldabras.patch
 
 %description
 The mate-themes package contains a collection of desktop themes for MATE.
@@ -43,8 +41,7 @@ available under old names.
 
 %prep
 %setup -q
-%patch0 -p1 -b .mate-themes_rename_glider_to_sailplane
-%patch1 -p1 -b .mate-themes_change_atlanta_to_berlin
+%patch0 -p1 -b .mate-themes_rename_Aldabra_to_Aldabras
 NOCONFIGURE=1 ./autogen.sh
 
 %build
@@ -56,19 +53,6 @@ make %{?_smp_mflags}
 %install
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
-
-# create Berlin dir
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/themes/Berlin
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/themes/Berlin/metacity-1
-cp -f %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/themes/Berlin/metacity-1/metacity-theme-1.xml
-
-# Clearlooks gtk theme is in gtk2-engines
-#rm -rf $RPM_BUILD_ROOT%{_datadir}/themes/Clearlooks/gtk-2.0
-#rm -f $RPM_BUILD_ROOT%{_datadir}/themes/ThinIce/README.html
-#rm -f $RPM_BUILD_ROOT%{_datadir}/themes/ThinIce/ICON.png
-# Remove the test theme
-#rm -rf $RPM_BUILD_ROOT%{_datadir}/themes/MateClearlooksTest/
-
 
 # add legacy symlinks
 for size in 16x16 22x22 24x24 32x32 48x48 256x256; do
@@ -130,9 +114,9 @@ done
 %{_datadir}/themes/ContrastLow/
 %{_datadir}/themes/ContrastLowLargePrint/
 %{_datadir}/themes/PrintLarge/
-%{_datadir}/themes/Aldabra/
-%{_datadir}/themes/Inverted/
-
+%{_datadir}/themes/Aldabras/
+%{_datadir}/themes/Atantla/
+%{_datadir}/themes/AlaDelta/
 
 # themes where the gtk theme is shipped with the engine
 %{_datadir}/themes/TraditionalOk/*
@@ -140,35 +124,39 @@ done
 %{_datadir}/themes/Fog/*
 
 # others
-%{_datadir}/themes/Sailplane
 %{_datadir}/themes/Shiny
 %{_datadir}/themes/TraditionalOkClassic
 %{_datadir}/themes/Simply
-%{_datadir}/themes/Berlin/metacity-1/metacity-theme-1.xml
+
 
 %doc AUTHORS COPYING NEWS README
 
 %files legacy -f legacy.txt
 
 %changelog
-* Sat Mar 24 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-3
+* Sat Apr 28 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.2-1
+- remove mate-themes_rename_glider_to_sailplane.patch
+- remove mate-themes_change_atlanta_to_berlin.patch
+- add mate-themes_rename_Aldabra_to_Aldabras.patch
+
+* Sat Mar 24 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-3
 - update to latest git version
 - themes are renamed
 - add Berlin (Atlanta) marco theme for contrasthigh
 
-* Thu Mar 01 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-2
+* Thu Mar 01 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-2
 - test build
 
-* Thu Mar 01 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Thu Mar 01 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update version to 1.2
 
-* Sun Feb 12 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-3
+* Sun Feb 12 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-3
 - using a patch for further actions
 
-* Sun Feb 12 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Sun Feb 12 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - move directories to avoid conflicts with gnome-themes
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-themes.spec based on gnome-themes-2.32.0-7.fc16 spec
 
 * Wed Oct 26 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.32.0-7
