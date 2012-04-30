@@ -9,12 +9,12 @@
 
 Summary:        Tool for viewing and creating archives
 Name:           engrampa
-Version:        1.2.0
+Version:        1.2.1
 Release:        1%{?dist}
 License:        GPLv2+
 Group:          Applications/Archiving
 URL:            http://pub.mate-desktop.org
-Source:         http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.gz
+Source:         http://pub.mate-desktop.org/releases/%{name}-%{version}.tar.xz
 
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: pango-devel >= %{pango_version}
@@ -116,15 +116,19 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
-* Thu Mar 08 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Sat Apr 28 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-1
+- update to version 1.2.1
+
+* Thu Mar 08 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to version 1.2
 
-* Tue Feb 14 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Tue Feb 14 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - fixed scriplets error
 - rebuild for enable builds for .i686
 
-* Sun Dec 25 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Sun Dec 25 2011 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - engrampa.spec based on file-roller-2.32.0-2.fc14 spec
 
 * Tue Sep 28 2010 Matthias Clasen <mclasen@redhat.com> 2.32.0-2
 - Fix a typo in %%post. Spotted by Yanko Kaneti
+
