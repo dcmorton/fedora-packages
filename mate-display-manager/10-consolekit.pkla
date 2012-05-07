@@ -1,0 +1,13 @@
+[restart for mdm]
+Identity=unix-user:mdm
+Action=org.freedesktop.consolekit.system.restart
+ResultAny=yes
+ResultInactive=no
+ResultActive=no
+
+[system stop for mdm]
+Identity=unix-user:mdm
+Action=org.freedesktop.consolekit.system.stop
+ResultAny=yes
+ResultInactive=no
+ResultActive=no
