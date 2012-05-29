@@ -50,47 +50,6 @@ diff -upr mate-themes-1.2.2-orig/desktop-themes/Aldabra/gtk-3.0/Makefile.am mate
  
  theme_DATA = \
  	settings.ini \
-diff -upr mate-themes-1.2.2-orig/desktop-themes/Aldabra/index.theme.in mate-themes-1.2.2/desktop-themes/Aldabra/index.theme.in
---- mate-themes-1.2.2-orig/desktop-themes/Aldabra/index.theme.in	2012-04-04 17:57:06.000000000 +0200
-+++ mate-themes-1.2.2/desktop-themes/Aldabra/index.theme.in	2012-04-28 11:49:19.000000000 +0200
-@@ -1,9 +1,9 @@
- [X-GNOME-Metatheme]
--Name=Aldabra
-+Name=Aldabras
- Type=X-GNOME-Metatheme
- Encoding=UTF-8
--GtkTheme=Aldabra
--MetacityTheme=Aldabra
-+GtkTheme=Aldabras
-+MetacityTheme=Aldabras
- CursorTheme=mate
- CursorSize=24
- NotificationTheme=slider
-@@ -14,14 +14,14 @@ WindowTitleFont=Cantarell Bold 11
- FixedWidthFont=Monospace 9
- 
- [Desktop Entry]
--Name=Aldabra
-+Name=Aldabras
- Type=X-MATE-Metatheme
- Comment=
- 
- [X-MATE-Metatheme]
--Name=Aldabra
--GtkTheme=Aldabra
--MarcoTheme=Aldabra
-+Name=Aldabras
-+GtkTheme=Aldabras
-+MarcoTheme=Aldabras
- IconTheme=mate
- CursorTheme=mate
- CursorSize=24
-@@ -31,4 +31,4 @@ DocumentFont=Sans 11
- DesktopFont=Cantarell 11
- WindowTitleFont=Cantarell Bold 11
- FixedWidthFont=Monospace 9
--BackgroundImage=@BACKGROUND_DIR@/stripes.jpg
-+BackgroundImage=@BACKGROUND_DIR@/default.jpg
 diff -upr mate-themes-1.2.2-orig/desktop-themes/Aldabra/Makefile.am mate-themes-1.2.2/desktop-themes/Aldabra/Makefile.am
 --- mate-themes-1.2.2-orig/desktop-themes/Aldabra/Makefile.am	2012-04-04 17:57:06.000000000 +0200
 +++ mate-themes-1.2.2/desktop-themes/Aldabra/Makefile.am	2012-04-28 12:08:08.000000000 +0200
