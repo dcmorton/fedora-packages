@@ -6,16 +6,20 @@
 
 Summary: 	Framework for managing passwords and other secrets
 Name: 		mate-keyring
-Version: 	1.2.1
+Version: 	1.3.0
 Release: 	1%{?dist}
 License: 	GPLv2+ and LGPLv2+
 Group: 		System Environment/Libraries
 Source: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 URL: 		http://pub.mate-desktop.org
 
-# http://bugzilla.redhat.com/529709
-# http://bugs.gnome.org/598494
-Patch3: mate-keyring-1.1.0-nopass.patch
+# why is gnome-keyring-daemon setuid root?
+# https://bugzilla.redhat.com/show_bug.cgi?id=668831
+Patch4: file-caps.patch
+
+# gnome keyring pam module is starting gnome-keyring with the wrong SELinux context.
+# https://bugzilla.redhat.com/show_bug.cgi?id=684225
+Patch5: gnome-keyring-2.91.93-pam-selinux.patch
 
 
 BuildRequires: glib2-devel >= %{glib2_version}
@@ -31,6 +35,8 @@ BuildRequires: libtasn1-tools
 BuildRequires: libmatekeyring-devel
 BuildRequires: gtk-doc
 BuildRequires: mate-common
+BuildRequires: libcap-ng-devel
+BuildRequires: libselinux-devel
 
 # for smooth transition since the core was split
 Requires: libmatekeyring
@@ -68,17 +74,15 @@ automatically unlock the "login" keyring when the user logs in.
 
 %prep
 %setup -q -n mate-keyring-%{version}
-%patch3 -p1 -b .no-pass
-
+%patch4 -p1 -b .file-caps
+%patch5 -p1 -b .pam-selinux
 NOCONFIGURE=1 ./autogen.sh
 
 %build
-
 autoreconf -i -f
 
 %configure --disable-gtk-doc \
            --with-pam-dir=/%{_lib}/security \
-           --disable-acl-prompts \
            --enable-pam \
            --with-gtk=2.0 \
 
@@ -93,7 +97,7 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 rm $RPM_BUILD_ROOT/%{_lib}/security/*.la
 rm $RPM_BUILD_ROOT%{_libdir}/*.la
-rm $RPM_BUILD_ROOT%{_libdir}/mate-keyring/*.la
+rm $RPM_BUILD_ROOT%{_libdir}/pkcs11/*.la
 rm $RPM_BUILD_ROOT%{_libdir}/mate-keyring/devel/*.la
 rm $RPM_BUILD_ROOT%{_libdir}/mate-keyring/standalone/*.la
 
@@ -118,14 +122,17 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas
 # LGPL
 %{_libdir}/lib*.so.*
 %dir %{_libdir}/mate-keyring
-%{_libdir}/mate-keyring/mate-keyring-pkcs11.so
+%dir %{_libdir}/mate-keyring/devel
 %{_libdir}/mate-keyring/devel/*.so
-%{_libdir}/mate-keyring/standalone/*.so
+%{_libdir}/mate-keyring/standalone/gkm-secret-store-standalone.so
+%dir %{_libdir}/pkcs11
+%{_libdir}/pkcs11/*.so
 # GPL
-%{_bindir}/*
+%attr(0755,root,root) %caps(cap_ipc_lock=ep) %{_bindir}/mate-keyring-daemon
+%{_bindir}/mate-keyring
 %{_libexecdir}/*
 %{_datadir}/dbus-1/services/*.service
-%{_datadir}/mategcr/ui/*.ui
+%{_datadir}/mategcr
 %{_datadir}/mate-keyring
 %{_sysconfdir}/xdg/autostart/*
 %{_datadir}/MateConf/gsettings/*.convert
@@ -143,8 +150,10 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas
 /%{_lib}/security/pam_mate_keyring.so
 
 
-
 %changelog
+* Fri May 11 2012 Wolfgang Ulbrich <info@raveit.de> - 1.3.0-1
+- update to version 1.3.0
+
 * Thu Mar 15 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
 - update to version 1.2.1
 
