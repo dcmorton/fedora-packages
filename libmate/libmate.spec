@@ -2,10 +2,10 @@
 
 Summary: 		MATE base library
 Name:    		libmate
-Version: 		1.2.0
+Version: 		1.3.0
 Release: 		1%{?dist}
 URL:     		http://http://mate-desktop.org
-Source0: 		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0: 		http://pub.mate-desktop.org/releases/1.3/%{name}-%{version}.tar.xz
 Source1: 		desktop_mate_peripherals_monitor.schemas
 Source2:		fedora-mate-default.xml
 License: 		LGPLv2+
@@ -215,6 +215,9 @@ fi
 
 
 %changelog
+* Mon May 21 2012 Wolfgang Ulbrich <info@raveit.de> - 1.3.0-1
+- update to 1.3.0
+
 * Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - update to 1.2.0 version
 
@@ -235,4 +238,3 @@ fi
 
 * Sat Dec 24 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.2-1
 - libmate.spec based on libgnome-2.32.1-2.fc15.spec
-
