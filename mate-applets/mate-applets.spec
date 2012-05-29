@@ -33,13 +33,14 @@
 
 Summary:        Small applications for the MATE panel
 Name:			mate-applets
-Version:		1.2.2
+Version:		1.2.3
 Release:        1%{?dist}
 License:		GPLv2+ and GFDL
 Group:          User Interface/Desktops
 URL:			http://pub.mate-desktop.org
 Source: 		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
-Patch51:        pymod-check.patch
+Patch0:         mate-applets_mcharmap.patch
+Patch1:         pymod-check.patch
 
 BuildRequires:  glib2-devel >= %{glib2_version}
 BuildRequires:  gtk2-devel >= %{gtk2_version}
@@ -78,6 +79,7 @@ BuildRequires:  libmateweather-devel >= 1.1.0
 BuildRequires:  mate-common
 BuildRequires:  xorg-x11-server-utils
 BuildRequires:  scrollkeeper
+BuildRequires:  upower-devel
 
 Requires:		mate-panel >= %{mate_panel_version}
 Requires:		libxklavier >= %{libxklavier_version}
@@ -100,17 +102,18 @@ and more.
 
 %prep
 %setup -q
-%patch51 -p1 -b .pymod
+%patch0 -p1 -b .mate-applets_mcharmap
+%patch1 -p1 -b .pymod
 NOCONFIGURE=1 ./autogen.sh
 
 %build
+export PKG_CONFIG_PATH="/usr/lib64/pkmateconfig"
 export DISPLAY=:0.0
 xhost +
 
 %configure \
 	--disable-scrollkeeper    \
 	--disable-static          \
-	--disable-scrollkeeper 	\
 	--enable-mixer-applet \
 	--enable-polkit \
 	--enable-ipv6 \
@@ -258,32 +261,33 @@ fi
 
 
 %changelog
-* Tue Apr 25 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.2-1
-- test build
+* Tue May 29 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.3-1
+- update to 1.2.3
+- add mate-applets_mcharmap.patch
 
-* Sun Mar 11 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Sun Mar 11 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0
 
-* Fri Feb 17 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.3-4
+* Fri Feb 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.3-4
 - rebuild for enable builds for .i686
 - disable mini-commander because it doesn't work
 - switch from mate-character-map to mate-charmap
 
-* Thu Feb 02 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.3-3
+* Thu Feb 02 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.3-3
 - fix mate python applets
 
-* Sat Jan 27 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.3-2
+* Sat Jan 27 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.3-2
 - correct mateconf files installation
 
-* Fri Jan 26 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.3-1
+* Fri Jan 26 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.3-1
 - update to version 1.1.3
 - change invest-applet to mate_invest
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-1
 - update to version 1.1.1
 - enable invest-applet
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mateapplets.spec based on gnome-applets-2.32.0-3.fc14 spec
 
 * Mon Jan 03 2011 Adam Williamson <awilliam@redhat.com> - 1:2.32.0-3
