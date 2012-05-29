@@ -2,10 +2,10 @@
 
 Summary: 	Desktop Mate Notification Daemon
 Name: 		mate-notification-daemon
-Version: 	1.2.0
+Version: 	1.3.1
 Release: 	1%{?dist}
 URL: 		http://mate-desktop.org
-Source0: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0: 	http://pub.mate-desktop.org/releases/1.3/%{name}-%{version}.tar.xz
 License: 	GPLv2+
 Group: 		System Environment/Libraries
 Provides: 	desktop-notification-daemon
@@ -17,6 +17,7 @@ BuildRequires: intltool
 BuildRequires: mate-common
 BuildRequires: mate-conf-devel
 BuildRequires: libwnck-devel
+BuildRequires: gtk2-devel
 
 Provides: mate-notification-daemon
 Provides: mate-notification-daemon-engine-slider = %{version}-%{release}
@@ -33,7 +34,8 @@ NOCONFIGURE=1 ./autogen.sh
 
 %build
 %configure \
-	--disable-static
+	--disable-static \
+	--with-gtk=2.0
 
 make %{?_smp_mflags}
 
@@ -81,6 +83,12 @@ fi
 
 
 %changelog
+* Fri May 11 2012 Wolfgang Ulbrich <info@raveit.de> - 1.3.1-1
+- update to version 1.3.1
+
+* Fri May 11 2012 Wolfgang Ulbrich <info@raveit.de> - 1.3.0-1
+- update to version 1.3.0
+
 * Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - update to 1.2.0 version
 
