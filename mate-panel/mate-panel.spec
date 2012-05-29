@@ -19,10 +19,10 @@
 
 Summary: 			MATE panel
 Name: 				mate-panel
-Version: 			1.2.1
-Release: 			2%{?dist}
+Version: 			1.3.0
+Release: 			1%{?dist}
 URL: 				http://pub.mate-desktop.org
-Source0: 			http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0: 			http://pub.mate-desktop.org/releases/1.3/%{name}-%{version}.tar.xz
 Source3: 			redhat-panel-default-setup.entries
 Source4: 			gnome-compiler-flags.m4
 Source5: 			redhat-panel-backwards-compat-config.schemas
@@ -329,6 +329,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor >&/dev/null || :
 
 
 %changelog
+* Mon May 21 2012 Wolfgang Ulbrich <info@raveit.de> - 1.3.0-1
+- update to 1.3.0
+
 * Sat Mar 31 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-2
 - enable introspection
 - fix issue https://github.com/mate-desktop/mate-panel/issues/7

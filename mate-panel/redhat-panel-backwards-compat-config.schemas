@@ -554,7 +554,7 @@ see http://www.mate.org/projects/mateconf/
         <key>/schemas/apps/panel/default_profiles/medium/objects/web_browser_launcher/launcher_location</key>
         <owner>panel</owner>
         <type>string</type>
-        <default>applications:///Internet/redhat-web.desktop</default>
+        <default>applications:///Internet/mozilla-firefox.desktop</default>
         <locale name="C">
           <short></short>
           <long></long>
@@ -664,7 +664,7 @@ see http://www.mate.org/projects/mateconf/
         <key>/schemas/apps/panel/default_profiles/medium/objects/email_launcher/launcher_location</key>
         <owner>panel</owner>
         <type>string</type>
-        <default>applications:///Internet/redhat-email.desktop</default>
+        <default>applications:///Internet/claws-mail.desktop</default>
         <locale name="C">
           <short></short>
           <long></long>
