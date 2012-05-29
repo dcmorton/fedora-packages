@@ -14,7 +14,7 @@
 
 Name:			caja
 Summary:    	File manager for MATE
-Version:		1.2.0
+Version:		1.2.2
 Release:		1%{?dist}
 License:		GPLv2+
 Group:          User Interface/Desktops
@@ -80,6 +80,8 @@ Patch23:	nautilus-578086-po.patch
 
 Patch24: caja_add_location_togglebutton.patch
 
+Patch25: caja_fix_mime_data.patch
+
 
 %description
 Caja is the file manager and graphical shell for the MATE desktop
@@ -112,8 +114,6 @@ for developing caja extensions.
 
 %prep
 %setup -q -n %{name}-%{version}
-
-# let's use the ./autogen.sh hammer for now.
 NOCONFIGURE=1 ./autogen.sh
 
 %patch1 -p1 -b .config
@@ -121,6 +121,7 @@ NOCONFIGURE=1 ./autogen.sh
 %patch17 -p0 -b .symlink
 %patch23 -p1 -b .gu_IN-crash
 %patch24 -p1 -b .add_location_togglebutton
+%patch25 -p1 -b .caja_fix_mime_data
 
 %build
 
@@ -243,37 +244,42 @@ gtk-update-icon-cache %{_datadir}/icons/mate >&/dev/null || :
 
 
 %changelog
-* Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Wed May 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.2-1
+- update to 1.2.2 version
+- add caja_fix_mime_data.patch
+
+* Fri Mar 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0 version
 
-* Fri Mar 02 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.2-8
+* Fri Mar 02 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.2-8
 - fix mock build error
 - add nautilus-filetype-symlink-fix.patch from fedora
 
-* Thu Mar 01 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.2-7
+* Thu Mar 01 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.2-7
 - add caja_add_location_togglebutton.patch
 
-* Fri Feb 24 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.2-6
+* Fri Feb 24 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.2-6
 - revert build error for i686
-* Thu Feb 23 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.2-5
+* Thu Feb 23 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.2-5
 - fixed build error for i686
 - add gnome-disk-utility-libs dependency
 
-* Tue Feb 14 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.2-4
+* Tue Feb 14 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.2-4
 - fix %postun error
 
-* Sun Feb 12 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.2-3
+* Sun Feb 12 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.2-3
 - rebuild for enable builds for .i686
 
-* Tue Jan 17 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.2-2
+* Tue Jan 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.2-2
 - added some patches from nautilus-2.32.0-1.fc14
 - updated to new git version 
 
-* Tue Jan 17 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.2-1
+* Tue Jan 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.2-1
 - updated to 1.1.2 version
 
-* Sun Dec 25 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Sun Dec 25 2011 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-file-manager.spec based on nautilus-2.32.0-1.fc14 spec
 
 * Wed Sep 29 2010 Matthias Clasen <mclasen@redhat.com> - 2.32.0-1
 - Update to 2.32.0
+
