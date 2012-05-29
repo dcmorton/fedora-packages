@@ -1,5 +1,5 @@
 Name:           mate-common
-Version:        1.2.2
+Version:        1.3.0
 Release:        1%{?dist}
 Summary:        mate-common contains useful things common to building mate packages
 
@@ -7,7 +7,7 @@ Group:          Development/Tools
 BuildArch:      noarch
 License:        GPL
 URL: 			http://pub.mate-desktop.org
-Source0:        http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0:        http://pub.mate-desktop.org/releases/1.3/%{name}-%{version}.tar.xz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # This will pull in the latest version; if your package requires something older,
@@ -53,8 +53,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %{_datadir}/aclocal/*
 %{_datadir}/%{name}
+%{_mandir}/
 
 %changelog
+* Mon May 21 2012 Wolfgang Ulbrich <info@raveit.de> - 1.3.0-1
+- update to 1.3.0
+
 * Tue Feb 28 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.2-1
 - update to version 1.2.2
 
