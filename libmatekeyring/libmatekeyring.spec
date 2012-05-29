@@ -4,16 +4,12 @@
 
 Summary: 		Framework for managing passwords and other secrets
 Name:    		libmatekeyring
-Version: 		1.2.0
+Version: 		1.3.0
 Release: 		1%{?dist}
 License: 		GPLv2+ and LGPLv2+
 Group:   		System Environment/Libraries
 Source:  		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 URL:     		http://pub.mate-desktop.org
-
-# gkr_operation_block_and_unref(): assertion failed: (op->pending != pending)
-# https://bugzilla.gnome.org/show_bug.cgi?id=644407
-Patch0: libgnome-keyring-2.91.93-operation-assert.patch
 
 BuildRequires: 	glib2-devel >= %{glib2_version}
 BuildRequires: 	dbus-devel >= %{dbus_version}
@@ -41,13 +37,11 @@ header files needed to develop applications that use libmate-keyring.
 
 %prep
 %setup -q -n libmatekeyring-%{version}
-%patch0 -p1 -b .op-assert
 NOCONFIGURE=1 ./autogen.sh
-
 
 %build
 %configure \
-	--disable-static \
+	--disable-gtk-doc
 	
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
@@ -83,6 +77,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %doc %{_datadir}/gtk-doc/
 
 %changelog
+* Fri May 11 2012 Wolfgang Ulbrich <info@raveit.de> - 1.3.0-1
+- update to version 1.3.0
+
 * Tue Feb 28 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - update to version 1.2.0
 
@@ -98,3 +95,4 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 
 * Fri Mar 11 2011 Tomas Bzatek <tbzatek@redhat.com> - 2.32.0-2
 - Fix an invalid assert checking pending calls (#660407, #665761)
+
