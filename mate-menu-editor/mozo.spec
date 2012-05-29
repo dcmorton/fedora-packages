@@ -2,13 +2,13 @@
 
 Name:           mozo
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Menu editor for the MATE desktop
 
 Group:          Applications/System
 License:        LGPLv2+
 URL:            http://pub.mate-desktop.org
-Source0:        http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0:        %{name}-%{version}.tar.xz
 
 Patch1:         mate-menu-editor-move-and_rename_directorys.patch
 
@@ -77,6 +77,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/icons/hicolor/256x256/apps/mozo.png
 
 %changelog
+* Tue Apr 12 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-2
+- rebuild for python-mate-mateconf
+
 * Wed Mar 14 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - update to version 1.2.0
 
