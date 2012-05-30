@@ -20,7 +20,7 @@
 Summary: 	The MATE Display Manager
 Name: 		mdm
 Version: 	1.1.1
-Release: 	9%{?dist}
+Release: 	10%{?dist}
 License: 	GPLv2+
 Group: 		User Interface/X
 URL: 		https://github.com/mate-desktop/mate-display-manager
@@ -114,7 +114,6 @@ Patch105: mdm_remove_at-spi-registryd-wrapper.patch
 Patch106: mdm_remove_gok_desktopfile.patch
 Patch107: mdm_remove_orca-screen-reader_desktopfile.patch
 Patch108: mdm_remove_mate-mag_desktopfile.patch
-Patch109: mdm_first_background_patch.patch
 
 %package user-switch-applet
 Summary:   MDM User Switcher Panel Applet
@@ -162,7 +161,6 @@ The MDM fingerprint plugin provides functionality necessary to use a fingerprint
 %patch106 -p1 -b .mdm_remove_gok_desktopfile
 %patch107 -p1 -b .mdm_remove_orca-screen-reader_desktopfile
 %patch108 -p1 -b .mdm_remove_mate-mag_desktopfile.patch
-%patch109 -p1 -b .mdm_first_background_patch
 NOCONFIGURE=1 ./autogen.sh
 
 %build
@@ -322,11 +320,6 @@ if [ $1 -eq 0 ]; then
   touch --no-create %{_datadir}/icons/hicolor >&/dev/null || :
   gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/ull || :
 fi
-# for fc17
-#systemctl stop console-kit-daemon.service
-#systemctl disable console-kit-daemon.service
-#systemctl stop accounts-daemon.service
-#systemctl disable accounts-daemon.service
 
 %posttrans
 gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/ull || :
@@ -415,46 +408,49 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/ull || :
 
 
 %changelog
-* Tue Apr 24 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-9
+* Sun May 06 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-10
+- rebuild for remove mate_bg_crossfade
+
+* Tue Apr 24 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-9
 - reverted back to 1.1.1-7
 
 - fix black background issue http://forums.mate-desktop.org/viewtopic.php?f=8&t=26&sid=96199482be5e45af6b663ab52c9e4d41
 - remove mdm_first_background_patch.patch
 - fix reboot/stop button issue in fc17
 
-* Wed Apr 18 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-7
+* Wed Apr 18 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-7
 - remove mdm_numlock_on.patch, it's upstream to git
 - remove at-spi-registryd-wrapper- it slow down mdm start
 - remove gok.desktop file
 - orca-screen-reader.desktop file
 - mate-mag.desktop file
 
-* Fri Apr 06 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-6
+* Fri Apr 06 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-6
 - add numlock patch
 
-* Sat Mar 25 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-5
+* Sat Mar 25 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-5
 - remove gnome-keyring dependency
 
-* Sat Mar 10 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-4
+* Sat Mar 10 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-4
 - add gnome-keyring to mdm pam files
 - add mdm_first_background_patch.patch
 
-* Tue Mar 06 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-3
+* Tue Mar 06 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-3
 - fix mate-keyring login issue
 
-* Tue Feb 21 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-2
+* Tue Feb 21 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-2
 - rebuild for enable builds for .i686
 
-* Tue Feb 07 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-1
+* Tue Feb 07 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-1
 - update version
 
-* Mon Feb 06 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-3
+* Mon Feb 06 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-3
 -test for mate-accountsservice
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - insert some patches from gdm fedora 14
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mdm.spec based on gdm-2.32.0-1.fc14 spec
 
 * Thu Sep 30 2010 Ray Strode <rstrode@redhat.com> 2.32.0-1
