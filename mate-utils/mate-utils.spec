@@ -9,7 +9,7 @@
 
 Name:           mate-utils
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MATE utility programs
 
 Group:          Applications/System
@@ -278,6 +278,9 @@ fi
 %{_mandir}/man1/mate-system-log.1.gz
 
 %changelog
+* Wed May 30 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-2
+- rebuild for remove mate_bg_crossfade
+
 * Mon Mar 12 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - update to 1.2.0
 
