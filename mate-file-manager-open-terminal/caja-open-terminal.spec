@@ -1,6 +1,6 @@
 Name:           caja-open-terminal
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Caja extension for an open terminal shortcut
 
 Group:          User Interface/Desktops
@@ -77,13 +77,16 @@ fi
 %{_libdir}/caja/extensions-2.0/*.so*
 
 %changelog
-* Thu Mar 15 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Wed May 30 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-2
+- rebuild for remove mate_bg_crossfade
+
+* Thu Mar 15 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0
 
-* Mon Feb 13 2012 Wolfgang Ulbrich <info@raveit.de> - caja-open-terminal-1.1.0-2
+* Mon Feb 13 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - caja-open-terminal-1.1.0-2
 - rebuild for enable builds for .i686
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - caja-open-terminal.spec based on nautilus-open-terminal-0.19-1.fc15 spec
 
 * Tue Feb 22 2011 Cosimo Cecchi <cosimoc@redhat.com> - 0.19-1
