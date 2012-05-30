@@ -1,0 +1,502 @@
+diff -upr caja-1.2.2-orig/eel/eel-background.c caja-1.2.2/eel/eel-background.c
+--- caja-1.2.2-orig/eel/eel-background.c	2012-05-09 18:15:51.000000000 +0200
++++ caja-1.2.2/eel/eel-background.c	2012-05-27 18:14:42.000000000 +0200
+@@ -37,7 +37,6 @@
+ #include <gtk/gtk.h>
+ #include <eel/eel-canvas.h>
+ #include <eel/eel-canvas-util.h>
+-#include <gdk/gdkx.h>
+ #include <gio/gio.h>
+ #include <math.h>
+ #include <stdio.h>
+@@ -54,9 +53,6 @@ static GdkPixmap *eel_background_get_pix
+ 
+ static void set_image_properties (EelBackground *background);
+ 
+-static void init_fade (EelBackground *background, GtkWidget *widget);
+-static void free_fade (EelBackground *background);
+-
+ EEL_CLASS_BOILERPLATE (EelBackground, eel_background, GTK_TYPE_OBJECT)
+ 
+ enum
+@@ -79,12 +75,9 @@ struct EelBackgroundDetails
+     char *color;
+ 
+     MateBG *bg;
+-    GtkWidget *widget;
+ 
+     /* Realized data: */
+     GdkPixmap *background_pixmap;
+-    gboolean background_pixmap_is_unset_root_pixmap;
+-    MateBGCrossfade *fade;
+     int background_entire_width;
+     int background_entire_height;
+     GdkColor default_color;
+@@ -99,7 +92,6 @@ struct EelBackgroundDetails
+     gulong screen_monitors_handler;
+     /* Can we use common pixmap for root window and desktop window */
+     gboolean use_common_pixmap;
+-    guint change_idle_id;
+ 
+     /* activity status */
+     gboolean is_active;
+@@ -151,15 +143,6 @@ eel_background_class_init (gpointer klas
+ static void
+ on_bg_changed (MateBG *bg, EelBackground *background)
+ {
+-    init_fade (background, background->details->widget);
+-    g_signal_emit (G_OBJECT (background),
+-                   signals[APPEARANCE_CHANGED], 0);
+-}
+-
+-static void
+-on_bg_transitioned (MateBG *bg, EelBackground *background)
+-{
+-    free_fade (background);
+     g_signal_emit (G_OBJECT (background),
+                    signals[APPEARANCE_CHANGED], 0);
+ }
+@@ -180,8 +163,6 @@ eel_background_init (gpointer object, gp
+ 
+     g_signal_connect (background->details->bg, "changed",
+                       G_CALLBACK (on_bg_changed), background);
+-    g_signal_connect (background->details->bg, "transitioned",
+-                      G_CALLBACK (on_bg_transitioned), background);
+ 
+ }
+ 
+@@ -201,41 +182,6 @@ eel_background_remove_current_image (Eel
+ }
+ 
+ static void
+-free_fade (EelBackground *background)
+-{
+-    if (background->details->fade != NULL)
+-    {
+-        g_object_unref (background->details->fade);
+-        background->details->fade = NULL;
+-    }
+-}
+-
+-static void
+-free_background_pixmap (EelBackground *background)
+-{
+-    GdkDisplay *display;
+-    GdkPixmap *pixmap;
+-
+-    pixmap = background->details->background_pixmap;
+-    if (pixmap != NULL)
+-    {
+-        /* If we created a root pixmap and didn't set it as background
+-           it will live forever, so we need to kill it manually.
+-           If set as root background it will be killed next time the
+-           background is changed. */
+-        if (background->details->background_pixmap_is_unset_root_pixmap)
+-        {
+-            display = gdk_drawable_get_display (GDK_DRAWABLE (pixmap));
+-            XKillClient (GDK_DISPLAY_XDISPLAY (display),
+-                         GDK_PIXMAP_XID (pixmap));
+-        }
+-        g_object_unref (pixmap);
+-        background->details->background_pixmap = NULL;
+-    }
+-}
+-
+-
+-static void
+ eel_background_finalize (GObject *object)
+ {
+     EelBackground *background;
+@@ -245,9 +191,11 @@ eel_background_finalize (GObject *object
+     g_free (background->details->color);
+     eel_background_remove_current_image (background);
+ 
+-    free_background_pixmap (background);
+-
+-    free_fade (background);
++    if (background->details->background_pixmap != NULL)
++    {
++		g_object_unref (background->details->background_pixmap);
++		background->details->background_pixmap = NULL;
++    }
+ 
+     g_free (background->details);
+ 
+@@ -325,7 +273,11 @@ eel_background_new (void)
+ static void
+ eel_background_unrealize (EelBackground *background)
+ {
+-    free_background_pixmap (background);
++    if (background->details->background_pixmap != NULL)
++    {
++		g_object_unref (background->details->background_pixmap);
++		background->details->background_pixmap = NULL;
++    }
+ 
+     background->details->background_entire_width = 0;
+     background->details->background_entire_height = 0;
+@@ -400,7 +352,11 @@ eel_background_ensure_realized (EelBackg
+         return FALSE;
+     }
+ 
+-    free_background_pixmap (background);
++    if (background->details->background_pixmap != NULL)
++    {
++		g_object_unref (background->details->background_pixmap);
++		background->details->background_pixmap = NULL;
++    }
+ 
+     changed = FALSE;
+ 
+@@ -410,12 +366,7 @@ eel_background_ensure_realized (EelBackg
+             window,
+             entire_width, entire_height,
+             background->details->is_desktop);
+-    background->details->background_pixmap_is_unset_root_pixmap = background->details->is_desktop;
+ 
+-    /* We got the pixmap and everything, so we don't care about a change
+-       that is pending (unless things actually change after this time) */
+-    g_object_set_data (G_OBJECT (background->details->bg),
+-                       "ignore-pending-change", GINT_TO_POINTER (TRUE));
+     changed = TRUE;
+ 
+ 
+@@ -726,71 +677,11 @@ eel_background_reset (EelBackground *bac
+ }
+ 
+ static void
+-set_root_pixmap (EelBackground *background,
+-                 GdkWindow     *window)
+-{
+-    GdkPixmap *pixmap, *root_pixmap;
+-    GdkScreen *screen;
+-    GdkColor color;
+-
+-    pixmap = eel_background_get_pixmap_and_color (background,
+-             window,
+-             &color);
+-    screen = gdk_drawable_get_screen (window);
+-
+-    if (background->details->use_common_pixmap)
+-    {
+-        background->details->background_pixmap_is_unset_root_pixmap = FALSE;
+-        root_pixmap = g_object_ref (pixmap);
+-    }
+-    else
+-    {
+-        root_pixmap = mate_bg_create_pixmap (background->details->bg, window,
+-                                             gdk_screen_get_width (screen), gdk_screen_get_height (screen), TRUE);
+-    }
+-
+-    mate_bg_set_pixmap_as_root (screen, pixmap);
+-
+-    g_object_unref (pixmap);
+-    g_object_unref (root_pixmap);
+-}
+-
+-static gboolean
+-fade_to_pixmap (EelBackground *background,
+-                GdkWindow     *window,
+-                GdkPixmap     *pixmap)
+-{
+-    if (background->details->fade == NULL)
+-    {
+-        return FALSE;
+-    }
+-
+-    if (!mate_bg_crossfade_set_end_pixmap (background->details->fade,
+-                                           pixmap))
+-    {
+-        return FALSE;
+-    }
+-
+-    if (!mate_bg_crossfade_is_started (background->details->fade))
+-    {
+-        mate_bg_crossfade_start (background->details->fade, window);
+-        if (background->details->is_desktop)
+-        {
+-            g_signal_connect_swapped (background->details->fade,
+-                                      "finished",
+-                                      G_CALLBACK (set_root_pixmap), background);
+-        }
+-    }
+-
+-    return mate_bg_crossfade_is_started (background->details->fade);
+-}
+-
+-
+-static void
+ eel_background_set_up_widget (EelBackground *background, GtkWidget *widget)
+ {
+     GtkStyle *style;
+     GdkPixmap *pixmap;
++    GdkPixmap *root_pixmap;
+     GdkColor color;
+ 
+     int window_width;
+@@ -798,7 +689,6 @@ eel_background_set_up_widget (EelBackgro
+ 
+     GdkWindow *window;
+     GdkWindow *widget_window;
+-    gboolean in_fade;
+ 
+     if (!gtk_widget_get_realized (widget))
+     {
+@@ -824,32 +714,36 @@ eel_background_set_up_widget (EelBackgro
+     {
+         window = widget_window;
+     }
+-
+-    if (background->details->fade != NULL)
+-    {
+-        in_fade = fade_to_pixmap (background, window, pixmap);
+-    }
+-    else
+-    {
+-        in_fade = FALSE;
+-    }
+-
+-    if (!in_fade)
+     {
+         if (background->details->is_desktop)
+-        {
+-            gdk_window_set_back_pixmap (window, pixmap, FALSE);
+-        }
+-        else
+-        {
+-            gdk_window_set_background (window, &color);
+-            gdk_window_set_back_pixmap (window, pixmap, FALSE);
++	{
++		gdk_window_set_back_pixmap (window, pixmap, FALSE);
++	}
++	else
++	{
++		gdk_window_set_back_pixmap (window, NULL, FALSE);
++		gdk_window_set_background (window, &color);
+         }
+-    }
+ 
+-    if (background->details->is_desktop && !in_fade)
+-    {
+-        set_root_pixmap (background, window);
++
++	if (background->details->is_desktop)
++	{
++
++		root_pixmap = NULL;
++
++		if (background->details->use_common_pixmap)
++		{
++			root_pixmap = g_object_ref (pixmap);
++		}
++		else
++		{
++			root_pixmap = mate_bg_create_pixmap (background->details->bg, window,
++							window_width, window_height, TRUE);
++		}
++
++		mate_bg_set_pixmap_as_root (gdk_drawable_get_screen (window), root_pixmap);
++		g_object_unref (root_pixmap);
++	}
+     }
+ 
+     if (pixmap)
+@@ -858,95 +752,13 @@ eel_background_set_up_widget (EelBackgro
+     }
+ }
+ 
+-static gboolean
+-on_background_changed (EelBackground *background)
+-{
+-    if (background->details->change_idle_id == 0)
+-    {
+-        return FALSE;
+-    }
+-
+-    background->details->change_idle_id = 0;
+-
+-    eel_background_unrealize (background);
+-    eel_background_set_up_widget (background, background->details->widget);
+-
+-    gtk_widget_queue_draw (background->details->widget);
+-
+-    return FALSE;
+-}
+-
+ static void
+-init_fade (EelBackground *background, GtkWidget *widget)
++eel_widget_background_changed (GtkWidget *widget, EelBackground *background)
+ {
+-    if (widget == NULL || !gtk_widget_get_realized (widget))
+-        return;
+-
+-    if (!background->details->is_desktop)
+-    {
+-        return;
+-    }
+-
+-    if (background->details->fade == NULL)
+-    {
+-        GdkWindow *window;
+-        int old_width, old_height, width, height;
+-
+-        /* If this was the result of a screen size change,
+-         * we don't want to crossfade
+-         */
+-        window = gtk_widget_get_window (widget);
+-
+-#if GTK_CHECK_VERSION(3, 0, 0)
+-        old_width = gdk_window_get_width(GDK_WINDOW(window));
+-        old_height = gdk_window_get_height(GDK_WINDOW(window));
+-#else
+-        gdk_drawable_get_size(window, &old_width, &old_height);
+-#endif
+-
+-        drawable_get_adjusted_size (background, window,
+-                                    &width, &height);
+-        if (old_width == width && old_height == height)
+-        {
+-            background->details->fade = mate_bg_crossfade_new (width, height);
+-            g_signal_connect_swapped (background->details->fade,
+-                                      "finished",
+-                                      G_CALLBACK (free_fade),
+-                                      background);
+-        }
+-    }
+-
+-    if (background->details->fade != NULL && !mate_bg_crossfade_is_started (background->details->fade))
+-    {
+-        GdkPixmap *start_pixmap;
+-
+-        if (background->details->background_pixmap == NULL)
+-        {
+-            start_pixmap = mate_bg_get_pixmap_from_root (gtk_widget_get_screen (widget));
+-        }
+-        else
+-        {
+-            start_pixmap = g_object_ref (background->details->background_pixmap);
+-        }
+-        mate_bg_crossfade_set_start_pixmap (background->details->fade,
+-                                            start_pixmap);
+-        g_object_unref (start_pixmap);
+-    }
+-}
+-
+-static void
+-eel_widget_queue_background_change (GtkWidget *widget)
+-{
+-    EelBackground *background;
+-
+-    background = eel_get_widget_background (widget);
+-
+-    if (background->details->change_idle_id > 0)
+-    {
+-        return;
+-    }
++    eel_background_unrealize (background);
++    eel_background_set_up_widget (background, widget);
+ 
+-    background->details->change_idle_id = g_idle_add ((GSourceFunc) on_background_changed, background);
++    gtk_widget_queue_draw (widget);
+ }
+ 
+ /* Callback used when the style of a widget changes.  We have to regenerate its
+@@ -961,7 +773,7 @@ widget_style_set_cb (GtkWidget *widget,
+ 
+     if (previous_style != NULL)
+     {
+-        eel_widget_queue_background_change (widget);
++        eel_widget_background_changed (widget, background);
+     }
+ }
+ 
+@@ -1018,7 +830,6 @@ widget_realized_setup (GtkWidget *widget
+             background->details->use_common_pixmap = FALSE;
+         }
+ 
+-        init_fade (background, widget);
+     }
+ }
+ 
+@@ -1074,18 +885,6 @@ eel_background_is_desktop (EelBackground
+     return background->details->is_desktop;
+ }
+ 
+-static void
+-on_widget_destroyed (GtkWidget *widget, EelBackground *background)
+-{
+-    if (background->details->change_idle_id != 0)
+-    {
+-        g_source_remove (background->details->change_idle_id);
+-        background->details->change_idle_id = 0;
+-    }
+-
+-    background->details->widget = NULL;
+-}
+-
+ /* Gets the background attached to a widget.
+ 
+    If the widget doesn't already have a EelBackground object,
+@@ -1121,13 +920,11 @@ eel_get_widget_background (GtkWidget *wi
+     g_object_ref_sink (background);
+     g_object_set_data_full (G_OBJECT (widget), "eel_background",
+                             background, g_object_unref);
+-    background->details->widget = widget;
+-    g_signal_connect_object (widget, "destroy", G_CALLBACK (on_widget_destroyed), background, 0);
+ 
+     /* Arrange to get the signal whenever the background changes. */
+     g_signal_connect_object (background, "appearance_changed",
+-                             G_CALLBACK (eel_widget_queue_background_change), widget, G_CONNECT_SWAPPED);
+-    eel_widget_queue_background_change (widget);
++                             G_CALLBACK (eel_widget_background_changed), widget, G_CONNECT_SWAPPED);
++    eel_widget_background_changed (widget, background);
+ 
+     g_signal_connect_object (widget, "style_set",
+                              G_CALLBACK (widget_style_set_cb),
+diff -upr caja-1.2.2-orig/src/caja-window-slot.c caja-1.2.2/src/caja-window-slot.c
+--- caja-1.2.2-orig/src/caja-window-slot.c	2012-05-09 18:15:51.000000000 +0200
++++ caja-1.2.2/src/caja-window-slot.c	2012-05-27 16:51:07.000000000 +0200
+@@ -634,22 +634,6 @@ caja_window_slot_dispose (GObject *objec
+ 
+     slot = CAJA_WINDOW_SLOT (object);
+ 
+-    if (slot->content_view)
+-    {
+-        widget = caja_view_get_widget (slot->content_view);
+-        gtk_widget_destroy (widget);
+-        g_object_unref (slot->content_view);
+-        slot->content_view = NULL;
+-    }
+-
+-    if (slot->new_content_view)
+-    {
+-        widget = caja_view_get_widget (slot->new_content_view);
+-        gtk_widget_destroy (widget);
+-        g_object_unref (slot->new_content_view);
+-        slot->new_content_view = NULL;
+-    }
+-
+     caja_window_slot_set_viewed_file (slot, NULL);
+     /* TODO? why do we unref here? the file is NULL.
+      * It was already here before the slot move, though */
+@@ -682,6 +666,20 @@ caja_window_slot_dispose (GObject *objec
+         slot->find_mount_cancellable = NULL;
+     }
+ 
++    if (slot->content_view) {
++    widget = caja_view_get_widget (slot->content_view);
++    gtk_widget_destroy (widget);
++    g_object_unref (slot->content_view);
++    slot->content_view = NULL;
++    }
++
++    if (slot->new_content_view) {
++    widget = caja_view_get_widget (slot->new_content_view);
++    gtk_widget_destroy (widget);
++    g_object_unref (slot->new_content_view);
++    slot->new_content_view = NULL;
++    }
++
+     slot->pane = NULL;
+ 
+     g_free (slot->title);

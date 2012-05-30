@@ -15,7 +15,7 @@
 Name:			caja
 Summary:    	File manager for MATE
 Version:		1.2.2
-Release:		1%{?dist}
+Release:		2%{?dist}
 License:		GPLv2+
 Group:          User Interface/Desktops
 Source:			http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
@@ -82,6 +82,8 @@ Patch24: caja_add_location_togglebutton.patch
 
 Patch25: caja_fix_mime_data.patch
 
+Patch26: caja_remove_mate-bg-crossfade.patch
+
 
 %description
 Caja is the file manager and graphical shell for the MATE desktop
@@ -122,6 +124,7 @@ NOCONFIGURE=1 ./autogen.sh
 %patch23 -p1 -b .gu_IN-crash
 %patch24 -p1 -b .add_location_togglebutton
 %patch25 -p1 -b .caja_fix_mime_data
+%patch26 -p1 -b .caja_remove_mate-bg-crossfade.patch
 
 %build
 
@@ -244,6 +247,9 @@ gtk-update-icon-cache %{_datadir}/icons/mate >&/dev/null || :
 
 
 %changelog
+* Wed May 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.2-2
+- add caja_remove_mate-bg-crossfade.patch
+
 * Wed May 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.2-1
 - update to 1.2.2 version
 - add caja_fix_mime_data.patch
