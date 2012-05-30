@@ -8,7 +8,7 @@
 Summary: 	MATE session manager
 Name: 		mate-session
 Version: 	1.2.0
-Release: 	1%{?dist}
+Release: 	2%{?dist}
 URL: 		http://pub.mate-desktop.org
 Source0: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 License: 	GPLv2+
@@ -85,7 +85,7 @@ Desktop file to add MATE to display manager session menu.
 %patch3 -p1 -b .max-idle
 %patch4 -p1 -b .nag-root-user
 %patch7 -p1 -b .cflags
-./autogen.sh
+NOCONFIGURE=1 ./autogen.sh
 
 %build
 
@@ -153,20 +153,23 @@ fi
 
 
 %changelog
-* Sun Mar 11 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Wed May 30 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-2
+- rebuild for remove mate_bg_crossfade
+
+* Sun Mar 11 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0
 
-* Tue Feb 21 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.2-3
+* Tue Feb 21 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.2-3
 - rebuild for enable builds for .i686
 - enable last missing fedora patch
 
-* Tue Jan 17 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.2-2
+* Tue Jan 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.2-2
 - added fedora patches from gnome-session-2.32.0-1.fc14
 
-* Tue Jan 17 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.2-1
+* Tue Jan 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.2-1
 - updated to 1.1.2 version
 
-* Sun Dec 25 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Sun Dec 25 2011 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-file-manager.spec based on gnome-session-2.32.0-1.fc14 spec
 
 * Thu Sep 30 2010 Matthias Clasen <mclasen@redhat.com> - 2.32.0-1
