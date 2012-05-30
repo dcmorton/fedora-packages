@@ -18,11 +18,11 @@
 Summary: 	Utilities to configure the Mate desktop
 Name: 		mate-control-center
 Version: 	1.2.1
-Release: 	1%{?dist}
+Release: 	2%{?dist}
 License: 	GPLv2+ and GFDL
 Group: 		User Interface/Desktops
 Source: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
-URL: 		http://mate-desktop.org
+URL: 		http://pub.mate-desktop.org
 
 Patch0: mate-control-center_add_audacious_to_default-applications.patch
 Patch1: mate-control-center_add_videoplayers_to_default-applications.patch
@@ -255,19 +255,22 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 
 
 %changelog
-* Tue Mar 27 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+* Wed May 30 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-2
+- rebuild for remove mate_bg_crossfade
+
+* Tue Mar 27 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-1
 - update to 1.2.1
 
-* Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Fri Mar 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0 version
 
-* Mon Mar 05 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-3
+* Mon Mar 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-3
 - add default applications
 
-* Fri Feb 17 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Fri Feb 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - rebuild for enable builds for .i686
 
-* Sun Dec 25 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Sun Dec 25 2011 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-control-center.spec based on control-center-2.32.0-1.fc14 spec
 
 * Thu Sep 30 2010 Matthias Clasen <mclasen@redhat.com> - 2.32.0-1
