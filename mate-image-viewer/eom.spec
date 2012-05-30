@@ -12,9 +12,9 @@
 Summary: 	Eye of MATE image viewer
 Name:    	eom
 Version: 	1.2.0
-Release: 	1%{?dist}
+Release: 	2%{?dist}
 URL: 		http://pub.mate-desktop.org
-Source: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.gz
+Source: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 		# The GFDL has an "or later version" clause embedded inside the license.
 		# There is no need to add the + here.
 License: 	GPLv2+ and GFDL
@@ -56,7 +56,7 @@ Requires(postun): desktop-file-utils >= %{desktop_file_utils_version}
 Patch1: eog-statusbar-date-race.patch
 
 %description
-The Eye of MATE image viewer (eog) is the official image viewer for the
+The Eye of MATE image viewer (eom) is the official image viewer for the
 MATE desktop. It can view single image files in a variety of formats, as
 well as large image collections.
 
@@ -171,22 +171,26 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %{_libdir}/pkgconfig/eom.pc
 
 %changelog
-* Thu Mar 08 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Wed May 30 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-2
+- rebuild for remove mate_bg_crossfade
+
+* Thu Mar 08 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to version 1.2
 
-* Fri Mar 02 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-4
+* Fri Mar 02 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-4
 - fix mock build error
 
-* Sat Feb 11 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-3
+* Sat Feb 11 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-3
 - rebuild for enable builds for .i686
 - enable fedora patches
 
-* Sat Feb 11 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Sat Feb 11 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - correct %preun error
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - eom.spec based on eog-2.32.0-3.fc14 spec
 
 * Tue Dec  7 2010 Siddhesh Poyarekar <siddhesh@redhat.com> 2.32.0-3
 - Workaround concurrency issue with statusbar-date plugin
   (bz #602412, gnome bz #622161)
+
