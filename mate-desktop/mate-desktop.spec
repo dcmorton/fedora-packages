@@ -3,7 +3,7 @@
 Summary: 	Shared code among gnome-panel, gnome-session, nautilus, etc
 Name: 		mate-desktop
 Version: 	1.2.0
-Release: 	3%{?dist}
+Release: 	4%{?dist}
 URL: 		https://github.com/NiceandGently/mate-desktop
 Source0: 	https://github.com/downloads/NiceandGently/mate-desktop/%{name}-%{version}.tar.xz
 
@@ -30,6 +30,7 @@ BuildRequires: intltool
 # Upstream fixes
 Patch0: 0001-bgo-629168-Don-t-read-past-the-end-of-a-string-mate.patch
 Patch1: 0001-Fix-possible-double-free-when-destroying-private-win.patch
+Patch2: mate-desktop_remove_mate-bg-crossfade.patch
 
 %description
 The mate-desktop package contains an internal library
@@ -51,6 +52,7 @@ libmatedesktop.
 %setup -q
 %patch0 -p1 -b .pnp
 %patch1 -p1 -b .double-free
+%patch2 -p1 -b .mate-desktop_remove_mate-bg-crossfade
 NOCONFIGURE=1 ./autogen.sh
 
 %build
@@ -104,6 +106,9 @@ mv -f $RPM_BUILD_ROOT%{_datadir}/omf/lgpl $RPM_BUILD_ROOT%{_datadir}/omf/mate
 
 
 %changelog
+* Sun May 27 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-4
+- add mate-desktop_remove_mate-bg-crossfade.patch
+
 * Mon Apr 30 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-3
 - switch back to mate original source
 

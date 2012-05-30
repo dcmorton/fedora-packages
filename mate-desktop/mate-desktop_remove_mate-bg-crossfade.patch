@@ -1,0 +1,472 @@
+diff -upr mate-desktop-1.2.0-orig/libmate-desktop/libmateui/Makefile.am mate-desktop-1.2.0/libmate-desktop/libmateui/Makefile.am
+--- mate-desktop-1.2.0-orig/libmate-desktop/libmateui/Makefile.am	2012-02-23 12:42:36.000000000 +0100
++++ mate-desktop-1.2.0/libmate-desktop/libmateui/Makefile.am	2012-05-27 20:54:35.000000000 +0200
+@@ -1,7 +1,6 @@
+ libmateui_desktopdir = $(includedir)/mate-desktop-2.0/libmateui
+ libmateui_desktop_HEADERS =	\
+ 	mate-bg.h		\
+-	mate-bg-crossfade.h	\
+ 	mate-desktop-thumbnail.h \
+ 	mate-rr.h		\
+ 	mate-rr-config.h	\
+diff -upr mate-desktop-1.2.0-orig/libmate-desktop/libmateui/mate-bg.h mate-desktop-1.2.0/libmate-desktop/libmateui/mate-bg.h
+--- mate-desktop-1.2.0-orig/libmate-desktop/libmateui/mate-bg.h	2012-02-23 12:42:36.000000000 +0100
++++ mate-desktop-1.2.0/libmate-desktop/libmateui/mate-bg.h	2012-05-27 21:21:26.000000000 +0200
+@@ -32,7 +32,6 @@
+ #include <gdk/gdk.h>
+ #include <mateconf/mateconf-client.h>
+ #include <libmateui/mate-desktop-thumbnail.h>
+-#include <libmateui/mate-bg-crossfade.h>
+ 
+ #ifdef __cplusplus
+ extern "C" {
+@@ -94,11 +93,7 @@ void             mate_bg_draw
+ 						 GdkScreen	       *screen,
+                                                  gboolean               is_root);
+ 
+-#if GTK_CHECK_VERSION(3, 0, 0)
+-	cairo_surface_t* mate_bg_create_pixmap(MateBG* bg, GdkWindow* window, int width, int height, gboolean root);
+-#else
+-	GdkPixmap* mate_bg_create_pixmap(MateBG* bg, GdkWindow* window, int width, int height, gboolean root);
+-#endif
++GdkPixmap* mate_bg_create_pixmap(MateBG* bg, GdkWindow* window, int width, int height, gboolean root);
+ 
+ gboolean         mate_bg_get_image_size        (MateBG               *bg,
+ 						 MateDesktopThumbnailFactory *factory,
+@@ -128,15 +123,7 @@ GdkPixbuf *      mate_bg_create_frame_th
+  * these object methods, drop mate_bg_create_pixmap, etc.
+  */
+ 
+-#if GTK_CHECK_VERSION(3, 0, 0)
+-	void mate_bg_set_pixmap_as_root(GdkScreen* screen, cairo_surface_t* pixmap);
+-	MateBGCrossfade* mate_bg_set_pixmap_as_root_with_crossfade(GdkScreen* screen, cairo_surface_t* pixmap);
+-	cairo_surface_t* mate_bg_get_pixmap_from_root(GdkScreen* screen);
+-#else
+-	void mate_bg_set_pixmap_as_root(GdkScreen* screen, GdkPixmap* pixmap);
+-	MateBGCrossfade* mate_bg_set_pixmap_as_root_with_crossfade(GdkScreen* screen, GdkPixmap* pixmap);
+-	GdkPixmap* mate_bg_get_pixmap_from_root(GdkScreen* screen);
+-#endif
++void mate_bg_set_pixmap_as_root(GdkScreen* screen, GdkPixmap* pixmap);
+ 
+ #ifdef __cplusplus
+ }
+diff -upr mate-desktop-1.2.0-orig/libmate-desktop/Makefile.am mate-desktop-1.2.0/libmate-desktop/Makefile.am
+--- mate-desktop-1.2.0-orig/libmate-desktop/Makefile.am	2012-02-23 12:42:36.000000000 +0100
++++ mate-desktop-1.2.0/libmate-desktop/Makefile.am	2012-05-27 20:54:17.000000000 +0200
+@@ -18,7 +18,6 @@ libmate_desktop_2_la_SOURCES = \
+ 	mate-desktop-thumbnail.c \
+ 	mate-thumbnail-pixbuf-utils.c \
+ 	mate-bg.c		\
+-	mate-bg-crossfade.c	\
+ 	display-name.c		\
+ 	mate-rr.c		\
+ 	mate-rr-config.c	\
+diff -upr mate-desktop-1.2.0-orig/libmate-desktop/mate-bg.c mate-desktop-1.2.0/libmate-desktop/mate-bg.c
+--- mate-desktop-1.2.0-orig/libmate-desktop/mate-bg.c	2012-02-23 12:42:36.000000000 +0100
++++ mate-desktop-1.2.0/libmate-desktop/mate-bg.c	2012-05-27 22:02:12.000000000 +0200
+@@ -39,13 +39,10 @@ Author: Soren Sandmann <sandmann@redhat.
+ #include <X11/Xlib.h>
+ #include <X11/Xatom.h>
+ 
+-#include <cairo.h>
+-
+ #include <mateconf/mateconf-client.h>
+ 
+ #define MATE_DESKTOP_USE_UNSTABLE_API
+ #include <libmateui/mate-bg.h>
+-#include <libmateui/mate-bg-crossfade.h>
+ 
+ #define BG_KEY_DRAW_BACKGROUND    MATE_BG_KEY_DIR "/draw_background"
+ #define BG_KEY_PRIMARY_COLOR      MATE_BG_KEY_DIR "/primary_color"
+@@ -129,11 +126,7 @@ static guint signals[N_SIGNALS] = {0};
+ 
+ G_DEFINE_TYPE(MateBG, mate_bg, G_TYPE_OBJECT)
+ 
+-#if GTK_CHECK_VERSION(3, 0, 0)
+-	static cairo_surface_t* make_root_pixmap(GdkScreen* screen, gint width, gint height);
+-#else
+-	static GdkPixmap* make_root_pixmap(GdkScreen* screen, gint width, gint height);
+-#endif
++static GdkPixmap* make_root_pixmap(GdkScreen* screen, gint width, gint height);
+ 
+ /* Pixbuf utils */
+ static guint32    pixbuf_average_value (GdkPixbuf  *pixbuf);
+@@ -144,11 +137,7 @@ static GdkPixbuf *pixbuf_scale_to_min  (
+ 					int         min_width,
+ 					int         min_height);
+ 
+-#if GTK_CHECK_VERSION(3, 0, 0)
+-	static void pixbuf_draw_gradient(GdkPixbuf* pixbuf, gboolean horizontal, GdkColor* c1, GdkColor* c2, cairo_rectangle_int_t* rect);
+-#else
+-	static void pixbuf_draw_gradient(GdkPixbuf* pixbuf, gboolean horizontal, GdkColor* c1, GdkColor* c2, GdkRectangle* rect);
+-#endif
++static void pixbuf_draw_gradient(GdkPixbuf* pixbuf, gboolean horizontal, GdkColor* c1, GdkColor* c2, GdkRectangle* rect);
+ 
+ 
+ static void       pixbuf_tile          (GdkPixbuf  *src,
+@@ -643,19 +632,11 @@ mate_bg_set_filename (MateBG     *bg,
+ 	}
+ }
+ 
+-#if GTK_CHECK_VERSION(3, 0, 0)
+-	static void draw_color_area(MateBG* bg, GdkPixbuf* dest, cairo_rectangle_int_t* rect)
+-#else
+-	static void draw_color_area(MateBG* bg, GdkPixbuf* dest, GdkRectangle* rect)
+-#endif
++static void draw_color_area(MateBG* bg, GdkPixbuf* dest, GdkRectangle* rect)
+ {
+ 	guint32 pixel;
+ 
+-	#if GTK_CHECK_VERSION(3, 0, 0)
+-		cairo_rectangle_int_t extent;
+-	#else
+ 		GdkRectangle extent;
+-	#endif
+ 
+ 
+         extent.x = 0;
+@@ -694,11 +675,7 @@ draw_color (MateBG *bg,
+ 	    GdkPixbuf *dest,
+ 	    GdkScreen *screen)
+ {
+-	#if GTK_CHECK_VERSION(3, 0, 0)
+-		cairo_rectangle_int_t rect;
+-	#else
+ 		GdkRectangle rect;
+-	#endif
+ 
+ 	rect.x = 0;
+ 	rect.y = 0;
+@@ -712,11 +689,7 @@ draw_color_each_monitor (MateBG *bg,
+ 			 GdkPixbuf *dest,
+ 			 GdkScreen *screen)
+ {
+-	#if GTK_CHECK_VERSION(3, 0, 0)
+-		cairo_rectangle_int_t rect;
+-	#else
+ 		GdkRectangle rect;
+-	#endif
+ 	gint num_monitors;
+ 	int monitor;
+ 
+@@ -808,11 +781,7 @@ get_scaled_pixbuf (MateBGPlacement place
+ }
+ 
+ 
+-#if GTK_CHECK_VERSION(3, 0, 0)
+-	static void draw_image_area(MateBGPlacement placement, GdkPixbuf* pixbuf, GdkPixbuf* dest, cairo_rectangle_int_t* area)
+-#else
+ 	static void draw_image_area(MateBGPlacement placement, GdkPixbuf* pixbuf, GdkPixbuf* dest, GdkRectangle* area)
+-#endif
+ {
+ 	int dest_width = area->width;
+ 	int dest_height = area->height;
+@@ -850,11 +819,7 @@ draw_image (MateBGPlacement  placement,
+ 	    GdkPixbuf        *pixbuf,
+ 	    GdkPixbuf        *dest)
+ {
+-	#if GTK_CHECK_VERSION(3, 0, 0)
+-		cairo_rectangle_int_t rect;
+-	#else
+ 		GdkRectangle rect;
+-	#endif
+ 
+ 	rect.x = 0;
+ 	rect.y = 0;
+@@ -869,11 +834,7 @@ draw_once (MateBG   *bg,
+ 	   GdkPixbuf *dest,
+ 	   GdkScreen *screen)
+ {
+-	#if GTK_CHECK_VERSION(3, 0, 0)
+-		cairo_rectangle_int_t rect;
+-	#else
+ 		GdkRectangle rect;
+-	#endif
+ 
+ 	GdkPixbuf   *pixbuf;
+ 
+@@ -897,11 +858,7 @@ draw_each_monitor (MateBG   *bg,
+ 		   GdkPixbuf *dest,
+ 		   GdkScreen *screen)
+ {
+-	#if GTK_CHECK_VERSION(3, 0, 0)
+-		cairo_rectangle_int_t rect;
+-	#else
+ 		GdkRectangle rect;
+-	#endif
+ 	gint num_monitors;
+ 	int monitor;
+ 
+@@ -1003,19 +960,11 @@ mate_bg_get_pixmap_size (MateBG   *bg,
+  *
+  * Since: 2.20
+  **/
+-#if GTK_CHECK_VERSION(3, 0, 0)
+-	cairo_surface_t* mate_bg_create_pixmap(MateBG* bg, GdkWindow* window, int width, int height, gboolean is_root)
+-#else
+ 	GdkPixmap* mate_bg_create_pixmap(MateBG* bg, GdkWindow* window, int width, int height, gboolean is_root)
+-#endif
+ {
+ 	int pm_width, pm_height;
+ 
+-	#if GTK_CHECK_VERSION(3, 0, 0)
+-		cairo_surface_t* pixmap;
+-	#else
+ 		GdkPixmap* pixmap;
+-	#endif
+ 	cairo_t *cr;
+ 
+ 	g_return_val_if_fail (bg != NULL, NULL);
+@@ -1035,14 +984,10 @@ mate_bg_get_pixmap_size (MateBG   *bg,
+ 	mate_bg_get_pixmap_size (bg, width, height, &pm_width, &pm_height);
+ 
+ 	if (is_root) {
++		pixmap = make_root_pixmap (gdk_drawable_get_screen (window),
++					   pm_width, pm_height);
+ 
+-		#if GTK_CHECK_VERSION(2, 24, 0)
+-			pixmap = make_root_pixmap(gdk_window_get_screen(window), pm_width, pm_height);
+-		#else // since 2.2
+-			pixmap = make_root_pixmap(gdk_drawable_get_screen(GDK_DRAWABLE(window)), pm_width, pm_height);
+-		#endif
+-
+-	}
++		     }
+ 	else {
+ 		pixmap = gdk_pixmap_new (window, pm_width, pm_height, -1);
+ 	}
+@@ -1056,12 +1001,7 @@ mate_bg_get_pixmap_size (MateBG   *bg,
+ 
+ 		pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE, 8, width, height);
+ 
+-		#if GTK_CHECK_VERSION(2, 24, 0)
+-			mate_bg_draw(bg, pixbuf, gdk_window_get_screen(window), is_root);
+-		#else // since 2.2
+-			mate_bg_draw(bg, pixbuf, gdk_drawable_get_screen(GDK_DRAWABLE(window)), is_root);
+-		#endif
+-
++		mate_bg_draw (bg, pixbuf, gdk_drawable_get_screen (GDK_DRAWABLE (window)), is_root);
+ 		gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
+ 		g_object_unref (pixbuf);
+ 	}
+@@ -1121,21 +1061,13 @@ mate_bg_is_dark (MateBG *bg,
+  * and set the closedown mode on it to RetainPermanent.
+  */
+ 
+-#if GTK_CHECK_VERSION(3, 0, 0)
+-	static cairo_surface_t* make_root_pixmap(GdkScreen* screen, gint width, gint height)
+-#else
+ 	static GdkPixmap* make_root_pixmap(GdkScreen* screen, gint width, gint height)
+-#endif
+ {
+ 	Display* display;
+ 	const char* display_name;
+ 	Pixmap result;
+ 
+-	#if GTK_CHECK_VERSION(3, 0, 0)
+-		cairo_surface_t* gdk_pixmap;
+-	#else
+ 		GdkPixmap* gdk_pixmap;
+-	#endif
+ 
+ 	int screen_num;
+ 	int depth;
+@@ -1283,110 +1215,7 @@ mate_bg_create_thumbnail (MateBG
+ 	return result;
+ }
+ 
+-/**
+- * mate_bg_get_pixmap_from_root:
+- * @screen: a #GdkScreen
+- *
+- * This function queries the _XROOTPMAP_ID property from
+- * the root window associated with @screen to determine
+- * the current root window background pixmap and returns
+- * a copy of it. If the _XROOTPMAP_ID is not set, then
+- * a black pixmap is returned.
+- *
+- * Return value: a #GdkPixmap if successful or %NULL
+- **/
+-#if GTK_CHECK_VERSION(3, 0, 0)
+-	cairo_surface_t* mate_bg_get_pixmap_from_root(GdkScreen* screen)
+-#else
+-	GdkPixmap* mate_bg_get_pixmap_from_root(GdkScreen* screen)
+-#endif
+-{
+-	int result;
+-	gint format;
+-	gulong nitems;
+-	gulong bytes_after;
+-	guchar *data;
+-	Atom type;
+-	Display *display;
+-	int screen_num;
+-
+-	#if GTK_CHECK_VERSION(3, 0, 0)
+-		cairo_surface_t* pixmap;
+-		cairo_surface_t* source_pixmap;
+-	#else
+-		GdkPixmap* pixmap;
+-		GdkPixmap* source_pixmap;
+-	#endif
+-	int width, height;
+-	cairo_t *cr;
+-	cairo_pattern_t *pattern;
+-
+-	display = GDK_DISPLAY_XDISPLAY (gdk_screen_get_display (screen));
+-	screen_num = gdk_screen_get_number (screen);
+-
+-	result = XGetWindowProperty (display,
+-				     RootWindow (display, screen_num),
+-				     gdk_x11_get_xatom_by_name ("_XROOTPMAP_ID"),
+-				     0L, 1L, False, XA_PIXMAP,
+-				     &type, &format, &nitems, &bytes_after,
+-				     &data);
+-	pixmap = NULL;
+-	source_pixmap = NULL;
+-
+-	if (result != Success || type != XA_PIXMAP ||
+-	    format != 32 || nitems != 1) {
+-		XFree (data);
+-		data = NULL;
+-	}
+-
+-	if (data != NULL) {
+-		gdk_error_trap_push ();
+-		source_pixmap = gdk_pixmap_foreign_new (*(Pixmap *) data);
+-		gdk_error_trap_pop ();
+-
+-		if (source_pixmap != NULL) {
+-			gdk_drawable_set_colormap (source_pixmap,
+-						   gdk_screen_get_default_colormap (screen));
+-		}
+-	}
+-
+-	width = gdk_screen_get_width (screen);
+-	height = gdk_screen_get_height (screen);
+-
+-	pixmap = gdk_pixmap_new (source_pixmap != NULL? source_pixmap :
+-				 gdk_screen_get_root_window (screen),
+-				 width, height, -1);
+-
+-	cr = gdk_cairo_create (pixmap);
+-	if (source_pixmap != NULL) {
+-		gdk_cairo_set_source_pixmap (cr, source_pixmap, 0, 0);
+-		pattern = cairo_get_source (cr);
+-		cairo_pattern_set_extend (pattern, CAIRO_EXTEND_REPEAT);
+-	} else {
+-		cairo_set_source_rgb (cr, 0.0, 0.0, 0.0);
+-	}
+-	cairo_paint (cr);
+-
+-	if (cairo_status (cr) != CAIRO_STATUS_SUCCESS) {
+-		g_object_unref (pixmap);
+-		pixmap = NULL;
+-	}
+-	cairo_destroy (cr);
+-
+-	if (source_pixmap != NULL)
+-		g_object_unref (source_pixmap);
+-
+-	if (data != NULL)
+-		XFree (data);
+-
+-	return pixmap;
+-}
+-
+-#if GTK_CHECK_VERSION(3, 0, 0)
+-	static void mate_bg_set_root_pixmap_id(GdkScreen* screen, cairo_surface_t* pixmap)
+-#else
+ 	static void mate_bg_set_root_pixmap_id(GdkScreen* screen, GdkPixmap* pixmap)
+-#endif
+ {
+ 	int      result;
+ 	gint     format;
+@@ -1447,11 +1276,7 @@ mate_bg_create_thumbnail (MateBG
+  * same conventions we do).  @pixmap should come from a call
+  * to mate_bg_create_pixmap().
+  **/
+-#if GTK_CHECK_VERSION(3, 0, 0)
+-	void mate_bg_set_pixmap_as_root(GdkScreen* screen, cairo_surface_t* pixmap)
+-#else
+ 	void mate_bg_set_pixmap_as_root(GdkScreen* screen, GdkPixmap* pixmap)
+-#endif
+ {
+ 	Display *display;
+ 	int      screen_num;
+@@ -1475,63 +1300,6 @@ mate_bg_create_thumbnail (MateBG
+ 	gdk_x11_display_ungrab (gdk_screen_get_display (screen));
+ }
+ 
+-/**
+- * mate_bg_set_pixmap_as_root_with_crossfade:
+- * @screen: the #GdkScreen to change root background on
+- * @pixmap: the #GdkPixmap to set root background from
+- * @context: a #GMainContext or %NULL
+- *
+- * Set the root pixmap, and properties pointing to it.
+- * This function differs from mate_bg_set_pixmap_as_root()
+- * in that it adds a subtle crossfade animation from the
+- * current root pixmap to the new one.
+- * same conventions we do).
+- *
+- * Return value: a #MateBGCrossfade object
+- **/
+-#if GTK_CHECK_VERSION(3, 0, 0)
+-	MateBGCrossfade* mate_bg_set_pixmap_as_root_with_crossfade(GdkScreen* screen, cairo_surface_t* pixmap)
+-#else
+-	MateBGCrossfade* mate_bg_set_pixmap_as_root_with_crossfade(GdkScreen* screen, GdkPixmap* pixmap)
+-#endif
+-{
+-	GdkDisplay *display;
+-	GdkWindow *root_window;
+-
+-	#if GTK_CHECK_VERSION(3, 0, 0)
+-		cairo_surface_t* old_pixmap;
+-	#else
+-		GdkPixmap* old_pixmap;
+-	#endif
+-
+-	int      width, height;
+-	MateBGCrossfade *fade;
+-
+-	g_return_val_if_fail (screen != NULL, NULL);
+-	g_return_val_if_fail (pixmap != NULL, NULL);
+-
+-	root_window = gdk_screen_get_root_window (screen);
+-
+-	width = gdk_screen_get_width (screen);
+-	height = gdk_screen_get_height (screen);
+-
+-	fade = mate_bg_crossfade_new (width, height);
+-
+-	display = gdk_screen_get_display (screen);
+-	gdk_x11_display_grab (display);
+-	old_pixmap = mate_bg_get_pixmap_from_root (screen);
+-	mate_bg_set_root_pixmap_id (screen, pixmap);
+-	mate_bg_crossfade_set_start_pixmap (fade, old_pixmap);
+-	g_object_unref (old_pixmap);
+-	mate_bg_crossfade_set_end_pixmap (fade, pixmap);
+-	gdk_display_flush (display);
+-	gdk_x11_display_ungrab (display);
+-
+-	mate_bg_crossfade_start (fade, root_window);
+-
+-	return fade;
+-}
+-
+ /* Implementation of the pixbuf cache */
+ struct _SlideShow
+ {
+@@ -2389,11 +2157,7 @@ create_gradient (const GdkColor *primary
+ 	return result;
+ }
+ 
+-#if GTK_CHECK_VERSION(3, 0, 0)
+-	static void pixbuf_draw_gradient(GdkPixbuf* pixbuf, gboolean horizontal, GdkColor* primary, GdkColor* secondary, cairo_rectangle_int_t* rect)
+-#else
+ 	static void pixbuf_draw_gradient(GdkPixbuf* pixbuf, gboolean horizontal, GdkColor* primary, GdkColor* secondary, GdkRectangle* rect)
+-#endif
+ {
+ 	int width;
+ 	int height;
