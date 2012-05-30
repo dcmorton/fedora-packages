@@ -329,37 +329,38 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor >&/dev/null || :
 
 
 %changelog
-* Mon May 21 2012 Wolfgang Ulbrich <info@raveit.de> - 1.3.0-1
+* Mon May 21 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.3.0-1
 - update to 1.3.0
+- rebuild for remove mate_bg_crossfade
 
-* Sat Mar 31 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-2
+* Sat Mar 31 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-2
 - enable introspection
 - fix issue https://github.com/mate-desktop/mate-panel/issues/7
 - move libexecdir to %{_libexecdir}/mate-panel
 
-* Tue Mar 13 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+* Tue Mar 13 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-1
 - update to version 1.2.1
 
-* Wed Feb 29 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-5
+* Wed Feb 29 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-5
 - add BuildRequires: gobject-introspection-devel instead of
 - mate-panel_fix_mock-build.patch
 
-* Wed Feb 29 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-4
+* Wed Feb 29 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-4
 - insert rest of fedora patches
 - fixed prefered webbrowser and mailclient icon
 - fixed mock build error
 
-* Sun Feb 19 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-3
+* Sun Feb 19 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-3
 - rebuild for enable builds for .i686
 
-* Thu Jan 19 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-2
+* Thu Jan 19 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-2
 - insert some fedora patches
 - enable NetworkManager
 
-* Thu Jan 19 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-1
+* Thu Jan 19 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-1
 - update to version 1.1.1
 
-* Sun Dec 25 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Sun Dec 25 2011 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-file-manager.spec based on gnome-panel-2.32.0.2-2.fc14 spec
 
 * Wed Sep 29 2010 Matthias Clasen <mclasen@redhat.com> - 2.32.0.2-1
