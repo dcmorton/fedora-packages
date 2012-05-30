@@ -1,17 +1,17 @@
 Name:           mate-settings-daemon
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The daemon sharing settings from MATE to GTK+/KDE applications
 
 Group:          System Environment/Daemons
 License:        GPLv2+
-URL:            http://mate-desktop.org
+URL:            http://pub.mate-desktop.org
 Source:         http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 
 Requires(pre): 	mate-conf >= 1.1.0
 Requires(preun): mate-conf >= 1.1.0
 Requires(post): mate-conf >= 1.1.0
-#Requires: 		mate-control-center-filesystem
+Requires: 		mate-control-center-filesystem
 
 BuildRequires:  dbus-glib-devel
 BuildRequires:  mate-conf-devel
@@ -42,6 +42,8 @@ Patch4: keyboard-icon.patch
 # https://bugzilla.gnome.org/show_bug.cgi?id=628538
 Patch5: display-capplet.patch
 
+Patch6: mate-settings-demeon_mate-bg-crossfade.patch
+
 %description
 A daemon to share settings from MATE to other applications. It also
 handles global keybindings, as well as a number of desktop-wide settings.
@@ -61,6 +63,7 @@ developing applications that use %{name}.
 %patch3 -p1 -b .slight-hinting
 %patch4 -p1 -b .keyboard-icon
 %patch5 -p1 -b .display-capplet
+%patch6 -p1 -b .mate-settings-demeon_mate-bg-crossfade
 
 NOCONFIGURE=1 ./autogen.sh
 
@@ -69,14 +72,14 @@ NOCONFIGURE=1 ./autogen.sh
 %configure \
     --disable-static \
 	--with-nssdb \
-	--enable-polkit
+	--enable-polkit \
+	--enable-compile-warnings=no
 
 make %{?_smp_mflags}
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 
 make install DESTDIR=$RPM_BUILD_ROOT
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
@@ -161,26 +164,29 @@ gtk-update-icon-cache %{_datadir}/icons/mate >&/dev/null || :
 
 
 %changelog
-* Wed Feb 29 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Sun May 27 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-2
+- add mate-settings-demeon_mate-bg-crossfade.patch
+
+* Wed Feb 29 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to version 1.2
 
-* Tue Feb 21 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-5
+* Tue Feb 21 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-5
 - rebuild for enable builds for .i686
 
-* Mon Jan 23 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-4
+* Mon Jan 23 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-4
 - complete renamed gsd to msd
 - added fedora patches 
 
-* Mon Jan 23 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-3
+* Mon Jan 23 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-3
 - move /usr/libexec/mate back to /usr/libexec to avoid mdm login error
 - gsd-locate-pointer and gsd-datetime-mechanism stay in /usr/libexec/mate
 - hope that's work!
 
-* Mon Jan 23 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Mon Jan 23 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - move /usr/libexec to /usr/libexec/mate to avoid conflicts with gnome-setting-daemon
 - add support for gstreamer/alsa/oss instead of pulse for media-keys from git upstream
 
-* Sun Dec 25 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Sun Dec 25 2011 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-settings-daemon.spec based on gnome-settings-daemon-2.32.1-1.fc14 spec
 
 * Mon Nov 15 2010 Bastien Nocera <bnocera@redhat.com> 2.32.1-1
