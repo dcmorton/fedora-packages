@@ -1,5 +1,5 @@
 Name:           libmateweather
-Version:        1.2.0
+Version:        1.3.0
 Release:        1%{?dist}
 Summary:        A library for weather information
 
@@ -19,7 +19,6 @@ BuildRequires:  libxml2-devel >= 2.6
 BuildRequires:  gettext
 BuildRequires:  intltool
 BuildRequires:  gtk-doc
-BuildRequires:  autoconf automake libtool
 BuildRequires:  mate-common
 
 # for directories
@@ -55,7 +54,7 @@ autoreconf -i -f
 
 %configure \
 	--disable-static \
-	--disable-gtk-doc
+	--enable-gtk-doc
 
 make %{?_smp_mflags}
 
@@ -110,15 +109,19 @@ gtk-update-icon-cache -q %{_datadir}/icons/mate &>/dev/null || :
 %{_datadir}/gtk-doc/html/libmateweather
 
 %changelog
-* Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Fri Jun 01 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.3.0-1
+- update to 1.3.0
+
+* Fri Mar 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0 version
 
-* Fri Feb 17 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Fri Feb 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - rebuild for enable builds for .i686
 - enable fedora patch
 
-* Sun Dec 25 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Sun Dec 25 2011 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - libmateweather.spec based on libgweather-2.30.3-1.fc14 spec
 
 * Thu Sep 30 2010 Matthias Clasen <mclasen@redhat.com> - 2.30.3-1
 - Update to 2.30.3
+
