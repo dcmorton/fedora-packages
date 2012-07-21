@@ -1,9 +1,9 @@
 Summary: 		MATE icon theme
 Name: 			mate-icon-theme
-Version: 		1.2.0
+Version: 		1.4.0
 Release: 		1%{?dist}
 URL: 	 		http://mate-desktop.org
-Source0: 		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0: 		http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 License: 		GPL+
 BuildArch: 		noarch
 Group: 			User Interface/Desktops
@@ -96,16 +96,19 @@ gtk-update-icon-cache %{_datadir}/icons/mate &>/dev/null || :
 %defattr(-,root,root,-)
 
 %changelog
-* Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Mon Jul 16 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0 version
+
+* Fri Mar 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0 version
 
-* Thu Jan 26 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-2
+* Thu Jan 26 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-2
 - fix %postun error
 
-* Thu Jan 26 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-1
+* Thu Jan 26 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-1
 - update to version 1.1.1
 
-* Sun Dec 25 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Sun Dec 25 2011 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-file-manager.spec based on gnome-icon-theme-2.31.0-2.fc15 spec
 
 * Wed Sep 29 2010 Parag Nemade <paragn AT fedoraproject.org> 2.31.0-2
