@@ -1,12 +1,12 @@
 Name:           mate-calc
-Version:        1.2.0
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        A desktop calculator
 
 Group:          Applications/System
 License:        GPLv2+
 URL:            http://pub.mate-desktop.org
-Source0:        http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0:        http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 
 BuildRequires: glib2-devel
 BuildRequires: gtk2-devel
@@ -50,10 +50,10 @@ unset MATECONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 
 
 %postun
-glib-compile-schemas %{_datadir}/glib-2.0/schemas ||:
+glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 
 %posttrans
-glib-compile-schemas %{_datadir}/glib-2.0/schemas ||:
+glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 
 
 %files -f mate-calc.lang
@@ -69,13 +69,19 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas ||:
 %{_datadir}/mate/help/mate-calc/*
 
 %changelog
-* Wed Mar 14 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Tue Jul 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Tue Jun 19 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-2
+- Silence rpm scriptlet output in fc17
+
+* Wed Mar 14 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to version 1.2.0
 
-* Fri Feb 17 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Fri Feb 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - rebuild for enable builds for .i686
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-calc.spec based on gcalctool-5.32.0-1.fc14 spec
 
 * Wed Sep 29 2010 Matthias Clasen <mclasen@redhat.com> - 5.32.0-1
