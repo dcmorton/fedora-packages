@@ -4,11 +4,11 @@
 
 Summary: 		Framework for managing passwords and other secrets
 Name:    		libmatekeyring
-Version: 		1.3.0
+Version: 		1.4.0
 Release: 		1%{?dist}
 License: 		GPLv2+ and LGPLv2+
 Group:   		System Environment/Libraries
-Source:  		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source:  		http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 URL:     		http://pub.mate-desktop.org
 
 BuildRequires: 	glib2-devel >= %{glib2_version}
@@ -77,20 +77,23 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %doc %{_datadir}/gtk-doc/
 
 %changelog
-* Fri May 11 2012 Wolfgang Ulbrich <info@raveit.de> - 1.3.0-1
+* Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Fri May 11 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.3.0-1
 - update to version 1.3.0
 
-* Tue Feb 28 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Tue Feb 28 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to version 1.2.0
 
-* Thu Feb 23 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-3
+* Thu Feb 23 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-3
 - fixed build error for  libmateui i686
 
-* Thu Feb 16 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Thu Feb 16 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - rebuild for enable builds for .i686
 - enable fedora patch
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - libmatekbd-1.1.0-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - libmatekbd-1.1.0-1
 - libmate-keyring.spec based on libgnome-keyring-2.32.0-2.fc14 spec
 
 * Fri Mar 11 2011 Tomas Bzatek <tbzatek@redhat.com> - 2.32.0-2
