@@ -1,5 +1,5 @@
 Name:           libmatekbd
-Version:        1.2.0
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        A keyboard configuration library
 
@@ -129,11 +129,15 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %{_datadir}/applications/matekbd-indicator-plugins-capplet.desktop
 
 %changelog
-* Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Fri Mar 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Fri Mar 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0 version
 
-* Thu Feb 16 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Thu Feb 16 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - rebuild for enable builds for .i686
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - libmatekbd.spec based on libgnomekbd-2.30.2-1.fc13 spec
+
