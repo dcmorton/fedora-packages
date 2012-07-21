@@ -1,13 +1,16 @@
 Name:		mate-bluetooth
-Version:	1.2.1
+Version:	1.4.0
 Release:	1%{?dist}
 Summary:	Bluetooth graphical utilities
 
 Group:		Applications/Communications
 License:	GPLv2+
 URL:		http://pub.mate-desktop.org
-Source0:	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0:	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 Source1:	61-mate-bluetooth-rfkill.rules
+
+Patch0:		mate-bluetooth_fix_mate-bluetooth-applet_desktop-file.patch
+Patch1:		mate-bluetooth_fix_mate-bluetooth-properties_desktop-file.patch
 
 BuildRequires:	mate-conf-devel
 BuildRequires:	gtk2-devel
@@ -65,17 +68,10 @@ for writing applications that require a Bluetooth device selection widget.
 
 %prep
 %setup -q
+%patch0 -p1 -b .mate-bluetooth_fix_mate-bluetooth-applet_desktop-file
+%patch1 -p1 -b .mate-bluetooth_fix_mate-bluetooth-properties_desktop-file
 
-libtoolize  -fi
-glib-gettextize -f
-intltoolize -f
-gtkdocize
-mate-doc-common
-mate-doc-prepare -f
-aclocal --force
-autoheader -f
-automake --add-missing --copy
-autoconf -f
+NOCONFIGURE=1 ./autogen.sh
 
 %build
 %configure \
@@ -97,15 +93,21 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libmate-bluetooth.la \
 	   $RPM_BUILD_ROOT/%{_libdir}/caja-sendto/plugins/*.la \
 	   $RPM_BUILD_ROOT/%{_libdir}/control-center-1/panels/libbluetooth.la
 
-#desktop-file-install --vendor=""				\
-#	--delete-original					\
-#	--dir=$RPM_BUILD_ROOT%{_datadir}/applications		\
-#	$RPM_BUILD_ROOT%{_datadir}/applications/bluetooth-properties.desktop
+desktop-file-install --vendor=""				\
+	--delete-original					\
+	--remove-category MATE  \
+	--add-category X-MATE   \
+	--remove-only-show-in XFCE \
+	--dir=$RPM_BUILD_ROOT%{_datadir}/applications		\
+	$RPM_BUILD_ROOT%{_datadir}/applications/mate-bluetooth-properties.desktop
 
-#desktop-file-install --vendor=""				\
-#	--delete-original					\
-#	--dir=$RPM_BUILD_ROOT%{_sysconfdir}/xdg/autostart/	\
-#	$RPM_BUILD_ROOT%{_sysconfdir}/xdg/autostart/bluetooth-applet.desktop
+desktop-file-install --vendor=""				\
+	--delete-original					\
+	--remove-category MATE  \
+	--add-category X-MATE   \
+	--remove-only-show-in XFCE \
+	--dir=$RPM_BUILD_ROOT%{_sysconfdir}/xdg/autostart/	\
+	$RPM_BUILD_ROOT%{_sysconfdir}/xdg/autostart/mate-bluetooth-applet.desktop
 
 install -m0644 -D %{SOURCE1} $RPM_BUILD_ROOT/lib/udev/rules.d/61-mate-bluetooth-rfkill.rules
 
@@ -113,7 +115,7 @@ install -m0644 -D %{SOURCE1} $RPM_BUILD_ROOT/lib/udev/rules.d/61-mate-bluetooth-
 # mate-bluetooth is the name in the docs
 %find_lang mate-bluetooth
 %find_lang %{name} --all-name
-#cat %{name}.lang >> mate-bluetooth.lang
+cat %{name}.lang >> mate-bluetooth2.lang
 
 # save space by linking identical images in translated docs
 helpdir=$RPM_BUILD_ROOT%{_datadir}/mate/help/%{name}
@@ -135,10 +137,10 @@ done
 rm -rf $RPM_BUILD_ROOT
 
 %post
-update-desktop-database -q
+update-desktop-database &>/dev/null || :
 
 %posttrans
-glib-compile-schemas %{_datadir}/glib-2.0/schemas || :
+glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 
 %pre
 if [ "$1" -gt 1 ]; then
@@ -169,8 +171,8 @@ if [ "$1" -eq 0 ]; then
 fi
 
 %postun
-update-desktop-database -q
-glib-compile-schemas %{_datadir}/glib-2.0/schemas || :
+update-desktop-database &>/dev/null || :
+glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 if [ $1 -eq 0 ] ; then
 	touch --no-create %{_datadir}/icons/mate &>/dev/null
 	gtk-update-icon-cache %{_datadir}/icons/mate &>/dev/null || :
@@ -209,7 +211,7 @@ fi
 %{_datadir}/mate/help/mate-bluetooth/
 %{_datadir}/omf/mate-bluetooth/
 
-%files -f mate-bluetooth.lang libs
+%files -f mate-bluetooth2.lang libs
 %defattr(-,root,root,-)
 %doc COPYING.LIB
 %{_libdir}/libmate-bluetooth.so.*
@@ -225,18 +227,27 @@ fi
 %{_datadir}/gir-1.0/MateBluetooth-1.0.gir
 %{_datadir}/gtk-doc/html/mate-bluetooth/
 
-
 %changelog
-* Tue Mar 27 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+* Tue Jul 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+- add mate-bluetooth_fix_mate-bluetooth-properties_desktop-file.patch
+
+* Sun Jul 01 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-3
+- mate-bluetooth_fix_mate-bluetooth-applet_desktop-file.patch
+
+* Tue Jun 19 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-2
+- Silence rpm scriptlet output in fc17
+
+* Tue Mar 27 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-1
 - update to 1.2.1
 
-* Thu Mar 15 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Thu Mar 15 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0
 
-* Fri Feb 17 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Fri Feb 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - correct icon path for gtk-update-icon-cache command in spec file
 
-* Tue Jan 31 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Tue Jan 31 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-bluetooth.spec based on gnome-bluetooth-2.31.6-4.fc14 spec
 
 * Mon Aug 23 2010 Matthias Clasen <mclasen@redhat.com> 2.31.6-4
