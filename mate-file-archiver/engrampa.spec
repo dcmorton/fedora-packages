@@ -9,12 +9,12 @@
 
 Summary:        Tool for viewing and creating archives
 Name:           engrampa
-Version:        1.2.1
+Version:        1.4.0
 Release:        1%{?dist}
 License:        GPLv2+
 Group:          Applications/Archiving
 URL:            http://pub.mate-desktop.org
-Source:         http://pub.mate-desktop.org/releases/%{name}-%{version}.tar.xz
+Source:         http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: pango-devel >= %{pango_version}
@@ -116,6 +116,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Tue Jul 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
 * Sat Apr 28 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-1
 - update to version 1.2.1
 
