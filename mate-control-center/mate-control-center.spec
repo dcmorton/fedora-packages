@@ -17,15 +17,12 @@
 
 Summary: 	Utilities to configure the Mate desktop
 Name: 		mate-control-center
-Version: 	1.2.1
-Release: 	2%{?dist}
+Version: 	1.4.0
+Release: 	1%{?dist}
 License: 	GPLv2+ and GFDL
 Group: 		User Interface/Desktops
-Source: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source: 	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 URL: 		http://pub.mate-desktop.org
-
-Patch0: mate-control-center_add_audacious_to_default-applications.patch
-Patch1: mate-control-center_add_videoplayers_to_default-applications.patch
 
 Requires: mate-settings-daemon >= 1.1.0
 Requires: redhat-menus >= %{redhat_menus_version}
@@ -109,8 +106,6 @@ utilities.
 
 %prep
 %setup -q -n mate-control-center-%{version}
-%patch0 -p1 -b .mate-control-center_add_audacious_to_default-applications
-%patch1 -p1 -b .mate-control-center_add_videoplayers_to_default-applications
 
 NOCONFIGURE=1 ./autogen.sh
 
@@ -202,7 +197,6 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %defattr(-, root, root)
 %doc AUTHORS COPYING NEWS README
 %{_datadir}/mate-control-center/keybindings/*.xml
-%{_datadir}/mate-control-center/default-apps/*.xml
 %{_datadir}/mate-control-center/ui
 %{_datadir}/mate-control-center/pixmaps
 %{_datadir}/applications/*.desktop
@@ -251,10 +245,15 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %dir %{_datadir}/mate/wm-properties
 %dir %{_datadir}/mate-control-center
 %dir %{_datadir}/mate-control-center/keybindings
-%dir %{_datadir}/mate-control-center/default-apps
 
 
 %changelog
+* Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Fri Jun 29 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.3.0-1
+- update to 1.3.0
+
 * Wed May 30 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-2
 - rebuild for remove mate_bg_crossfade
 
