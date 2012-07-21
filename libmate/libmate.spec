@@ -2,10 +2,10 @@
 
 Summary: 		MATE base library
 Name:    		libmate
-Version: 		1.3.0
+Version: 		1.4.0
 Release: 		1%{?dist}
 URL:     		http://http://mate-desktop.org
-Source0: 		http://pub.mate-desktop.org/releases/1.3/%{name}-%{version}.tar.xz
+Source0: 		http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 Source1: 		desktop_mate_peripherals_monitor.schemas
 Source2:		fedora-mate-default.xml
 License: 		LGPLv2+
@@ -215,26 +215,30 @@ fi
 
 
 %changelog
-* Mon May 21 2012 Wolfgang Ulbrich <info@raveit.de> - 1.3.0-1
+* Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+- update default-mate-background.patch, some parts are upstreamed
+
+* Mon May 21 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.3.0-1
 - update to 1.3.0
 
-* Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Fri Mar 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0 version
 
-* Mon Mar 05 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.3-4
+* Mon Mar 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.3-4
 - fix background path patch
 
-* Wed Feb 29 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.3-3
+* Wed Feb 29 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.3-3
 - add patch to correct background path in mateconf shemas
 - to /usr/share/backgrounds/default.png
 
-* Wed Feb 15 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.3-2
+* Wed Feb 15 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.3-2
 - rebuild for enable builds for .i686
 - enable fedora patches
 
-* Thu Jan 26 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.3-1
+* Thu Jan 26 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.3-1
 - update to version 1.1.3
 - change mate-default.xml to fedora defaults to enable verne background
 
-* Sat Dec 24 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.2-1
+* Sat Dec 24 2011 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.2-1
 - libmate.spec based on libgnome-2.32.1-2.fc15.spec
