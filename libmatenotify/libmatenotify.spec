@@ -3,10 +3,10 @@
 
 Summary: 		Desktop notification library
 Name: 			libmatenotify
-Version: 		1.2.0
+Version: 		1.4.0
 Release: 		1%{?dist}
-URL: 			http://http://mate-desktop.org
-Source0: 		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+URL: 			http://pub.mate-desktop.org
+Source0: 		http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 License: 		LGPLv2+
 Group: 			System Environment/Libraries
 BuildRequires: 	libtool
@@ -14,7 +14,7 @@ BuildRequires: 	glib2-devel >= %{glib2_version}
 BuildRequires: 	gdk-pixbuf2-devel
 BuildRequires: 	dbus-devel >= %{dbus_version}
 BuildRequires: 	dbus-glib-devel >= %{dbus_glib_version}
-BuildRequires: 	gobject-introspection-devel
+#BuildRequires: 	gobject-introspection-devel
 BuildRequires:  mate-common
 BuildRequires:  gtk-doc
 BuildRequires:  gtk2-devel
@@ -67,6 +67,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 
 %{_bindir}/mate-notify-send
 %{_libdir}/libmatenotify.so.*
+#%{_libdir}/girepository-1.0/mate/Notify-0.7.typelib
 
 %files devel
 %dir %{_includedir}/libmatenotify
@@ -75,17 +76,22 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 %{_libdir}/pkgconfig/libmatenotify.pc
 %dir %{_datadir}/gtk-doc/html/libmatenotify
 %{_datadir}/gtk-doc/html/libmatenotify/*
+#%{_datadir}/gir-1.0/mate/Notify-0.7.gir
 
 
 %changelog
-* Thu Mar 01 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
--update verion to 1.2
+* Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
 
-* Fri Feb 17 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Thu Mar 01 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
+- update verion to 1.2
+
+* Fri Feb 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - rebuild for enable builds for .i686
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> 1.1.0-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> 1.1.0-1
 - libmatenotify.spec based on libnotify-0.7.4-1.fc16.spec
 
 * Tue Aug 30 2011 Matthias Clasen <mclasen@redhat.com> - 0.7.4-1
 - Update to 0.7.4
+
