@@ -1,0 +1,9 @@
+diff -upr mate-bluetooth-1.4.0-orig/properties/mate-bluetooth-properties.desktop.in.in mate-bluetooth-1.4.0/properties/mate-bluetooth-properties.desktop.in.in
+--- mate-bluetooth-1.4.0-orig/properties/mate-bluetooth-properties.desktop.in.in	2012-07-11 18:50:28.000000000 +0200
++++ mate-bluetooth-1.4.0/properties/mate-bluetooth-properties.desktop.in.in	2012-07-17 17:06:52.946281935 +0200
+@@ -12,4 +12,4 @@ X-MATE-Bugzilla-Bugzilla=MATE
+ X-MATE-Bugzilla-Product=mate-bluetooth
+ X-MATE-Bugzilla-Component=properties
+ X-MATE-Bugzilla-Version=@VERSION@
+-X-MATE-Bugzilla-OtherBinaries=bluetooth-sendto;bluetooth-wizard;
++X-MATE-Bugzilla-OtherBinaries=mate-bluetooth-sendto;mate-bluetooth-wizard;
