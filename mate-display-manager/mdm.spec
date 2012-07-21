@@ -19,12 +19,12 @@
 
 Summary: 	The MATE Display Manager
 Name: 		mdm
-Version: 	1.1.1
-Release: 	10%{?dist}
+Version: 	1.3.0
+Release: 	2%{?dist}
 License: 	GPLv2+
 Group: 		User Interface/X
-URL: 		https://github.com/mate-desktop/mate-display-manager
-Source: 	%{name}-%{version}.tar.gz
+URL: 		https://github.com/NiceandGently/mdm
+Source: 	%{name}-%{version}.tar.xz
 Source1: mdm-pam
 Source2: mdm-autologin-pam
 Source3: mdm-password.pam
@@ -35,7 +35,7 @@ Source7: mdm-smartcard-48.png
 Source8: mdm-fingerprint-16.png
 Source9: mdm-fingerprint-48.png
 #for fc17
-Source10: 10-consolekit.pkla
+#Source10: 10-consolekit.pkla
 
 Requires(pre): /usr/sbin/useradd
 
@@ -56,7 +56,7 @@ Requires: mate-keyring-pam
 #Requires: pulseaudio-gdm-hooks
 # We need 1.0.4-5 since it lets us use "localhost" in auth cookies
 Requires: libXau >= 1.0.4-4
-Requires: numlockx
+
 
 BuildRequires: dbus-glib-devel >= %{DBUS_GLIB_REQUIRED_VERSION}
 BuildRequires: glib-devel >= %{GLIB_REQUIRED_VERSION}
@@ -408,6 +408,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/ull || :
 
 
 %changelog
+* Tue Jun 19 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.3.0-1
+- update to 1.3.0
+- remove numlockx dependency
+
 * Sun May 06 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-10
 - rebuild for remove mate_bg_crossfade
 
