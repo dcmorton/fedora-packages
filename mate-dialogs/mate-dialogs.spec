@@ -1,11 +1,11 @@
 Name:		mate-dialogs
-Version:	1.2.0
+Version:	1.4.0
 Release:	1%{?dist}
 Summary:	Display dialog boxes from shell scripts
 Group:		Applications/System
 License:	LGPLv2+
-URL:		http://mate-desktop.org
-Source:		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+URL:		http://mate-desktop.or
+Source:		http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 
 BuildRequires: mate-doc-utils >= 1.0.0
 BuildRequires: glib2-devel >= 2.7.3
@@ -74,13 +74,16 @@ done
 
 
 %changelog
-* Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Fri Mar 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0 version
 
-* Sat Feb 18 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Sat Feb 18 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - rebuild for enable builds for .i686
 
-* Sun Dec 25 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Sun Dec 25 2011 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-dialogs.spec based on zenity-2.32.0-1.fc14 spec
 
 * Tue Sep 28 2010 Matthias Clasen <mclasen@redhat.com> - 2.32.0-1
