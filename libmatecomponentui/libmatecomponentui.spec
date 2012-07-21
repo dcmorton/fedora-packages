@@ -12,10 +12,10 @@
 
 Summary: libmatecomponent user interface components
 Name:    libmatecomponentui
-Version: 1.2.0
+Version: 1.4.0
 Release: 1%{?dist}
 URL:     http://pub.mate-desktop.org
-Source0: http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0: http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 License: LGPLv2+
 Group:   System Environment/Libraries
 
@@ -25,7 +25,7 @@ BuildRequires: libxml2-devel >= %{libxml2_version}
 BuildRequires: mate-corba-devel >= %{mate_corba_version}
 BuildRequires: libmatecomponent-devel >= %{libmatecomponent_version}
 BuildRequires: libmatecanvas-devel >= %{libmatecanvas_version}
-BuildRequires: libmate-devel >= %{libgnome_version}
+BuildRequires: libmate-devel >= %{libmate_version}
 BuildRequires: libart_lgpl-devel >= %{libart_lgpl_version}
 BuildRequires: gtk2-devel >= %{gtk2_version}
 BuildRequires: libglade2-devel >= %{libglade2_version}
@@ -50,8 +50,8 @@ Requires: %name = %{version}-%{release}
 Requires: libxml2-devel >= %{libxml2_version}
 Requires: mate-corba-devel >= %{mate_corba_version}
 Requires: libmatecomponent-devel >= %{libmatecomponent_version}
-Requires: libmatecanvas-devel >= %{libgnomecanvas_version}
-Requires: libmate-devel >= %{libgnome_version}
+Requires: libmatecanvas-devel >= %{libmatecanvas_version}
+Requires: libmate-devel >= %{libmate_version}
 Requires: libart_lgpl-devel >= %{libart_lgpl_version}
 Requires: gtk2-devel >= %{gtk2_version}
 Requires: libglade2-devel >= %{libglade2_version}
@@ -122,14 +122,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/libmatecomponentui/*
 
 %changelog
-* Thu Mar 01 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Thu Mar 01 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update version to 1.2
 
-* Thu Feb 16 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-2
+* Thu Feb 16 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-2
 - rebuild for enable builds for .i686
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-1
 - libmatecomponentui.spec based on libbonoboui-2.32.1-1.fc16 spec
 
 * Tue Dec 06 2011 Adam Jackson <ajax@redhat.com> - 2.24.5-2
 - Rebuild for new libpng
+
