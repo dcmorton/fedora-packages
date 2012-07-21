@@ -1,9 +1,10 @@
+
 Summary: 		MATE base GUI library
 Name: 			libmateui
-Version: 		1.2.0
+Version: 		1.4.0
 Release: 		1%{?dist}
-URL: 			http://mate-desktop.org
-Source0: 		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+URL: 			http://pub.mate-desktop.org
+Source0: 		http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 License: 		LGPLv2+
 Group: 			System Environment/Libraries
 
@@ -40,11 +41,11 @@ MATE is a user-friendly set of
 GUI applications and desktop tools to be used in conjunction with a
 window manager for the X Window System. The libgmateui package
 includes GUI-related libraries that are needed to run MATE. (The
-libgnome package includes the library features that don\'t use the X
+libmate package includes the library features that don\'t use the X
 Window System.)
 
 %package devel
-Summary: Libraries and headers for libgnome
+Summary: Libraries and headers for libmate
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 Requires: libSM-devel
@@ -102,15 +103,19 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/*
 
 %changelog
-* Wed Feb 29 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Wed Feb 29 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 -update verion to 1.2
 
-* Thu Feb 16 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.2-2
+* Thu Feb 16 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.2-2
 - rebuild for enable builds for .i686
 - enable fedora patch
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.2-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.2-1
 - libmateui.spec based on libgnomeui-2.24.5-2.fc15.spec
 
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.24.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
