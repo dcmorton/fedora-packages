@@ -3,10 +3,10 @@
 
 Summary: 		libmate component system
 Name: 			libmatecomponent
-Version: 		1.2.1
+Version: 		1.4.0
 Release: 		1%{?dist}
 URL: 			http://mate-desktop.org
-Source0: 		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0: 		http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 License: 		GPLv2+ and LGPLv2+
 Group: 			System Environment/Libraries
 BuildRequires: 	libxml2-devel >= %{libxml2_version}
@@ -101,16 +101,19 @@ mkdir -p $RPM_BUILD_ROOT%{_prefix}/lib/matecomponent/servers
 %{_datadir}/gtk-doc/html/matecomponent-activation/*
 
 %changelog
-* Tue Mar 27 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+* Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Tue Mar 27 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-1
 - update to 1.2.1
 
-* Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Fri Mar 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0 version
 
-* Thu Feb 16 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Thu Feb 16 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - rebuild for enable builds for .i686
 
-* Sat Dec 24 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Sat Dec 24 2011 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - libmatecomponent.spec based on libbonobo-2.32.1-1.fc16.spec
 
 * Mon Apr  4 2011 Tomas Bzatek <tbzatek@redhat.com> - 2.32.1-1
