@@ -1,5 +1,5 @@
 Name:           ffmpegthumbnailer-caja
-Version:        1.2.0
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        ffmpegthumbnailer-caja make thumbnails of video files in caja file manager
 
@@ -7,11 +7,15 @@ Group:          Development/Tools
 BuildArch:      noarch
 License:        GPL
 URL: 			http://pub.mate-desktop.org
-Source0:        http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0:        http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 
 #change /usr/share/mateconf to /etc/mateconf
 Patch1:			ffmpegthumbnailer-caja_mateconf.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+Requires: 		mate-conf >= 1.1.0-1
+Requires:		caja >= 1.1.0-1
+Requires:		ffmpegthumbnailer
 
 %description
 This package install a MateConf schemas to use ffmpegthumbnailer to
@@ -22,6 +26,7 @@ make thumbnails of video files in caja file manager.
 %patch1 -p1 -b .ffmpegthumbnailer-caja_mateconf
 
 %build
+#no configure needed
 
 make %{?_smp_mflags}
 
@@ -62,12 +67,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/mateconf/schemas/ffmpegthumbnailer-caja.schemas
 
 %changelog
-* Mon Mar 12 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Tue Jul 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Mon Mar 12 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0
 
-* Thu Feb 11 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Thu Feb 11 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - correct %preun error
 
-* Thu Jan 05 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Thu Jan 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - started building
-
