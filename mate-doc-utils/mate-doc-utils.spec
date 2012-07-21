@@ -3,20 +3,27 @@
 ### Abstract ###
 
 Name: 		mate-doc-utils
-Version: 	1.2.1
-Release: 	2%{?dist}
+Version: 	1.4.0
+Release: 	1%{?dist}
 License: 	GPLv2+ and LGPLv2+ and GFDL
 Group: 		Development/Tools
 Summary: 	Documentation utilities for MATE
 URL: 		http://pub.mate-desktop.org
-Source: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source: 	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 
 BuildArch: noarch
 
 ### Patches ###
 
+# Fedora-specific script for packaging:
+#Source1000: mate-doc-utils-get-snapshot.sh
+# To generate tarball for Source0:
+#   sh mate-doc-utils-get-snapshot.sh %{githash}
+
 # RH bug #438638 / GNOME bug #524207
 Patch1: mate-doc-utils-0.14.0-package.patch
+
+Patch2: mate-doc-utils_rename.patch
 
 ### Dependencies ###
 
@@ -41,6 +48,7 @@ BuildRequires: scrollkeeper
 BuildRequires: rarian-devel
 BuildRequires: mate-common
 
+
 %description
 mate-doc-utils is a collection of documentation utilities for the MATE
 project. Notably, it contains utilities for building documentation and
@@ -64,6 +72,15 @@ are used by the tools in mate-doc-utils.
 %prep
 %setup -q -n %{name}-%{version}
 %patch1 -p1 -b .package
+#%patch2 -p1 -b .mate-doc-utils_rename
+
+# need for complete mate-doc-utils_rename.patch
+#mv -f $RPM_BUILD_DIR/%{name}-%{version}/xml2po/xml2po.pc.in $RPM_BUILD_DIR/%{name}-%{version}/xml2po/matexml2po.pc.in
+#mv -f $RPM_BUILD_DIR/%{name}-%{version}/xml2po/xml2po.1 $RPM_BUILD_DIR/%{name}-%{version}/xml2po/matexml2po.1
+#mv -f $RPM_BUILD_DIR/%{name}-%{version}/xml2po/xml2po.1.xml $RPM_BUILD_DIR/%{name}-%{version}/xml2po/matexml2po.1.xml
+#mv -f $RPM_BUILD_DIR/%{name}-%{version}/xml2po/xml2po/xml2po.py.in $RPM_BUILD_DIR/%{name}-%{version}/xml2po/xml2po/#matexml2po.py.in
+#mv -f $RPM_BUILD_DIR/%{name}-%{version}/rng/mallard/mallard.rnc $RPM_BUILD_DIR/%{name}-%{version}/rng/mallard/matemallard.rnc
+#mv -f $RPM_BUILD_DIR/%{name}-%{version}/rng/mallard/mallard.rng $RPM_BUILD_DIR/%{name}-%{version}/rng/mallard/matemallard.rng
 
 NOCONFIGURE=1 ./autogen.sh
 
@@ -120,21 +137,28 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/xml2po
 %{_datadir}/omf/mate-doc-make
 %{_datadir}/omf/mate-doc-xslt
 %{_datadir}/mate-doc-utils
+#%doc %{_mandir}/man1/xml2po.1.gz
+#%{python_sitelib}/xml2po/
 
 %files stylesheets
 %defattr(-,root,root,-)
+#%{_datadir}/pkgconfig/xml2po.pc
 %{_datadir}/xml/mate
+#%{_datadir}/xml/mallard
 
 %changelog
-* Sat Mar 17 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-2
+* Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Sat Mar 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-2
 - solve the conflict with gnome-doc-utils in debian way
 - and use parts of gnome-doc-utils
 
-* Thu Mar 01 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+* Thu Mar 01 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-1
 - update version to 1.2
 - rename the xml2po and mallard part to avoid conflicts with gnome-doc-utils
 
-* Mon Jan 10 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Mon Jan 10 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - jump to new version 1.1.0
 
 * Sun Nov 13 2011 Eric Smith <eric@brouhaha.com> - 1.0.0-1.20111112gitebd4a9bf6a
