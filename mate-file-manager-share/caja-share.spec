@@ -18,7 +18,7 @@ BuildRequires:		gtk+-devel
 BuildRequires:		libglade2-devel
 BuildRequires: 	    mate-common
 BuildRequires:		intltool
-Requires:			samba >= 3.6.1
+Requires:			samba
 
 %description
 Caja extension designed for easier folders 
@@ -68,3 +68,4 @@ rm -rf $RPM_BUILD_ROOT
 * Wed Nov 12 2008 Muayyad Saleh Alsadi <alsadi@ojuba.org> - 0.7.2-13
 - set icon to "folder-remote"
 - don't use extensions-1.0 directory (fixes #447072)
+
