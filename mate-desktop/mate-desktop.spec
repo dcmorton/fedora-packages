@@ -2,10 +2,10 @@
 
 Summary: 	Shared code among gnome-panel, gnome-session, nautilus, etc
 Name: 		mate-desktop
-Version: 	1.2.0
-Release: 	4%{?dist}
-URL: 		https://github.com/NiceandGently/mate-desktop
-Source0: 	https://github.com/downloads/NiceandGently/mate-desktop/%{name}-%{version}.tar.xz
+Version: 	1.4.1
+Release: 	1%{?dist}
+URL: 		http://pub.mate-desktop.org
+Source0: 	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 
 License: 	GPLv2+ and LGPLv2+
 Group: 		System Environment/Libraries
@@ -26,11 +26,13 @@ BuildRequires: scrollkeeper
 BuildRequires: gettext
 BuildRequires: gtk-doc
 BuildRequires: intltool
+BuildRequires: libtool
 
 # Upstream fixes
 Patch0: 0001-bgo-629168-Don-t-read-past-the-end-of-a-string-mate.patch
 Patch1: 0001-Fix-possible-double-free-when-destroying-private-win.patch
 Patch2: mate-desktop_remove_mate-bg-crossfade.patch
+Patch3: mate-desktop_remove_nyan-cat.patch
 
 %description
 The mate-desktop package contains an internal library
@@ -58,9 +60,10 @@ NOCONFIGURE=1 ./autogen.sh
 %build
 
 %configure \
+	--disable-libtool-lock	\
 	--disable-scrollkeeper    \
 	--disable-static          \
-	--with-pnp-ids-path="/usr/share/hwdata/pnp.ids"
+	--with-pnp-ids-path="/usr/share/hwdata/pnp.ids" \
 
 make %{?_smp_mflags}
 
@@ -88,7 +91,6 @@ mv -f $RPM_BUILD_ROOT%{_datadir}/omf/lgpl $RPM_BUILD_ROOT%{_datadir}/omf/mate
 %defattr(-,root,root,-)
 %doc AUTHORS COPYING COPYING.LIB NEWS README
 %{_datadir}/applications/mate-about.desktop
-%{_datadir}/pixmaps/*
 %doc %{_mandir}/man*/*
 # GPL
 %{_bindir}/mate-about
@@ -96,6 +98,7 @@ mv -f $RPM_BUILD_ROOT%{_datadir}/omf/lgpl $RPM_BUILD_ROOT%{_datadir}/omf/mate
 %{_libdir}/lib*.so.*
 %{_datadir}/mate/help/*/*/*.xml
 %{_datadir}/omf/mate/*
+%{_datadir}/mate-about/mate-version.xml
 
 %files devel
 %defattr(-,root,root,-)
@@ -106,26 +109,33 @@ mv -f $RPM_BUILD_ROOT%{_datadir}/omf/lgpl $RPM_BUILD_ROOT%{_datadir}/omf/mate
 
 
 %changelog
-* Sun May 27 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-4
+* Thu Jul 20 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.1-1
+- remove mate-desktop_remove_nyan-cat.patch, nyan-cat is removed from source
+
+* Thu Jul 19 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+- disable nyan cat
+
+* Sun May 27 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-4
 - add mate-desktop_remove_mate-bg-crossfade.patch
 
-* Mon Apr 30 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-3
+* Mon Apr 30 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-3
 - switch back to mate original source
 
-* Thu Apr 24 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-2
+* Thu Apr 24 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-2
 - fix black background in mdm
 - change source to https://github.com/NiceandGently/mate-desktop
 
-* Thu Mar 15 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Thu Mar 15 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0
 
-* Sat Feb 18 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-3
+* Sat Feb 18 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-3
 - rebuild for enable builds for .i686
 
-* Sun Dec 25 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Sun Dec 25 2011 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - added fedora patches 
 
-* Sun Dec 25 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Sun Dec 25 2011 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-desktop.spec based on gnome-desktop-2.32.0-9.fc16 spec
 
 * Wed Oct 26 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.32.0-9
