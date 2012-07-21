@@ -1,12 +1,12 @@
 Name:           libmateweather
-Version:        1.3.0
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        A library for weather information
 
 Group:          System Environment/Libraries
 License:        GPLv2+
 URL: 			http://mate-desktop.org
-Source0:         http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0:        http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 
 # Patch from Ubuntu...
 Patch0: gettext-not-xml.patch
@@ -109,6 +109,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/mate &>/dev/null || :
 %{_datadir}/gtk-doc/html/libmateweather
 
 %changelog
+* Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
 * Fri Jun 01 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.3.0-1
 - update to 1.3.0
 
