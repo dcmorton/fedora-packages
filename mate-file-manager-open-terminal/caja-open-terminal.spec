@@ -1,12 +1,12 @@
 Name:           caja-open-terminal
-Version:        1.2.0
-Release:        2%{?dist}
+Version:        1.4.0
+Release:        1%{?dist}
 Summary:        Caja extension for an open terminal shortcut
 
 Group:          User Interface/Desktops
 License:        GPLv2+
 URL:            http://pub.mate-desktop.org
-Source0:		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0:		http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	intltool
@@ -77,6 +77,9 @@ fi
 %{_libdir}/caja/extensions-2.0/*.so*
 
 %changelog
+* Tue Jul 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
 * Wed May 30 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-2
 - rebuild for remove mate_bg_crossfade
 
