@@ -3,9 +3,9 @@
 
 Summary: 		A high-performance CORBA Object Request Broker
 Name: 			mate-corba
-Version: 		1.2.2
+Version: 		1.4.0
 Release: 		1%{?dist}
-Source: 		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source: 		http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 Group: 			System Environment/Daemons
 License: 		LGPLv2+ and GPLv2+
 URL: 			http://pub.mate-desktop.org
@@ -60,7 +60,6 @@ NOCONFIGURE=1 ./autogen.sh
 
 %build
 
-# let's use the ./autogen.sh hammer for now.
 %configure \
 	--disable-static \
 	--enable-gtk-doc \
@@ -133,20 +132,24 @@ EOF
 %{_bindir}/matecorba-linc-cleanup-sockets
 %{_datadir}/gtk-doc
 
+
 %changelog
-* Tue Mar 27 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.2-1
+* Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Tue Mar 27 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.2-1
 - update to 1.2.2
 
-* Thu Mar 01 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+* Thu Mar 01 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-1
 -update verion to 1.2
 
-* Sun Feb 19 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-3
+* Sun Feb 19 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-3
 - fix rpmbuild error mate-netspeed-applet
 
-* Fri Feb 17 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Fri Feb 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - rebuild for enable builds for .i686
 
-* Wed Jan 10 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Wed Jan 10 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - jump to new version 1.1.0
 
 * Sun Nov 13 2011 Eric Smith <eric@brouhaha.com> - 1.0-1.20111112gitebd4a9bf6a
