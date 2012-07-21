@@ -14,11 +14,11 @@
 
 Name:			caja
 Summary:    	File manager for MATE
-Version:		1.2.2
-Release:		2%{?dist}
+Version:		1.4.0
+Release:		1%{?dist}
 License:		GPLv2+
 Group:          User Interface/Desktops
-Source:			http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source:			http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 URL: 			http://mate-desktop.org
 Requires:		gamin
 Requires:       filesystem >= 2.1.1-1
@@ -71,16 +71,10 @@ Patch1:         nautilus-config.patch
 
 Patch7:		caja-rtl-fix.patch
 
+Patch10:        nautilus-gvfs-desktop-key-2.patch
+
 # http://bugzilla.gnome.org/show_bug.cgi?id=519743
 Patch17:	nautilus-filetype-symlink-fix.patch
-
-# [bn_IN, gu_IN][nautilus] - Its crashing, when drag any file
-# https://bugzilla.redhat.com/show_bug.cgi?id=583559
-Patch23:	nautilus-578086-po.patch
-
-Patch24: caja_add_location_togglebutton.patch
-
-Patch25: caja_fix_mime_data.patch
 
 Patch26: caja_remove_mate-bg-crossfade.patch
 
@@ -120,11 +114,9 @@ NOCONFIGURE=1 ./autogen.sh
 
 %patch1 -p1 -b .config
 %patch7 -p1 -b .caja-rtl-fix
+%patch10 -p1 -b .gvfs-desktop-key
 %patch17 -p0 -b .symlink
-%patch23 -p1 -b .gu_IN-crash
-%patch24 -p1 -b .add_location_togglebutton
-%patch25 -p1 -b .caja_fix_mime_data
-%patch26 -p1 -b .caja_remove_mate-bg-crossfade.patch
+%patch26 -p1 -b .caja_remove_mate-bg-crossfade
 
 %build
 
@@ -134,9 +126,10 @@ CFLAGS="$RPM_OPT_FLAGS -g -DUGLY_HACK_TO_DETECT_KDE -DCAJA_OMIT_SELF_CHECK -fno-
 
 %configure \
 	--disable-static \
-	--enable-empty-view \
 	--enable-unique \
-	--enable-introspection=yes
+	--enable-introspection \
+	--enable-gtk-doc \
+	--disable-update-mimedb
 
 
 # drop unneeded direct library deps with --as-needed
@@ -247,6 +240,16 @@ gtk-update-icon-cache %{_datadir}/icons/mate >&/dev/null || :
 
 
 %changelog
+* Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+- drop out nautilus-578086-po.patch
+
+* Sat Jun 16 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.3.0-1
+- add nautilus-gvfs-desktop-key-2.patch
+- update to 1.3.0
+- remove caja_add_location_togglebutton.patch, it's upstreamed
+- remove caja_fix_mime_data.patch, it's upstreamed
+
 * Wed May 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.2-2
 - add caja_remove_mate-bg-crossfade.patch
 
