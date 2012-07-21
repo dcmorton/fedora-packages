@@ -11,10 +11,10 @@
 
 Summary: 	Eye of MATE image viewer
 Name:    	eom
-Version: 	1.2.0
-Release: 	2%{?dist}
+Version: 	1.4.0
+Release: 	1%{?dist}
 URL: 		http://pub.mate-desktop.org
-Source: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source: 	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 		# The GFDL has an "or later version" clause embedded inside the license.
 		# There is no need to add the + here.
 License: 	GPLv2+ and GFDL
@@ -171,6 +171,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %{_libdir}/pkgconfig/eom.pc
 
 %changelog
+* Tue Jul 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
 * Wed May 30 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-2
 - rebuild for remove mate_bg_crossfade
 
