@@ -2,10 +2,10 @@
 
 Summary: 	Editor/admin tool for MateConf
 Name: 		mate-conf-editor
-Version: 	1.2.0
+Version: 	1.4.0
 Release: 	1%{?dist}
 URL: 		http://pub.mate-desktop.org
-Source0: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0: 	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 License: 	GPLv2+ and GFDL
 Group: 		Applications/System
 
@@ -91,13 +91,16 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %{_datadir}/omf/mateconf-editor/*
 
 %changelog
-* Mon Mar 12 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Tue Jul 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Mon Mar 12 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0
 
-* Fri Feb 17 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Fri Feb 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - rebuild for enable builds for .i686
 
-* Sun Dec 25 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Sun Dec 25 2011 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-conf-editor.spec based on gconf-editor-2.32.0-2.fc15 spec
 
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.32.0-2
