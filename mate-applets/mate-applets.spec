@@ -12,7 +12,7 @@
 %define gstreamer_plugins_version 0.10.14
 %define gstreamer_plugins_good_version 0.10.6
 %define libxklavier_version 4.0
-%define libwnck_version 2.9.3
+%define libmatewnck_version 1.3.0
 %define mate_desktop_version 1.1.0
 %define mate_utils_version 1.1.0
 %define dbus_version 0.90
@@ -33,12 +33,12 @@
 
 Summary:        Small applications for the MATE panel
 Name:			mate-applets
-Version:		1.2.3
+Version:		1.4.0
 Release:        1%{?dist}
 License:		GPLv2+ and GFDL
 Group:          User Interface/Desktops
 URL:			http://pub.mate-desktop.org
-Source: 		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source: 		http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 Patch0:         mate-applets_mcharmap.patch
 Patch1:         pymod-check.patch
 
@@ -56,7 +56,7 @@ BuildRequires:  gstreamer-devel >= %{gstreamer_version}
 BuildRequires:  gstreamer-plugins-base-devel >= %{gstreamer_plugins_version}
 BuildRequires:  gstreamer-plugins-good-devel >= %{gstreamer_plugins_good_version}
 BuildRequires:  libmatecomponentui-devel >= %{libmatecomponentui_version}
-BuildRequires:  libwnck-devel >= %{libwnck_version}
+BuildRequires:  libmatewnck-devel >= %{libmatewnck_version}
 BuildRequires:  mate-desktop-devel >= %{libmate_desktop_version}
 BuildRequires:  mate-utils >= %{mate_utils_version}
 BuildRequires:  libmatenotify-devel >= %{libmatenotify_version}
@@ -86,6 +86,8 @@ Requires:		libxklavier >= %{libxklavier_version}
 Requires:		gstreamer-plugins-base >= %{gstreamer_plugins_version}
 Requires:		gstreamer-plugins-good >= %{gstreamer_plugins_good_version}
 Requires:		dbus >= %{dbus_version}
+Requires:		python-mate-applet
+Requires:		python-mate-mateconf
 
 Requires(pre): mate-conf >= %{mate_conf_version}
 Requires(preun): mate-conf >= %{mate_conf_version}
@@ -104,6 +106,7 @@ and more.
 %setup -q
 %patch0 -p1 -b .mate-applets_mcharmap
 %patch1 -p1 -b .pymod
+
 NOCONFIGURE=1 ./autogen.sh
 
 %build
@@ -117,7 +120,8 @@ xhost +
 	--enable-mixer-applet \
 	--enable-polkit \
 	--enable-ipv6 \
-	--disable-cpufreq
+	--disable-cpufreq \
+	--enable-timer-applet
 
 
 # drop unneeded direct library deps with --as-needed
@@ -176,6 +180,7 @@ mateconftool-2 --makefile-install-rule                                        \
 	    %{_sysconfdir}/mateconf/schemas/drivemount.schemas                \
 	    %{_sysconfdir}/mateconf/schemas/geyes.schemas                     \
 	    %{_sysconfdir}/mateconf/schemas/mixer.schemas            \
+	    %{_sysconfdir}/mateconf/schemas/timer-applet.schemas            \
 %if %{build_stickynotes}
 	    %{_sysconfdir}/mateconf/schemas/stickynotes.schemas               \
 %endif
@@ -191,6 +196,7 @@ if [ "$1" -gt 1 ]; then
 	    %{_sysconfdir}/mateconf/schemas/drivemount.schemas                \
 	    %{_sysconfdir}/mateconf/schemas/geyes.schemas                     \
 	    %{_sysconfdir}/mateconf/schemas/mixer.schemas            \
+	    %{_sysconfdir}/mateconf/schemas/timer-applet.schemas            \
 %if %{build_stickynotes}
 	    %{_sysconfdir}/mateconf/schemas/stickynotes.schemas               \
 %endif
@@ -206,6 +212,7 @@ if [ "$1" -eq 0 ]; then
 	    %{_sysconfdir}/mateconf/schemas/drivemount.schemas                \
 	    %{_sysconfdir}/mateconf/schemas/geyes.schemas                     \
 	    %{_sysconfdir}/mateconf/schemas/mixer.schemas            \
+	    %{_sysconfdir}/mateconf/schemas/timer-applet.schemas            \
 %if %{build_stickynotes}
 	    %{_sysconfdir}/mateconf/schemas/stickynotes.schemas               \
 %endif
@@ -257,10 +264,26 @@ fi
 %{_datadir}/mate/help/*
 %{_datadir}/omf/*
 %{python_sitelib}/mate_invest/
-
+%{python_sitelib}/timerapplet/
+%{_libexecdir}/timer-applet
 
 
 %changelog
+* Tue Jul 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+- remove mate-applets_fix_timer-applet.patch, it's upstreamed
+
+* Sun Jul 08 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.3.1-3
+- add missing Requires for timer-applet
+
+* Sat Jul 07 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.3.1-2
+- fix timer-applet
+
+* Sat Jun 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.3.1-1
+- update to 1.3.1
+- switch to libmatewnck
+- new timer applet
+
 * Tue May 29 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.3-1
 - update to 1.2.3
 - add mate-applets_mcharmap.patch
