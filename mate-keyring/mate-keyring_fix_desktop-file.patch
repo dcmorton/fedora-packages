@@ -1,0 +1,48 @@
+diff -upr mate-keyring-1.3.0-orig/daemon/mate-keyring-gpg.desktop.in.in mate-keyring-1.3.0/daemon/mate-keyring-gpg.desktop.in.in
+--- mate-keyring-1.3.0-orig/daemon/mate-keyring-gpg.desktop.in.in	2012-05-11 17:49:07.000000000 +0200
++++ mate-keyring-1.3.0/daemon/mate-keyring-gpg.desktop.in.in	2012-07-01 18:45:20.532513377 +0200
+@@ -3,7 +3,7 @@ Type=Application
+ _Name=GPG Password Agent
+ _Comment=MATE Keyring: GPG Agent
+ Exec=@VALGRIND_RUN@ mate-keyring-daemon --start --components=gpg
+-OnlyShowIn=MATE;LXDE;XFCE;
++OnlyShowIn=MATE;
+ X-MATE-Autostart-Phase=Initialization
+ X-MATE-AutoRestart=false
+ X-MATE-Autostart-Notify=true
+diff -upr mate-keyring-1.3.0-orig/daemon/mate-keyring-pkcs11.desktop.in.in mate-keyring-1.3.0/daemon/mate-keyring-pkcs11.desktop.in.in
+--- mate-keyring-1.3.0-orig/daemon/mate-keyring-pkcs11.desktop.in.in	2012-05-11 17:49:07.000000000 +0200
++++ mate-keyring-1.3.0/daemon/mate-keyring-pkcs11.desktop.in.in	2012-07-01 18:45:37.972592737 +0200
+@@ -3,7 +3,7 @@ Type=Application
+ _Name=Certificate and Key Storage
+ _Comment=MATE Keyring: PKCS#11 Component
+ Exec=@VALGRIND_RUN@@BINDIR@/mate-keyring-daemon --start --components=pkcs11
+-OnlyShowIn=MATE;LXDE;XFCE;
++OnlyShowIn=MATE
+ X-MATE-Autostart-Phase=Initialization
+ X-MATE-AutoRestart=false
+ X-MATE-Autostart-Notify=true
+diff -upr mate-keyring-1.3.0-orig/daemon/mate-keyring-secrets.desktop.in.in mate-keyring-1.3.0/daemon/mate-keyring-secrets.desktop.in.in
+--- mate-keyring-1.3.0-orig/daemon/mate-keyring-secrets.desktop.in.in	2012-05-11 17:49:07.000000000 +0200
++++ mate-keyring-1.3.0/daemon/mate-keyring-secrets.desktop.in.in	2012-07-01 18:45:57.144686506 +0200
+@@ -3,7 +3,7 @@ Type=Application
+ _Name=Secret Storage Service
+ _Comment=MATE Keyring: Secret Service
+ Exec=@VALGRIND_RUN@@BINDIR@/mate-keyring-daemon --start --components=secrets
+-OnlyShowIn=MATE;LXDE;XFCE;
++OnlyShowIn=MATE;
+ X-MATE-Autostart-Phase=Initialization
+ X-MATE-AutoRestart=false
+ X-MATE-Autostart-Notify=true
+diff -upr mate-keyring-1.3.0-orig/daemon/mate-keyring-ssh.desktop.in.in mate-keyring-1.3.0/daemon/mate-keyring-ssh.desktop.in.in
+--- mate-keyring-1.3.0-orig/daemon/mate-keyring-ssh.desktop.in.in	2012-05-11 17:49:07.000000000 +0200
++++ mate-keyring-1.3.0/daemon/mate-keyring-ssh.desktop.in.in	2012-07-01 18:46:24.656832053 +0200
+@@ -3,7 +3,7 @@ Type=Application
+ _Name=SSH Key Agent
+ _Comment=MATE Keyring: SSH Agent
+ Exec=@VALGRIND_RUN@@BINDIR@/mate-keyring-daemon --start --components=ssh
+-OnlyShowIn=MATE;LXDE;XFCE;
++OnlyShowIn=MATE;
+ X-MATE-Autostart-Phase=Initialization
+ X-MATE-AutoRestart=false
+ X-MATE-Autostart-Notify=true
