@@ -6,11 +6,11 @@
 
 Summary: 	A process-transparent configuration system
 Name: 		mate-conf
-Version:	1.2.1
+Version:	1.4.0
 Release: 	1%{?dist}
 License:	LGPLv2+
 Group: 		System Environment/Base
-Source0:	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0:	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 Source1: 	macros.mateconf
 URL: 		http://pub.mate-desktop.org
 
@@ -73,14 +73,14 @@ which require GTK+.
 NOCONFIGURE=1 ./autogen.sh
 
 %build
-# let's use the ./autogen.sh hammer for now.
-
 %configure \
 	--disable-static \
 	--with-openldap \
 	--enable-defaults-service \
 	--enable-gtk \
-	--disable-gsettings-backend
+	--enable-gsettings-backend=yes \
+	--enable-introspection \
+	--enable-gtk-doc
 
 # drop unneeded direct library deps with --as-needed
 # libtool doesn't make this easy, so we do it the hard way
@@ -149,6 +149,11 @@ fi
 %{_libdir}/MateConf/2/libmateconfbackend-xml.la
 %{_libdir}/libmateconf-2.la
 %{_sysconfdir}/rpm/macros.mateconf
+%{_sysconfdir}/xdg/autostart/mateconf-gsettings-data-convert.desktop
+%{_bindir}/mateconf-gsettings-data-convert
+%{_bindir}/mateconf-gsettings-schema-convert
+%{_libdir}/gio/modules/libgsettingsmateconfbackend.la
+%{_libdir}/gio/modules/libgsettingsmateconfbackend.so
 
 
 %files gtk
@@ -165,17 +170,23 @@ fi
 %{_datadir}/gir-1.0
 
 %changelog
-* Thu Mar 01 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+* Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Sun Jul 01 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-2
+- enable gsettings-backend
+
+* Thu Mar 01 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-1
 -update verion to 1.2
 
-* Fri Feb 17 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-3
+* Fri Feb 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-3
 - rebuild for enable builds for .i686
 
-* Wed Feb 08 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Wed Feb 08 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - added patches from fedora GConf2-2.32.4-1.fc16
 
 
-* Sun Dec 25 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Sun Dec 25 2011 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-conf.spec based on GConf2-2.32.4-1.fc16 spec
 
 * Fri Jun 17 2011 Tomas Bzatek <tbzatek@redhat.com> - 2.32.4-1
