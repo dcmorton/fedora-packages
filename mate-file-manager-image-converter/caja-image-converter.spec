@@ -1,12 +1,12 @@
 Name:           caja-image-converter
-Version:        1.2.0
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        Caja extension to mass resize images
 
 Group:          User Interface/Desktops
 License:        GPLv2+
 URL:			http://pub.mate-desktop.org
-Source0:        http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0:        http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  libglade2-devel >= 2.4.0
@@ -51,13 +51,16 @@ find $RPM_BUILD_ROOT -name \*.la -exec rm {} \;
 
 
 %changelog
-* Thu Mar 15 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Tue Jul 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Thu Mar 15 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0
 
-* Mon Feb 13 2012 Wolfgang Ulbrich <info@raveit.de> - caja-image-converter-1.1.0-2
+* Mon Feb 13 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - caja-image-converter-1.1.0-2
 - rebuild for enable builds for .i686
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - caja-image-converter-1.1.0-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - caja-image-converter-1.1.0-1
 - caja-image-converter.spec based on nautilus-image-converter-0.3.0-5.el6 spec
 
 * Sun Apr 25 2010 Brian Pepple <bpepple@fedoraproject.org> - 0.3.0-5
