@@ -4,14 +4,14 @@
 %global theme_version 1.1.0
 
 Name:           atril
-Version:        1.2.1
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        Document viewer
 
 License:        GPLv2+ and GFDL
 Group:          Applications/Publishing
 URL:            http://pub.mate-desktop.org
-Source0:        http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0:        http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 
 BuildRequires:  gtk2-devel
 BuildRequires:  glib2-devel >= %{glib2_version}
@@ -104,7 +104,6 @@ It adds an additional tab called "Document" to the file properties dialog.
 
 %prep
 %setup -q
-#let's use the ./autogen.sh hammer for now.
 NOCONFIGURE=1 ./autogen.sh
 
 %build
@@ -184,11 +183,11 @@ if [ $1 -eq 0 ]; then
   touch --no-create %{_datadir}/icons/hicolor >&/dev/null || :
   gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 fi
-glib-compile-schemas --allow-any-name %{_datadir}/glib-2.0/schemas ||:
+glib-compile-schemas --allow-any-name %{_datadir}/glib-2.0/schemas &>/dev/null || :
 
 %posttrans
 gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
-glib-compile-schemas --allow-any-name %{_datadir}/glib-2.0/schemas ||:
+glib-compile-schemas --allow-any-name %{_datadir}/glib-2.0/schemas &>/dev/null || :
 
 %postun libs -p /sbin/ldconfig
 
@@ -255,19 +254,28 @@ glib-compile-schemas --allow-any-name %{_datadir}/glib-2.0/schemas ||:
 %{_libdir}/caja/extensions-2.0/libatril-properties-page.so
 
 %changelog
-* Thu Mar 15 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+* Tue Jul 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Tue Jun 19 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-3
+- test build
+
+* Tue Jun 19 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-2
+- Silence rpm scriptlet output in fc17
+
+* Thu Mar 15 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-1
 - update to 1.2.1
 
-* Mon Mar 12 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Mon Mar 12 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0
 
-* Tue Jan 17 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-2
+* Tue Jan 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-2
 - rebuild for enable builds for .i686
 
-* Tue Jan 17 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-1
+* Tue Jan 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-1
 - updated to 1.1.1 version
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - atril.spec based on evince-2.32.0-4.fc14 spec
 
 * Tue Apr 26 2011 Marek Kasik <mkasik@redhat.com> - 2.32.0-4
