@@ -1,7 +1,7 @@
 # Note that this is NOT a relocatable package
 
 %define libgtop2_version 2.23.1
-%define libwnck_version 2.9.92
+%define libmatewnck_version 1.3.0
 %define pango_version 1.2.0
 %define gtk2_version 2.12
 %define desktop_file_utils_version 0.2.90
@@ -10,17 +10,17 @@
 
 Summary: 	Process and resource monitor
 Name: 		mate-system-monitor
-Version: 	1.2.1
+Version: 	1.4.0
 Release: 	1%{?dist}
 License: 	GPLv2+
 Group: 		Applications/System
 URL: 		http://pub.mate-desktop.org
-Source: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source: 	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 
 BuildRequires: mate-conf-devel
 BuildRequires: mate-vfs-devel
 BuildRequires: libgtop2-devel >= %{libgtop2_version}
-BuildRequires: libwnck-devel >= %{libwnck_version}
+BuildRequires: libmatewnck-devel >= %{libmatewnck_version}
 BuildRequires: pango-devel >= %{pango_version}
 BuildRequires: gtk2-devel >= %{gtk2_version}
 BuildRequires: gtkmm24-devel
@@ -35,9 +35,6 @@ BuildRequires: mate-doc-utils >= 1.0.0
 BuildRequires: mate-common
 BuildRequires: dbus-glib-devel
 
-# needed for autoreconf
-BuildRequires: autoconf, automake, libtool
-
 Requires(pre): mate-conf >= %{mate_conf_version}
 Requires(post): mate-conf >= %{mate_conf_version}
 Requires(preun): mate-conf >= %{mate_conf_version}
@@ -50,9 +47,6 @@ such as CPU and memory.
 %prep
 %setup -q
 NOCONFIGURE=1 ./autogen.sh
-
-autoreconf -i -f
-
 
 %build
 
@@ -122,17 +116,24 @@ fi
 %{_datadir}/omf/mate-system-monitor/
 
 %changelog
-* Tue Mar 27 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+* Tue Jul 18 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Thu Jun 23 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.2-1
+- update to 1.2.2
+- switch to libmatewnck
+
+* Tue Mar 27 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-1
 - update to 1.2.1
 
-* Thu Mar 08 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Thu Mar 08 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to version 1.2
 
-* Tue Feb 21 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Tue Feb 21 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - rebuild for enable builds for .i686
 - enable fedora patches
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-system-monitor.spec based on gnome-system-monitor-2.28.2-1.fc14 spec
 
 * Wed Sep 29 2010 Matthias Clasen <mclasen@redhat.com> - 2.28.2-1
