@@ -2,12 +2,12 @@
 
 Summary:  		A menu system for the MATE project
 Name: 			mate-menus
-Version: 		1.2.0
+Version: 		1.4.0
 Release: 		1%{?dist}
 License: 		LGPLv2+
 Group: 			System Environment/Libraries
 URL: 			http://pub.mate-desktop.org
-Source0: 		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0: 		http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 				# Keep release notes from showing up in Applications>Other
 Patch0: 		other-docs.patch
 
@@ -90,18 +90,21 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
-* Wed Feb 29 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Wed Feb 29 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - enable mock builds
 - update to version 1.2
 
-* Thu Feb 23 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-3
+* Thu Feb 23 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-3
 - fixed build error for i686
 
-* Sun Feb 19 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-2
+* Sun Feb 19 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-2
 - rebuild for enable builds for .i686
 - enable fedora patch
 
-* Sun Dec 25 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-1
+* Sun Dec 25 2011 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-1
 - mate-file-manager.spec based on gnome-menus-2.30.4-6.fc15 spec
 
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.30.4-6
