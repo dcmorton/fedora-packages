@@ -1,12 +1,12 @@
 Name:           mate-settings-daemon
-Version:        1.2.0
-Release:        2%{?dist}
+Version:        1.4.0
+Release:        1%{?dist}
 Summary:        The daemon sharing settings from MATE to GTK+/KDE applications
 
 Group:          System Environment/Daemons
 License:        GPLv2+
 URL:            http://pub.mate-desktop.org
-Source:         http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source:         http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 
 Requires(pre): 	mate-conf >= 1.1.0
 Requires(preun): mate-conf >= 1.1.0
@@ -21,15 +21,15 @@ BuildRequires:  libglade2-devel
 BuildRequires:  libmateui-devel
 BuildRequires:  libmate-devel
 BuildRequires:  xorg-x11-proto-devel
-BuildRequires:  gstreamer-devel
-BuildRequires:  gstreamer-plugins-base-devel
+#BuildRequires:  gstreamer-devel
+#BuildRequires:  gstreamer-plugins-base-devel
+BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  libmatekbd-devel
 BuildRequires:  libmatenotify-devel
 BuildRequires:  gettext intltool
 BuildRequires:  fontconfig-devel
 BuildRequires:  libcanberra-devel
 BuildRequires:  mate-polkit-devel
-BuildRequires:  autoconf automake libtool
 BuildRequires:  mate-common
 BuildRequires:  nss-devel
 
@@ -39,10 +39,7 @@ Patch3: slight-hinting.patch
 # https://bugzilla.gnome.org/show_bug.cgi?id=610319
 Patch4: keyboard-icon.patch
 
-# https://bugzilla.gnome.org/show_bug.cgi?id=628538
-Patch5: display-capplet.patch
-
-Patch6: mate-settings-demeon_mate-bg-crossfade.patch
+Patch6: mate-settings-daemon_remove_mate-bg-crossfade.patch
 
 %description
 A daemon to share settings from MATE to other applications. It also
@@ -62,7 +59,6 @@ developing applications that use %{name}.
 %setup -q
 %patch3 -p1 -b .slight-hinting
 %patch4 -p1 -b .keyboard-icon
-%patch5 -p1 -b .display-capplet
 %patch6 -p1 -b .mate-settings-demeon_mate-bg-crossfade
 
 NOCONFIGURE=1 ./autogen.sh
@@ -73,7 +69,9 @@ NOCONFIGURE=1 ./autogen.sh
     --disable-static \
 	--with-nssdb \
 	--enable-polkit \
-	--enable-compile-warnings=no
+	--enable-profiling \
+	--enable-pulse \
+	--disable-gstreamer
 
 make %{?_smp_mflags}
 
@@ -87,46 +85,15 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %find_lang %{name}
 
 %post
-export MATECONF_CONFIG_SOURCE=`mateconftool-2 --get-default-source`
-	mateconftool-2 --makefile-install-rule \
-	%{_sysconfdir}/mateconf/schemas/apps_mate_settings_daemon_housekeeping.schemas \
-	%{_sysconfdir}/mateconf/schemas/apps_mate_settings_daemon_keybindings.schemas \
-	%{_sysconfdir}/mateconf/schemas/apps_mate_settings_daemon_xrandr.schemas \
-	%{_sysconfdir}/mateconf/schemas/desktop_mate_font_rendering.schemas \
-	%{_sysconfdir}/mateconf/schemas/desktop_mate_keybindings.schemas \
-	%{_sysconfdir}/mateconf/schemas/desktop_mate_peripherals_touchpad.schemas \
-	%{_sysconfdir}/mateconf/schemas/mate-settings-daemon.schemas \
-	> /dev/null || :
+%mateconf_schema_upgrade apps_mate_settings_daemon_housekeeping apps_mate_settings_daemon_keybindings apps_mate_settings_daemon_xrandr desktop_mate_font_rendering desktop_mate_keybindings desktop_mate_peripherals_smartcard desktop_mate_peripherals_touchpad mate-settings-daemon
 
 touch --no-create %{_datadir}/icons/mate >&/dev/null || :
 
 %pre
-if [ "$1" -gt 1 ]; then
-  export MATECONF_CONFIG_SOURCE=`mateconftool-2 --get-default-source`
-  mateconftool-2 --makefile-uninstall-rule \
-	%{_sysconfdir}/mateconf/schemas/apps_mate_settings_daemon_housekeeping.schemas \
-	%{_sysconfdir}/mateconf/schemas/apps_mate_settings_daemon_keybindings.schemas \
-	%{_sysconfdir}/mateconf/schemas/apps_mate_settings_daemon_xrandr.schemas \
-	%{_sysconfdir}/mateconf/schemas/desktop_mate_font_rendering.schemas \
-	%{_sysconfdir}/mateconf/schemas/desktop_mate_keybindings.schemas \
-	%{_sysconfdir}/mateconf/schemas/desktop_mate_peripherals_touchpad.schemas \
-	%{_sysconfdir}/mateconf/schemas/mate-settings-daemon.schemas \
-	> /dev/null || :
-fi
+%mateconf_schema_prepare apps_mate_settings_daemon_housekeeping apps_mate_settings_daemon_keybindings apps_mate_settings_daemon_xrandr desktop_mate_font_rendering desktop_mate_keybindings desktop_mate_peripherals_smartcard desktop_mate_peripherals_touchpad mate-settings-daemon
 
 %preun
-if [ "$1" -eq 0 ]; then
-  export MATECONF_CONFIG_SOURCE=`mateconftool-2 --get-default-source`
-  mateconftool-2 --makefile-uninstall-rule \
-	%{_sysconfdir}/mateconf/schemas/apps_mate_settings_daemon_housekeeping.schemas \
-	%{_sysconfdir}/mateconf/schemas/apps_mate_settings_daemon_keybindings.schemas \
-	%{_sysconfdir}/mateconf/schemas/apps_mate_settings_daemon_xrandr.schemas \
-	%{_sysconfdir}/mateconf/schemas/desktop_mate_font_rendering.schemas \
-	%{_sysconfdir}/mateconf/schemas/desktop_mate_keybindings.schemas \
-	%{_sysconfdir}/mateconf/schemas/desktop_mate_peripherals_touchpad.schemas \
-	%{_sysconfdir}/mateconf/schemas/mate-settings-daemon.schemas \
-	> /dev/null || :
-fi
+%mateconf_schema_remove apps_mate_settings_daemon_housekeeping apps_mate_settings_daemon_keybindings apps_mate_settings_daemon_xrandr desktop_mate_font_rendering desktop_mate_keybindings desktop_mate_peripherals_smartcard desktop_mate_peripherals_touchpad mate-settings-daemon
 
 %postun
 if [ $1 -eq 0 ]; then
@@ -164,6 +131,14 @@ gtk-update-icon-cache %{_datadir}/icons/mate >&/dev/null || :
 
 
 %changelog
+* Mon Jul 16 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0 version
+- remove display-capplet.patch, it's upstreamed.
+- enable pulseaudio support
+
+* Sun May 27 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-1
+- test build
+
 * Sun May 27 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-2
 - add mate-settings-demeon_mate-bg-crossfade.patch
 
