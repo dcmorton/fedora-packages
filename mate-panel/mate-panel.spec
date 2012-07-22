@@ -7,7 +7,7 @@
 %define libmateui_version 1.1.2
 %define libmatecomponentui_version 1.1.1
 %define mate_cobra_version 1.1.0
-%define libwnck_version 2.19.5
+%define libmatewnck_version 1.3.0
 %define mate_conf_version 1.1.0
 %define mate_menus_version 1.1.1
 %define cairo_version 1.0.0
@@ -19,10 +19,10 @@
 
 Summary: 			MATE panel
 Name: 				mate-panel
-Version: 			1.3.0
+Version: 			1.4.0
 Release: 			1%{?dist}
 URL: 				http://pub.mate-desktop.org
-Source0: 			http://pub.mate-desktop.org/releases/1.3/%{name}-%{version}.tar.xz
+Source0: 			http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 Source3: 			redhat-panel-default-setup.entries
 Source4: 			gnome-compiler-flags.m4
 Source5: 			redhat-panel-backwards-compat-config.schemas
@@ -57,7 +57,7 @@ BuildRequires: 		gtk2-devel >= %{gtk2_version}
 BuildRequires: 		libmate-devel >= %{libmate_version}
 BuildRequires: 		libmateui-devel >= %{libmateui_version}
 BuildRequires: 		libmatecomponentui-devel >= %{libmatecomponentui_version}
-BuildRequires: 		libwnck-devel >= %{libwnck_version}
+BuildRequires: 		libmatewnck-devel >= %{libmatewnck_version}
 BuildRequires: 		mate-conf-devel >= %{mate_conf_version}
 BuildRequires: 		mate-menus-devel >= %{mate_menus_version}
 BuildRequires: 		cairo-devel >= %{cairo_version}
@@ -329,6 +329,16 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor >&/dev/null || :
 
 
 %changelog
+* Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Wed Jun 20 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.3.2-1
+- update to 1.3.2
+
+* Sat Jun 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.3.1-1
+- update to 1.3.1
+- switch to libmatewnck
+
 * Mon May 21 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.3.0-1
 - update to 1.3.0
 - rebuild for remove mate_bg_crossfade
