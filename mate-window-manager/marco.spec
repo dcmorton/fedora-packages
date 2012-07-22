@@ -2,10 +2,10 @@
 
 Summary: 		Unobtrusive window manager
 Name: 			marco
-Version: 		1.2.0
+Version: 		1.4.0
 Release: 		1%{?dist}
 URL: 			http://mate-desktop.org
-Source0: 		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0: 		http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 
 Patch0: 		Should-set-RestartStyleHint-to-RestartIfRunning-wh.patch
 # http://bugzilla.gnome.org/show_bug.cgi?id=558723
@@ -22,7 +22,7 @@ Patch12: fresh-tooltips.patch
 # https://bugzilla.gnome.org/show_bug.cgi?id=598995
 Patch16: Dont-focus-ancestor-window-on-a-different-workspac.patch
 # https://bugzilla.gnome.org/show_bug.cgi?id=599097
-Patch18: For-mouse-and-sloppy-focus-return-to-mouse-mode-on.patch
+#Patch18: For-mouse-and-sloppy-focus-return-to-mouse-mode-on.patch
 # https://bugzilla.gnome.org/show_bug.cgi?id=599248
 Patch19: Add-nofocuswindows-preference-to-list-windows-that.patch
 #Patch119: Exclude-the-current-application-from-no_focus_window.patch
@@ -65,7 +65,7 @@ BuildRequires:  mate-dialogs
 
 Requires: 		startup-notification 
 # for /usr/share/mate-control-center/keybindings, /usr/share/mate/wm-properties
-#Requires: 		mate-control-center-filesystem
+Requires: 		mate-control-center-filesystem
 # for /etc/mateconf/schemas
 Requires: 		mate-conf
 Requires: 		mate-dialogs
@@ -102,7 +102,8 @@ API. This package exists purely for technical reasons.
 %patch11 -p1 -b .workspaces
 %patch12 -p1 -b .fresh-tooltips
 %patch16 -p1 -b .focus-different-workspace
-%patch18 -p1 -b .focus-on-motion
+# patch 18 don't work with 1.4.0
+#%patch18 -p1 -b .focus-on-motion
 %patch19 -p1 -b .no-focus-windows
 #%patch119 -p1 -b .no-focus-windows-current-app
 %patch20 -p1 -b .always-on-top
@@ -200,16 +201,20 @@ fi
 %{_mandir}/man1/marco-window-demo.1.gz
 
 %changelog
-* Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+- remove For-mouse-and-sloppy-focus-return-to-mouse-mode-on.patch
+
+* Fri Mar 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0 version
 
-* Fri Feb 17 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-3
+* Fri Feb 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-3
 - rebuild for enable builds for .i686
 
-* Wed Feb 08 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Wed Feb 08 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - added fedora patches
 
-* Sun Dec 25 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Sun Dec 25 2011 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-window-manager.spec based on metacity-2.34.1-1.fc16 spec
 
 * Wed Jul  6 2011 Matthias Clasen <mclasen@redhat.com> - 2.34.1-1
