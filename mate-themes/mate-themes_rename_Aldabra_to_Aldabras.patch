@@ -1,15 +1,3 @@
-diff -upr mate-themes-1.2.2-orig/configure.in mate-themes-1.2.2/configure.in
---- mate-themes-1.2.2-orig/configure.in	2012-04-04 17:57:06.000000000 +0200
-+++ mate-themes-1.2.2/configure.in	2012-04-28 12:27:42.000000000 +0200
-@@ -181,7 +181,7 @@ mate-themes.spec
- common/Makefile
- cursor-themes/Makefile
- desktop-themes/Makefile
--desktop-themes/Aldabra//Makefile
-+desktop-themes/Aldabra/Makefile
- desktop-themes/Aldabra/gtk-2.0/Makefile
- desktop-themes/Aldabra/gtk-2.0/assets/Makefile
- desktop-themes/Aldabra/gtk-3.0/Makefile
 diff -upr mate-themes-1.2.2-orig/desktop-themes/Aldabra/gtk-2.0/assets/Makefile.am mate-themes-1.2.2/desktop-themes/Aldabra/gtk-2.0/assets/Makefile.am
 --- mate-themes-1.2.2-orig/desktop-themes/Aldabra/gtk-2.0/assets/Makefile.am	2012-04-04 17:57:06.000000000 +0200
 +++ mate-themes-1.2.2/desktop-themes/Aldabra/gtk-2.0/assets/Makefile.am	2012-04-28 12:13:08.000000000 +0200

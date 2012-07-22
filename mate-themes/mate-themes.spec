@@ -1,9 +1,9 @@
 Summary: 	Themes for MATE
 Name: 		mate-themes
-Version: 	1.2.2
-Release: 	2%{?dist}
-URL: 		https://github.com/mate-desktop/mate-themes
-Source: 	%{name}-%{version}.tar.xz
+Version: 	1.4.0
+Release: 	1%{?dist}
+URL: 		http://pub.mate-desktop.org
+Source: 	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 License: 	LGPLv2 and GPLv2
 Group: 		User Interface/Desktops
 BuildArch: 	noarch
@@ -24,7 +24,6 @@ BuildRequires: 	icon-naming-utils
 BuildRequires: 	mate-common
 
 Patch0: 		mate-themes_rename_Aldabra_to_Aldabras.patch
-Patch1: 		mate-themes_fix_Aldabras_index-theme.patch
 
 %description
 The mate-themes package contains a collection of desktop themes for MATE.
@@ -43,7 +42,6 @@ available under old names.
 %prep
 %setup -q
 %patch0 -p1 -b .mate-themes_rename_Aldabra_to_Aldabras
-%patch1 -p1 -b .mate-themes_fix_Aldabras_index-theme
 NOCONFIGURE=1 ./autogen.sh
 
 %build
@@ -136,6 +134,10 @@ done
 %files legacy -f legacy.txt
 
 %changelog
+* Tue Jul 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+- remove mate-themes_fix_Aldabras_index-theme.patch, it's upstreamed
+
 * Sat Apr 28 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.2-2
 - fix Aldabras index.theme
 
