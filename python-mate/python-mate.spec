@@ -19,13 +19,13 @@
 ### Abstract ###
 
 Name:		python-mate
-Version:	1.2.0
-Release:	3%{?dist}
+Version:	1.4.0
+Release:	1%{?dist}
 License:	LGPLv2+
 Group:		Development/Languages
 Summary:	The sources for the PyMATE Python extension module.
 URL:		http://mate-desktop.org
-Source:		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source:		http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 
 ### Dependencies ###
 
@@ -248,6 +248,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/mate-python-2.0.pc
 
 %changelog
+* Tue Jul 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
 * Tue Apr 12 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-3
 - rename mate-python2 to python-mate
 
