@@ -13,11 +13,11 @@
 
 Summary: 	MATE Screensaver
 Name: 		mate-screensaver
-Version: 	1.2.0
-Release: 	2%{?dist}
+Version: 	1.4.0
+Release: 	1%{?dist}
 License: 	GPLv2+
 Group: 		Amusements/Graphics
-Source0: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0: 	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 URL: 		http://pub.mate-desktop.org
 
 Patch1: gnome-screensaver-2.20.0-default-theme.patch
@@ -55,7 +55,7 @@ Requires(post): mate-conf >= %{mate_conf_version}
 Requires: redhat-menus >= %{redhat_menus_version}
 Requires: system-logos
 # since we use it, and pam spams the log if a module is missing
-#Requires: mate-keyring-pam
+Requires: mate-keyring-pam
 #Requires: fedora-screensaver-theme
 Conflicts: xscreensaver < 1:5.00-19
 
@@ -90,10 +90,9 @@ export MATECONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
 make install DESTDIR=$RPM_BUILD_ROOT
 unset MATECONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 
-#desktop-file-install --vendor gnome --delete-original                   \
+#desktop-file-install --vendor="" --delete-original                   \
 #  --dir $RPM_BUILD_ROOT%{_datadir}/applications                         \
-#  --add-only-show-in GNOME                                              \
-#  --add-only-show-in XFCE                                               \
+#  --add-only-show-in X-MATE                                              \
 #  $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 %find_lang %{name}
@@ -141,21 +140,24 @@ fi
 %doc %{_mandir}/man1/*.1.gz
 
 %changelog
-* Sat Mar 10 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-2
+* Tue Jul 18 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Sat Mar 10 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-2
 - remove mate-keyring dependencies
 
-* Thu Mar 08 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Thu Mar 08 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to version 1.2
 - add mate-system-monitor_glib-3.1.patch
 
-* Tue Feb 21 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-3
+* Tue Feb 21 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-3
 - remove fedora-screensaver-theme bcause it's install gnome-keyring
 
-* Tue Feb 21 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Tue Feb 21 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - rebuild for enable builds for .i686
 - enable fedora patches
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-screensaver.spec based on gnome-screensaver fc14 spec
 
 * Wed Oct 13 2010 Bastien Nocera <bnocera@redhat.com> 2.30.2-2
