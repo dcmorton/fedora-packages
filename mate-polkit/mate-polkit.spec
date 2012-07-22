@@ -1,11 +1,11 @@
 Summary: 	PolicyKit integration for the MATE desktop
 Name: 		mate-polkit
-Version: 	1.2.0
+Version: 	1.4.0
 Release: 	1%{?dist}
 License: 	LGPLv2+
 URL: 		http://mate-desktop.org
 Group: 		Applications/System
-Source0: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0: 	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 
 BuildRequires: gtk2-devel
 BuildRequires: glib2-devel >= 2.25.11
@@ -69,13 +69,13 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
-%find_lang polkit-mate-1
+%find_lang mate-polkit
 
 %post -p /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
 
-%files -f polkit-mate-1.lang
+%files -f mate-polkit.lang
 %defattr(-,root,root,-)
 %doc COPYING AUTHORS README
 %{_sysconfdir}/xdg/autostart/*
@@ -96,13 +96,16 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
-* Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Mon Jul 16 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0 version
+
+* Fri Mar 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0 version
 
-* Sun Feb 19 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Sun Feb 19 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - rebuild for enable builds for .i686
 
-* Sun Dec 25 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Sun Dec 25 2011 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-polkit.spec based on polkit-gnome-0.97-8.fc15 spec
 
 * Wed Feb 09 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.97-8
