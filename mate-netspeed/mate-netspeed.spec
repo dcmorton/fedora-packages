@@ -1,12 +1,12 @@
 Name:           mate-netspeed   
-Version:        1.2.0
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        MATE applet that shows traffic on a network device
 
 Group:          Applications/Internet
 License:        GPLv2+
 URL:            http://pub.mate-desktop.org
-Source0:        http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0:        http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  pkgconfig, gettext, scrollkeeper, intltool
@@ -55,7 +55,7 @@ make %{?_smp_mflags}
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
-%find_lang mate-netspeed
+%find_lang %{name}
 
 
 %post
@@ -78,7 +78,7 @@ scrollkeeper-update -q || :
 rm -rf $RPM_BUILD_ROOT
 
 
-%files -f mate-netspeed.lang
+%files -f %{name}.lang
 %defattr(-,root,root,-)
 %doc AUTHORS COPYING README TODO
 # ChangeLog discontinued
@@ -90,14 +90,17 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Sun Mar 11 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Tue Jul 18 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Sun Mar 11 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0
 
-* Sun Feb 19 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-2
+* Sun Feb 19 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-2
 - rebuild for enable builds for .i686
 - enable fedora patches
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-applet-netspeed.spec based on gnome-applet-netspeed-0.16-5.fc14 spec
 
 * Wed Nov  3 2010 Michael Schwendt <mschwendt@fedoraproject.org> - 0.16-5
