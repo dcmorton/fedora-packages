@@ -1,14 +1,14 @@
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name:           mozo
-Version:        1.2.0
-Release:        2%{?dist}
+Version:        1.4.0
+Release:        1%{?dist}
 Summary:        Menu editor for the MATE desktop
 
 Group:          Applications/System
 License:        LGPLv2+
 URL:            http://pub.mate-desktop.org
-Source0:        %{name}-%{version}.tar.xz
+Source0:        http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 
 Patch1:         mate-menu-editor-move-and_rename_directorys.patch
 
@@ -77,24 +77,27 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/icons/hicolor/256x256/apps/mozo.png
 
 %changelog
-* Tue Apr 12 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-2
+* Tue Jul 18 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Tue Apr 12 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-2
 - rebuild for python-mate-mateconf
 
-* Wed Mar 14 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Wed Mar 14 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to version 1.2.0
 
-* Mon Mar 05 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Mon Mar 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-alacarte called now mozo
 
-* Sat Mar 03 2012 Wolfgang Ulbrich <info@raveit.de> - 2011.12.01-3
+* Sat Mar 03 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 2011.12.01-3
 - rename is now complete
 - bin file called now matealacarte
 
-* Sun Feb 19 2012 Wolfgang Ulbrich <info@raveit.de> - 2011.12.01-2
+* Sun Feb 19 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 2011.12.01-2
 - move some directories to avoid conflicts with alacarte, but unfortunately
 - not %{python_sitelib}/Alacarte
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 2011.12.01-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 2011.12.01-1
 - mate-menu-editor.spec based on alacarte-0.13.2-3.fc16 spec
 
 * Mon Mar 14 2011 Christoph Wickert <cwickert@fedoraproject.org> - 0.13.2-3
