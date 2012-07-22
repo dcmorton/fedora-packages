@@ -8,14 +8,14 @@
 %define mate_panel_version 1.1.0
 
 Name:           mate-utils
-Version:        1.2.0
-Release:        2%{?dist}
+Version:        1.4.0
+Release:        1%{?dist}
 Summary:        MATE utility programs
 
 Group:          Applications/System
 License:        GPLv2+
 URL:            http://pub.mate-desktop.org
-Source0:        http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0:        http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 
 BuildRequires:  mate-doc-utils >= %{mate_doc_utils_version}
 BuildRequires:  glib2-devel >= %{glib2_version}
@@ -96,14 +96,14 @@ make %{?_smp_mflags}
 # strip unneeded translations from .mo files
 # ideally intltool (ha!) would do that for us
 # http://bugzilla.gnome.org/show_bug.cgi?id=474987
-#cd po
-#grep -v ".*[.]desktop[.]in[.]in$\|.*[.]server[.]in[.]in$" POTFILES.in > POTFILES.keep
-#mv POTFILES.keep POTFILES.in
-#intltool-update --pot
-#for p in *.po; do
-#  msgmerge $p mate-utils-2.0.pot > $p.out
-#  msgfmt -o `basename $p .po`.gmo $p.out
-#done
+cd po
+grep -v ".*[.]desktop[.]in[.]in$\|.*[.]server[.]in[.]in$" POTFILES.in > POTFILES.keep
+mv POTFILES.keep POTFILES.in
+intltool-update --pot
+for p in *.po; do
+  msgmerge $p mate-utils.pot > $p.out
+  msgfmt -o `basename $p .po`.gmo $p.out
+done
 
 
 %install
@@ -278,6 +278,9 @@ fi
 %{_mandir}/man1/mate-system-log.1.gz
 
 %changelog
+* Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
 * Wed May 30 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-2
 - rebuild for remove mate_bg_crossfade
 
