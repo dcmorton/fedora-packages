@@ -2,10 +2,10 @@
 
 Summary: 	Desktop Mate Notification Daemon
 Name: 		mate-notification-daemon
-Version: 	1.3.1
+Version: 	1.4.0
 Release: 	1%{?dist}
 URL: 		http://mate-desktop.org
-Source0: 	http://pub.mate-desktop.org/releases/1.3/%{name}-%{version}.tar.xz
+Source0: 	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 License: 	GPLv2+
 Group: 		System Environment/Libraries
 Provides: 	desktop-notification-daemon
@@ -16,7 +16,7 @@ BuildRequires: libcanberra-devel
 BuildRequires: intltool
 BuildRequires: mate-common
 BuildRequires: mate-conf-devel
-BuildRequires: libwnck-devel
+BuildRequires: libmatewnck-devel
 BuildRequires: gtk2-devel
 
 Provides: mate-notification-daemon
@@ -83,23 +83,30 @@ fi
 
 
 %changelog
-* Fri May 11 2012 Wolfgang Ulbrich <info@raveit.de> - 1.3.1-1
+* Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Thu Jun 23 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.3.2-1
+- update to 1.3.2
+- switch to libmatewnck
+
+* Fri May 11 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.3.1-1
 - update to version 1.3.1
 
-* Fri May 11 2012 Wolfgang Ulbrich <info@raveit.de> - 1.3.0-1
+* Fri May 11 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.3.0-1
 - update to version 1.3.0
 
-* Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Fri Mar 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0 version
 
-* Fri Mar 02 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-3
+* Fri Mar 02 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-3
 - fix mock build error
 
-* Fri Feb 17 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Fri Feb 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - fixed scriplet error
 - rebuild for enable builds for .i686
 
-* Sun Dec 25 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Sun Dec 25 2011 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-notification-daemon.spec based on notification-daemon-0.7.3-2.fc17 spec
 
 * Wed Oct 26 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.7.3-2
