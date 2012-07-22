@@ -5,12 +5,14 @@
 %define mate_conf_version 1.1.0
 %define libmatenotify_version 1.1.0
 
+#different version for fc17
+
 Summary: 	MATE session manager
 Name: 		mate-session
-Version: 	1.2.0
-Release: 	2%{?dist}
+Version: 	1.4.0
+Release: 	1%{?dist}
 URL: 		http://pub.mate-desktop.org
-Source0: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0: 	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 License: 	GPLv2+
 Group: 		User Interface/Desktops
 
@@ -26,6 +28,9 @@ Requires: dbus-x11
 Requires: mate-polkit
 # and we want good defaults
 Requires: polkit-desktop-policy
+# for fc17
+Requires: ConsoleKit
+Requires: ConsoleKit-x11
 
 BuildRequires: gtk2-devel >= %{gtk_version}
 BuildRequires: dbus-devel >= %{dbus_version}
@@ -112,6 +117,9 @@ cp AUTHORS COPYING NEWS README $RPM_BUILD_ROOT%{_datadir}/doc/mate-session
 /sbin/ldconfig
 export MATECONF_CONFIG_SOURCE=`mateconftool-2 --get-default-source`
 mateconftool-2 --makefile-install-rule %{_sysconfdir}/mateconf/schemas/mate-session.schemas >& /dev/null || :
+#for fc17
+systemctl enable console-kit-daemon.service
+systemctl start console-kit-daemon.service
 
 %pre
 if [ "$1" -gt 1 ]; then
@@ -153,6 +161,12 @@ fi
 
 
 %changelog
+* Tue Jul 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Wed May 30 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-3
+- add consolekit as requires for fc17
+
 * Wed May 30 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-2
 - rebuild for remove mate_bg_crossfade
 
