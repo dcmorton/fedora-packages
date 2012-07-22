@@ -3,14 +3,14 @@
 ### Abstract ###
 
 Name: 		python-corba
-Version: 	1.2.0
+Version: 	1.4.0
 Release: 	1%{?dist}
 License: 	LGPLv2+
 Group: 		Development/Languages
 Summary: 	Python bindings for Corba.
 BuildRoot: 	%{_tmppath}/%{name}-root
 URL: 		http://mate-desktop.org
-Source0: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0: 	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 
 ### Dependencies ###
 
@@ -85,24 +85,27 @@ rm -fr $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
-* Tue Apr 10 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Tue Jul 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Tue Apr 10 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - rename package to python-corba
 
-* Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Fri Mar 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - removed upstreamed pymatecorba_rename.patch
 - update to version 1.2
 
-* Mon Feb 20 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-4
+* Mon Feb 20 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-4
 - rebuild for enable builds for .i686
 - rename results are now in a patch
 
-* Thu Feb 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-3
+* Thu Feb 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-3
 - renamed again
 
-* Thu Feb 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Thu Feb 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - try rename
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - pymatecorba.spec based on pyorbit-2.24.0-6.fc14 spec
 
 * Wed Jul 21 2010 David Malcolm <dmalcolm@redhat.com> - 2.24.0-6
