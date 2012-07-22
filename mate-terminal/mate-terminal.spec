@@ -11,12 +11,12 @@
 
 Summary: 	Terminal emulator for MATE
 Name: 		mate-terminal
-Version: 	1.2.1
+Version: 	1.4.0
 Release: 	1%{?dist}
 License: 	GPLv2+ and GFDL
 Group: 		User Interface/Desktops
 URL: 		http://pub.mate-desktop.org
-Source0: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0: 	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 
 # mateconftool-2
 Requires(pre): mate-conf >= %{mateconf_version}
@@ -97,16 +97,19 @@ fi
 %{_datadir}/mate/help/mate-terminal/*
 
 %changelog
-* Wed Mar 14 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+* Tue Jul 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Wed Mar 14 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-1
 - update to 1.2.1 version
 
-* Thu Mar 08 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Thu Mar 08 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to version 1.2
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - correct %preun scriplet
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-terminal.spec based on gnome-terminal-2.33.5-2.fc15 spec
 
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.33.5-2
