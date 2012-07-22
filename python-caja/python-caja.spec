@@ -1,12 +1,12 @@
 Name:           python-caja
-Version:        1.2.0
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        Python bindings for Caja
 
 Group:          Development/Libraries
 License:        GPLv2+
 URL:            http://mate-desktop.org
-Source0:        http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0:        http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 
 BuildRequires:  python-devel
 BuildRequires:  caja-devel
@@ -74,6 +74,9 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 %{_datadir}/doc/*
 
 %changelog
+* Tue Jul 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
 * Tue Apr 10 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - rename package to python-caja
 
