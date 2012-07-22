@@ -1,12 +1,13 @@
 Name:           mate-sensors-applet
-Version:        1.2.0
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        MATE panel applet for hardware sensors
 Group:          User Interface/Desktops
 License:        GPLv2+ and CC-BY-SA
 URL:            http://pub.mate-desktop.org
-Source0:        http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0:        http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 Patch0:			sensors-applet-fixDSO.patch
+Patch1:         sensors-applet-2.2.7-libnotify07.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  mate-panel-devel >= 1.1.0
 BuildRequires:  libmatenotify-devel >= 1.1.0
@@ -60,6 +61,9 @@ developing applications that use %{name}.
 %setup -q -n mate-sensors-applet-%{version}
 NOCONFIGURE=1 ./autogen.sh
 %patch0 -p1 -b .fixdso 
+#%if 0%{?fedora} > 14
+#%patch1 -p1 -b .libnotify07
+#%endif
 
 %build
 
@@ -117,17 +121,20 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Sun Mar 11 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Tue Jul 18 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Sun Mar 11 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0
 
-* Tue Feb 21 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-2
+* Tue Feb 21 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-2
 - rebuild for enable builds for .i686
 - enable fedora patches
 
-* Thu Jan 26 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-1
+* Thu Jan 26 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.1-1
 - update to version 1.1.1
 
-* Sun Dec 25 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Sun Dec 25 2011 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-sensors-applet.spec based on gnome-applet-sensors-2.2.7-4.fc15 spec
 
 * Thu Nov 18 2010 Michael Schwendt <mschwendt@fedoraproject.org> - 2.2.7-4
