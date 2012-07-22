@@ -12,12 +12,12 @@
 
 Summary:	Text editor for the MATE desktop
 Name:		pluma
-Version: 	1.2.0
+Version: 	1.4.0
 Release: 	1%{?dist}
 License:	GPLv2+ and GFDL
 Group:		Applications/Editors
 URL:		http://pub.mate-desktop.org
-Source0:	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0:	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 
 Requires(post):			mate-conf >= %{mateconf_version}
 Requires(pre):			mate-conf >= %{mateconf_version}
@@ -53,7 +53,7 @@ BuildRequires: gtk-doc
 Requires: pygtk2 >= %{pygtk_version}
 Requires: pygobject2 >= %{pygtk_version}
 Requires: pygtksourceview >= %{pygtksourceview_version}
-#Requires: python-mate-desktop >= %{python_mate_desktop_version}
+Requires: python-mate-desktop >= %{python_mate_desktop_version}
 # the run-command plugin uses  mate-dialogs
 Requires: mate-dialogs
 
@@ -149,32 +149,15 @@ done
 %find_lang %{name} --all-name
 
 %pre
-if [ "$1" -gt 1 ]; then
-  export MATECONF_CONFIG_SOURCE=`mateconftool-2 --get-default-source`
-  	mateconftool-2 --makefile-uninstall-rule \
-	mateconftool-2 --makefile-install-rule \
-	%{_sysconfdir}/mateconf/schemas/pluma-file-browser.schemas \
-	%{_sysconfdir}/mateconf/schemas/pluma.schemas \
-	> /dev/null || :
-fi
+%mateconf_schema_prepare pluma pluma-file-browser
 
 %post
-export MATECONF_CONFIG_SOURCE=`mateconftool-2 --get-default-source`
-	mateconftool-2 --makefile-install-rule \
-	%{_sysconfdir}/mateconf/schemas/pluma-file-browser.schemas \
-	%{_sysconfdir}/mateconf/schemas/pluma.schemas \
-	> /dev/null || :
+%mateconf_schema_upgrade pluma pluma-file-browser
 update-desktop-database -q
 touch --no-create %{_datadir}/pluma/icons >&/dev/null || :
 
 %preun
-if [ "$1" -eq 0 ]; then
-  export MATECONF_CONFIG_SOURCE=`mateconftool-2 --get-default-source`
-  mateconftool-2 --makefile-uninstall-rule \
-	%{_sysconfdir}/mateconf/schemas/pluma-file-browser.schemas \
-	%{_sysconfdir}/mateconf/schemas/pluma.schemas \
-	> /dev/null || :
-fi
+%mateconf_schema_remove pluma pluma-file-browser
 
 %postun
 update-desktop-database -q
@@ -209,14 +192,19 @@ gtk-update-icon-cache %{_datadir}/pluma/icons >&/dev/null || :
 
 
 %changelog
-* Wed Mar 14 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Tue Jul 18 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+- add python-mate-desktop requires
+- fix rpm sriplets
+
+* Wed Mar 14 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0 version
 
-* Tue Feb 21 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Tue Feb 21 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - rebuild for enable builds for .i686
 - enable fedora patches
 
-* Sat Jan 21 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Sat Jan 21 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - pluma.spec based on gedit-2.31.5-1.fc14 spec
 
 * Tue Jul 13 2010 Matthias Clasen <mclasen@redhat.com> - 2.31.5-1
