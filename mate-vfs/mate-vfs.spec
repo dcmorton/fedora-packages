@@ -9,13 +9,13 @@
 
 Summary: 	The MATE virtual file-system libraries
 Name: 		mate-vfs
-Version: 	1.2.1
-Release: 	2%{?dist}
+Version: 	1.4.0
+Release: 	1%{?dist}
 License: 	LGPLv2+ and GPLv2+
 		# the daemon and the library are LGPLv2+
 		# the modules are LGPLv2+ and GPLv2+
 Group: 		System Environment/Libraries
-Source0: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0: 	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 URL: 		http://mate-desktop.org
 Requires(post): mate-conf 
 Requires(pre):  mate-conf 
@@ -236,20 +236,23 @@ fi
 %config %{_sysconfdir}/mate-vfs-2.0/modules/smb-module.conf
 
 %changelog
-* Tue Apr 12 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-2
+* Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
+* Tue Apr 12 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-2
 - fix prefered webrowser to firefox
 
-* Tue Mar 27 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+* Tue Mar 27 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-1
 - update to 1.2.1
 
-* Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Fri Mar 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to 1.2.0 version
 
-* Tue Feb 21 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Tue Feb 21 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - rebuild for enable builds for .i686
 - enable fedora patches
 
-* Sun Dec 25 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Sun Dec 25 2011 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-vfs.spec based on gnome-vfs2-2.24.4-6.fc16 spec
 
 * Thu Apr 21 2011 Nils Philippsen <nils@redhat.com> - 2.24.4-6
