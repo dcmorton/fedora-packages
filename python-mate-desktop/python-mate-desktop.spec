@@ -9,7 +9,7 @@
 %define python_mate_version             1.1.0
 %define mate_panel_version              1.1.0
 %define gtksourceview_version           1.8.5-2
-%define libwnck_version                 2.19.3
+%define libmatewnck_version             1.3.0
 %define libgtop_version                 2.13.0
 %define mate_media_version              1.1.0
 %define mate_conf_version               1.1.0
@@ -17,29 +17,27 @@
 %define librsvg2_version                2.13.93
 %define mate_keyring_version            1.1.0
 %define mate_desktop_version            1.1.0
-%define eds_version                     1.4.0
 
 ### Abstract ###
 
 Name: 		python-mate-desktop
-Version: 	1.2.0
-Release: 	3%{?dist}
+Version: 	1.4.0
+Release: 	1%{?dist}
 License: 	GPLv2+
 Group: 		Development/Languages
 Summary: 	The sources for additional PyMATE Python extension modules
 URL: 		http://mate-desktop.org
-Source: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source: 	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 
-Patch0: 	mate-python-desktop_change-directories.patch
-Patch1: 	mate-python2-desktop_evolution_path.patch
+Patch0: 	python-mate-desktop_change-directories.patch
+Patch1: 	python-mate-desktop_mediaprofiles.patch
 
 ### Dependencies ###
 
-Requires: python-mate-canvas >= %{mate_python_version}
+Requires: python-mate-canvas >= %{python_mate_version}
 
 ### Build Dependencies ###
 
-BuildRequires: evolution-data-server-devel >= %{eds_version}
 BuildRequires: glib2-devel >= %{glib_version}
 BuildRequires: mate-conf-devel >= %{mate_conf_version}
 BuildRequires: mate-desktop-devel >= %{mate_desktop_version}
@@ -53,7 +51,7 @@ BuildRequires: gtk2-devel >= %{gtk_version}
 BuildRequires: libmateui-devel
 BuildRequires: libgtop2-devel >= %{libgtop_version}
 BuildRequires: librsvg2-devel >= %{librsvg2_version}
-BuildRequires: libwnck-devel >= %{libwnck_version}
+BuildRequires: libmatewnck-devel >= %{libmatewnck_version}
 BuildRequires: marco-devel >= %{marco_version}
 BuildRequires: pygtk2-devel >= %{pygtk_version}
 BuildRequires: python-devel
@@ -65,8 +63,11 @@ BuildRequires: openssl-devel
 BuildRequires: libgcrypt-devel
 BuildRequires: avahi-glib-devel
 BuildRequires: libselinux-devel
+BuildRequires: mate-media-devel
+BuildRequires: atril-devel
 
 Obsoletes: 		mate-python2-desktop
+Obsoletes: 		python-mate-evolution
 Provides:  		python-mate-desktop
 
 %description
@@ -90,41 +91,15 @@ Provides:  		python-mate-applet
 This module contains a wrapper that allows MATE Panel applets to be
 written in Python.
 
-#%package -n mate-python2-brasero
-#Summary: Python bindings for interacting with brasero
-#License: LGPLv2
-#Group: Development/Languages
-#Requires: %{name} = %{version}-%{release}
-#Requires: brasero-libs >= %{brasero_version}
-
-#%description -n mate-python2-brasero
-#This module contains a wrapper that allows the use of brasero via Python.
-
-#%package -n mate-python2-atril
-#Summary: Python bindings for interacting with atril
-#License: LGPLv2
-#Group: Development/Languages
-#Requires: %{name} = %{version}-%{release}
-#Requires: atril-libs >= %{atril_version}
-
-#%description -n mate-python2-atril
-#This module contains a wrapper that allows the use of atril via Python.
-
-%package -n python-mate-evolution
-Summary: Python bindings for interacting with evolution-data-server
+%package -n python-mate-atril
+Summary: Python bindings for interacting with atril
 License: LGPLv2
 Group: Development/Languages
 Requires: %{name} = %{version}-%{release}
-Requires: evolution-data-server >= %{eds_version}
-Provides: evolution-python = %{version}-%{release}
-Obsoletes: evolution-python <= 0.0.4-3
+Requires: atril-libs >= %{atril_version}
 
-Obsoletes: 		mate-python2-evolution
-Provides:  		python-mate-evolution
-
-%description -n python-mate-evolution
-This module contains a wrapper that allows the use of evolution-data-server
-via Python.
+%description -n python-mate-atril
+This module contains a wrapper that allows the use of atril via Python.
 
 #%package -n python-mate-gnomeprint
 #Summary: Python bindings for interacting with libgnomeprint
@@ -147,20 +122,20 @@ via Python.
 #Requires: gtksourceview >= %{gtksourceview_version}
 #Requires: gnome-python2-gnomeprint
 
-#%description -n gnome-python2-gtksourceview
+#%description -n python-mate-gtksourceview
 #This module contains a wrapper that allows the use of gtksourceview via
 #Python.
 
-%package -n python-mate-libwnck
+%package -n python-mate-libmatewnck
 Summary: Python bindings for interacting with libwnck
 License: LGPLv2
 Group: Development/Languages
 Requires: libwnck >= %{libwnck_version}
 
-Obsoletes: 		mate-python2-libwnck
-Provides:  		python-mate-libwnck
+Obsoletes: 		python-mate-libwnck
+Provides:  		python-mate-libmatewnck
 
-%description -n python-mate-libwnck
+%description -n python-mate-libmatewnck
 This module contains a wrapper that allows the use of libwnck via
 Python.
 
@@ -245,10 +220,21 @@ Provides:  		python-mate-matekeyring
 This module contains a wrapper that allows the use of mate-keyring
 via Python.
 
+%package -n python-mate-mediaprofiles
+Summary: Python bindings for interacting with mate-keyring
+License: LGPLv2
+Group: Development/Languages
+Requires: %{name} = %{version}-%{release}
+Requires: mate-media-libs >= %{mate_media_version}
+
+%description -n python-mate-mediaprofiles
+This module contains a wrapper that allows the use of mate-media-profiles
+via Python.
+
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p1 -b .mate-python-desktop_change-directories
-%patch1 -p1 -b .mate-python2-desktop_evolution_path
+%patch0 -p1 -b .python-mate-desktop_change-directories
+%patch1 -p1 -b .python-mate-desktop_mediaprofiles.patch
 NOCONFIGURE=1 ./autogen.sh
 
 %build
@@ -256,14 +242,13 @@ NOCONFIGURE=1 ./autogen.sh
 	--disable-static\
 	--enable-marco \
 	--enable-applet \
-	--enable-cajaburn \
 	--enable-matekeyring \
  	--enable-matedesktop \
-	--enable-mateprint \
-	--enable-mateprintui \
-	--enable-marco \
-	--enable-evolution \
-	--enable-evolution_ecal
+	--enable-atril \
+	--enable-rsvg \
+	--enable-gtop \
+	--enable-matewnck \
+	--enable-mediaprofiles
 
 make %{?_smp_mflags}
 
@@ -288,18 +273,10 @@ rm -rf $RPM_BUILD_ROOT/%{_libdir}/python*/site-packages/gtk-2.0/bugbuddy.*
 %{python_sitearch}/gtk-2.0/mateapplet.so
 %{python_sitearch}/gtk-2.0/mateapplet.la
 
-#%files -n python-mate-brasero
-#%defattr(-,root,root,-)
-#%{python_sitearch}/gtk-2.0/braseroburn.so
-#%{python_sitearch}/gtk-2.0/braseromedia.so
-
-#%files -n python-mate-atril
-#%defattr(-,root,root,-)
-#%{python_sitearch}/gtk-2.0/atril.so
-
-%files -n python-mate-evolution
+%files -n python-mate-atril
 %defattr(-,root,root,-)
-%{python_sitearch}/gtk-2.0/mate-evolution/
+%{python_sitearch}/gtk-2.0/atril.so
+%{python_sitearch}/gtk-2.0/atril.la
 
 #%files -n gnome-python2-gnomeprint
 #%defattr(-,root,root,-)
@@ -309,17 +286,17 @@ rm -rf $RPM_BUILD_ROOT/%{_libdir}/python*/site-packages/gtk-2.0/bugbuddy.*
 #%defattr(644,root,root,755)
 #%doc ../gnome-python-desktop-%{version}/examples/gnomeprint/*
 
-#%files -n gnome-python2-gtksourceview
+#%files -n python-mate-gtksourceview
 #%defattr(-,root,root,-)
 #%{python_sitearch}/gtk-2.0/gtksourceview.so
 #%{_datadir}/gtk-doc/html/pygtksourceview
 #%defattr(644,root,root,755)
 #%doc ../gnome-python-desktop-%{version}/examples/gtksourceview/*
 
-%files -n python-mate-libwnck
+%files -n python-mate-libmatewnck
 %defattr(-,root,root,-)
-%{python_sitearch}/gtk-2.0/mate/wnck.so
-%{python_sitearch}/gtk-2.0/mate/wnck.la
+%{python_sitearch}/gtk-2.0/matewnck.so
+%{python_sitearch}/gtk-2.0/matewnck.la
 
 %files -n python-mate-libgtop2
 %defattr(-,root,root,-)
@@ -352,29 +329,44 @@ rm -rf $RPM_BUILD_ROOT/%{_libdir}/python*/site-packages/gtk-2.0/bugbuddy.*
 %{python_sitearch}/gtk-2.0/matekeyring.so
 %{python_sitearch}/gtk-2.0/matekeyring.la
 
+%files -n python-mate-mediaprofiles
+%defattr(-,root,root,-)
+%{python_sitearch}/gtk-2.0/mediaprofiles.so
+%{python_sitearch}/gtk-2.0/mediaprofiles.la
+
 %changelog
-* Tue Apr 12 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-3
-- rename mate-python2-desktop to python-mate-desktop
+* Tue Jul 17 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
 
-* Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
-- update to 1.2.0
-
-* Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-5
+* Sat Jun 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.3.0-2
 - test build
 
-* Mon Feb 20 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-4
+* Sat Jun 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.3.0-1
+- update to 1.3.0
+- switch to libmatewnck
+
+* Tue Apr 12 2012 Wolfgang Ulbrich <chat-to@raveit.de> - 1.2.0-3
+- rename mate-python2-desktop to python-mate-desktop
+
+* Fri Mar 09 2012 Wolfgang Ulbrich <chat-to@raveit.de> - 1.2.0-1
+- update to 1.2.0
+
+* Fri Mar 09 2012 Wolfgang Ulbrich <chat-to@raveit.de> - 1.1.0-5
+- test build
+
+* Mon Feb 20 2012 Wolfgang Ulbrich <chat-to@raveit.de> - 1.1.0-4
 - rebuild for enable builds for .i686
 - move some directories to avoid conflicts with gnome-python2-desktop
 - change %{_datadir} back
 
-* Tue Feb 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-3
+* Tue Feb 09 2012 Wolfgang Ulbrich <chat-to@raveit.de> - 1.1.0-3
 - rebuild for pymatecorba-1.1.0-2
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to@raveit.de> - 1.1.0-2
 - change %{_datadir} from /usr/share to /usr/share/mate-defs to avoid conflicts
 - with gnome-python2-desktop
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to@raveit.de> - 1.1.0-1
 - mate-python2-desktop.spec based on ggnome-python2-desktop-2.32.0-3.fc14 spec
 
 * Tue Feb  7 2011 Daniel Drake <dsd@laptop.org> - 2.32.0-3
