@@ -1,10 +1,10 @@
 Summary: 	MATE power management service
 Name: 		mate-power-manager
-Version: 	1.2.1
+Version: 	1.4.0
 Release: 	1%{?dist}
 License: 	GPLv2+ and GFDL
 Group: 		Applications/System
-Source: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source: 	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 URL: 		http://pub.mate-desktop.org
 
 BuildRequires: mate-panel-devel >= 1.1.0
@@ -23,11 +23,12 @@ BuildRequires: glib2-devel >= 2.25.9
 BuildRequires: mate-conf-devel >= 1.1.0
 BuildRequires: gtk2-devel >= 2.16.0
 BuildRequires: dbus-glib-devel
-BuildRequires: libwnck-devel
 BuildRequires: mate-control-center-devel >= 1.1.0
 BuildRequires: mate-common
+BuildRequires: mate-keyring-devel
 
 Patch0: dont-eat-the-logs.patch
+
 BuildRequires: autoconf automake libtool
 
 Requires: 		mate-icon-theme
@@ -36,9 +37,6 @@ Requires: 		dbus-x11
 Requires: 		upower >= 0.9.0
 Requires(post): scrollkeeper
 Requires(postun): scrollkeeper
-
-
-
 
 %description
 MATE Power Manager uses the information and facilities provided by UPower
@@ -155,17 +153,25 @@ update-desktop-database %{_datadir}/applications &> /dev/null || :
 
 
 %changelog
-* Wed Mar 14 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+* Tue Jul 18 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0
+- remove mate-power-manager_matewnck.patch, mate-power-manager doesn't
+- need libmatewnck anymore
+
+* Sat Jun 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-2
+- switch to libmatewnck
+
+* Wed Mar 14 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.1-1
 - update to version 1.2.1
 
-* Wed Mar 14 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Wed Mar 14 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.2.0-1
 - update to version 1.2.0
 
-* Tue Feb 21 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
+* Tue Feb 21 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-2
 - rebuild for enable builds for .i686
 - enable extra applets
 
-* Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
+* Wed Jan 04 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.1.0-1
 - mate-power-manager.spec based on gnome-power-manager-2.32.0-3.fc14 spec
 
 * Tue Oct 05 2010 Richard Hughes <richard@hughsie.com> 2.32.0-3
