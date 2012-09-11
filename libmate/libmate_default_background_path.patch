@@ -4,7 +4,7 @@
          <applyto>/desktop/mate/background/picture_filename</applyto>
          <owner>mate</owner>
          <type>string</type>
--	<default>@datadir@/pixmaps/backgrounds/mate/abstract/stripes.jpg</default>
+-	<default>@datadir@/pixmaps/backgrounds/mate/abstract/Stripes.jpg</default>
 +	<default>@datadir@/backgrounds/default.png</default>
          <locale name="C">
          <short>Picture Filename</short>
