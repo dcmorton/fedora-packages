@@ -14,7 +14,7 @@
 Summary:        MATE media programs
 Name:           mate-media
 Version:        1.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2+ and GFDL
 Group:          Applications/Multimedia
 Source:         http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
@@ -86,7 +86,7 @@ framework.
 %prep
 %setup -q
 #for fc16
-#%patch1 -p1 -b .mate-media_fix_gladeui
+%patch1 -p1 -b .mate-media_fix_gladeui
 NOCONFIGURE=1 ./autogen.sh
 
 %build
@@ -235,9 +235,9 @@ gtk-update-icon-cache --quiet %{_datadir}/icons/mate >&/dev/null || :
 %config %{_sysconfdir}/mateconf/schemas/mate-audio-profiles.schemas
 %{_libdir}/*.so.*
 #fc17 
-%{_libdir}/glade3/modules/
+#%{_libdir}/glade3/modules/
 #fc16
-#%{_libdir}/glade/modules/
+%{_libdir}/glade/modules/
 
 %files apps
 %defattr(-, root, root)
@@ -254,13 +254,16 @@ gtk-update-icon-cache --quiet %{_datadir}/icons/mate >&/dev/null || :
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*
 #fc17
-%{_datadir}/glade3/catalogs/mate-media-profiles.xml
+#%{_datadir}/glade3/catalogs/mate-media-profiles.xml
 #fc16
-#%{_datadir}/glade/catalogs/mate-media-profiles.xml
+%{_datadir}/glade/catalogs/mate-media-profiles.xml
 
 
 
 %changelog
+* Tue Sep 11 2012 Derek Morton <dmorton@hostgator.com> - 1.4.0-2
+- configured spec file to build for Fedora 16
+
 * Tue Jul 18 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
 - update to 1.4.0
 - remove mate-media_fix_grecord_remove.patch, it's upstreamed
