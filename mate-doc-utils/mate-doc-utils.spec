@@ -4,7 +4,7 @@
 
 Name: 		mate-doc-utils
 Version: 	1.4.0
-Release: 	1%{?dist}
+Release: 	2%{?dist}
 License: 	GPLv2+ and LGPLv2+ and GFDL
 Group: 		Development/Tools
 Summary: 	Documentation utilities for MATE
@@ -23,7 +23,8 @@ BuildArch: noarch
 # RH bug #438638 / GNOME bug #524207
 Patch1: mate-doc-utils-0.14.0-package.patch
 
-Patch2: mate-doc-utils_rename.patch
+# Patch no longer needed
+#Patch2: mate-doc-utils_rename.patch
 
 ### Dependencies ###
 
@@ -147,6 +148,9 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/xml2po
 #%{_datadir}/xml/mallard
 
 %changelog
+* Tue Sep 11 2012 Derek Morton <dmorton@hostgator.com> - 1.4.0-2
+- Removed unneeded patch: mate-doc-utils_rename.patch
+
 * Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
 - update to 1.4.0
 
