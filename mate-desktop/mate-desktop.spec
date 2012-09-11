@@ -3,7 +3,7 @@
 Summary: 	Shared code among gnome-panel, gnome-session, nautilus, etc
 Name: 		mate-desktop
 Version: 	1.4.1
-Release: 	1%{?dist}
+Release: 	2%{?dist}
 URL: 		http://pub.mate-desktop.org
 Source0: 	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
 
@@ -32,7 +32,6 @@ BuildRequires: libtool
 Patch0: 0001-bgo-629168-Don-t-read-past-the-end-of-a-string-mate.patch
 Patch1: 0001-Fix-possible-double-free-when-destroying-private-win.patch
 Patch2: mate-desktop_remove_mate-bg-crossfade.patch
-Patch3: mate-desktop_remove_nyan-cat.patch
 
 %description
 The mate-desktop package contains an internal library
@@ -109,6 +108,9 @@ mv -f $RPM_BUILD_ROOT%{_datadir}/omf/lgpl $RPM_BUILD_ROOT%{_datadir}/omf/mate
 
 
 %changelog
+* Tue Sep 11 2012 Derek Morton <dmorton@hostgator.com> - 1.4.1.-2
+- remove reference to mate-desktop_remove_nyan-cat.patch in Patch lines
+
 * Thu Jul 20 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.1-1
 - remove mate-desktop_remove_nyan-cat.patch, nyan-cat is removed from source
 
