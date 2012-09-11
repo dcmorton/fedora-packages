@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=start-gnome-keyring-in-mate
+Exec=/usr/bin/start-gnome-keyring-in-mate
+Comment=script for starting gnome-keyring in Mate
+OnlyShowIn=MATE;
+X-MATE-AutoRestart=false
+X-MATE-Autostart-Notify=true

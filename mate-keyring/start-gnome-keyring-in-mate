@@ -1,0 +1,7 @@
+#!/bin/bash
+
+/usr/bin/gnome-keyring-daemon --start --components=gpg &
+/usr/bin/gnome-keyring-daemon --start --components=secrets &
+/usr/bin/gnome-keyring-daemon --start --components=ssh &
+/usr/bin/gnome-keyring-daemon --start --components=pkcs11 &
+
